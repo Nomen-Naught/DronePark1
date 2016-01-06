@@ -1,7 +1,7 @@
 #include "dronepark1.h"
 #include <QtWidgets/QApplication>
 
-//Hello World
+//Hello World2
 
 int main(int argc, char *argv[])
 {

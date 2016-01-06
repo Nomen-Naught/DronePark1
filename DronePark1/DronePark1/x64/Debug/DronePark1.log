@@ -1,4 +1,4 @@
-﻿Build started 2016-01-06 6:40:42 PM.
+﻿Build started 2016-01-06 6:42:46 PM.
      1>Project "C:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\DronePark1\DronePark1.vcxproj" on node 2 (Build target(s)).
      1>ClCompile:
          E:\Program Files\VS2015\VC\bin\x86_amd64\CL.exe /c /I.\GeneratedFiles /I. /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include" /I.\GeneratedFiles\Debug /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include\QtCore" /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include\QtGui" /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include\QtWidgets" /Zi /nologo /W1 /WX- /Od /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_WIDGETS_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt main.cpp
@@ -13,4 +13,4 @@
 
 Build succeeded.
 
-Time Elapsed 00:00:01.51
+Time Elapsed 00:00:01.11
