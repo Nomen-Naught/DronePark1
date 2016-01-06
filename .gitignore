@@ -66,5 +66,6 @@ DronePark1/DronePark1.opensdf
 *.pdb
 *.tlog
 *.ilk
+*.sdf
 
 **/Debug/
