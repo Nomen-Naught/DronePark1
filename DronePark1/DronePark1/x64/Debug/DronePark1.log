@@ -1,0 +1,21 @@
+﻿Build started 2016-01-06 6:08:03 PM.
+     1>Project "C:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\DronePark1\DronePark1.vcxproj" on node 2 (Build target(s)).
+     1>CustomBuild:
+         Uic'ing dronepark1.ui...
+       ClCompile:
+         E:\Program Files\VS2015\VC\bin\x86_amd64\CL.exe /c /I.\GeneratedFiles /I. /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include" /I.\GeneratedFiles\Debug /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include\QtCore" /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include\QtGui" /I"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\include\QtWidgets" /Zi /nologo /W1 /WX- /Od /D UNICODE /D WIN32 /D WIN64 /D QT_DLL /D QT_CORE_LIB /D QT_GUI_LIB /D QT_WIDGETS_LIB /Gm- /EHsc /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Zc:inline /Fo"x64\Debug\\" /Fd"x64\Debug\vc140.pdb" /Gd /TP /errorReport:prompt GeneratedFiles\Debug\moc_dronepark1.cpp dronepark1.cpp main.cpp
+         moc_dronepark1.cpp
+         dronepark1.cpp
+         main.cpp
+         Generating Code...
+       Link:
+         E:\Program Files\VS2015\VC\bin\x86_amd64\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\x64\Debug\\DronePark1.exe" /NOLOGO /LIBPATH:"C:\Qt\qt-everywhere-opensource-src-5.5.1\qt-5\qtbase\lib" qtmaind.lib Qt5Cored.lib Qt5Guid.lib Qt5Widgetsd.lib kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /Debug /PDB:"C:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\x64\Debug\DronePark1.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\x64\Debug\DronePark1.lib" /MACHINE:X64 x64\Debug\dronepark1.obj
+         x64\Debug\moc_dronepark1.obj
+         x64\Debug\qrc_dronepark1.obj
+         x64\Debug\main.obj
+         DronePark1.vcxproj -> C:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\x64\Debug\DronePark1.exe
+     1>Done Building Project "C:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\DronePark1\DronePark1.vcxproj" (Build target(s)).
+
+Build succeeded.
+
+Time Elapsed 00:00:04.93
