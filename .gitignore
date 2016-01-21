@@ -69,3 +69,6 @@ DronePark1/DronePark1.opensdf
 *.sdf
 
 **/Debug/
+DronePark1/DronePark1/DronePark1.vcxproj
+*.filters
+DronePark1/DronePark1/DronePark1.vcxproj.user
