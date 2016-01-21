@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{55F78D5A-185C-3B6C-8012-FB051E2C251F}</ProjectGuid>
+    <ProjectGuid>{EBD260C0-2232-3A51-930F-55FD7EE200DA}</ProjectGuid>
     <RootNamespace>DronePark1</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
@@ -56,15 +56,16 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Debug;QZXing;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative;$(QTDIR)\include;$(QTDIR)\include\QtDeclarative;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript;$(QTDIR)\include\QtScript;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;GeneratedFiles\debug;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2015;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zc:strictStrings -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Debug;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;GeneratedFiles\debug;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2015;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QZXING_LIBRARY;ZXING_ICONV_CONST;NO_ICONV;QT_DECLARATIVE_LIB;QT_SCRIPT_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -74,7 +75,7 @@
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;$(QTDIR)\lib\Qt5Declaratived.lib;$(QTDIR)\lib\Qt5Scriptd.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;libEGLd.lib;libGLESv2d.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;shell32.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;libEGLd.lib;libGLESv2d.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -91,20 +92,21 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QZXING_LIBRARY;ZXING_ICONV_CONST;NO_ICONV;QT_DECLARATIVE_LIB;QT_SCRIPT_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Debug;QZXing;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative;$(QTDIR)\include;$(QTDIR)\include\QtDeclarative;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include;C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript;$(QTDIR)\include\QtScript;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;GeneratedFiles\release;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2015;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <AdditionalOptions>-Zc:strictStrings -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Debug;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;GeneratedFiles\release;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2015;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalOptions>-Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
       <DebugInformationFormat>None</DebugInformationFormat>
+      <DisableSpecificWarnings>4577;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QZXING_LIBRARY;ZXING_ICONV_CONST;NO_ICONV;QT_NO_DEBUG;QT_DECLARATIVE_LIB;QT_SCRIPT_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -114,7 +116,7 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QTDIR)\lib\qtmain.lib;shell32.lib;$(QTDIR)\lib\Qt5Declarative.lib;$(QTDIR)\lib\Qt5Script.lib;$(QTDIR)\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;libEGL.lib;libGLESv2.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(QTDIR)\lib\qtmain.lib;shell32.lib;$(QTDIR)\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;libEGL.lib;libGLESv2.lib;gdi32.lib;user32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -132,17 +134,12 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QZXING_LIBRARY;ZXING_ICONV_CONST;NO_ICONV;QT_NO_DEBUG;QT_DECLARATIVE_LIB;QT_SCRIPT_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="dronepark1.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_dronepark1.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_imagehandler.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_qzxing.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_dronepark1.cpp">
@@ -154,260 +151,33 @@
     <ClCompile Include="GeneratedFiles\Release\moc_dronepark1.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_imagehandler.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_qzxing.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
-    </ClCompile>
-    <ClCompile Include="QZXing\zxing\common\Array.cpp" />
-    <ClCompile Include="QZXing\zxing\aztec\decoder\AztecDecoder.cpp" />
-    <ClCompile Include="QZXing\zxing\aztec\detector\AztecDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\aztec\AztecDetectorResult.cpp" />
-    <ClCompile Include="QZXing\zxing\aztec\AztecReader.cpp" />
-    <ClCompile Include="QZXing\zxing\BarcodeFormat.cpp" />
-    <ClCompile Include="QZXing\zxing\Binarizer.cpp" />
-    <ClCompile Include="QZXing\zxing\BinaryBitmap.cpp" />
-    <ClCompile Include="QZXing\zxing\common\BitArray.cpp" />
-    <ClCompile Include="QZXing\zxing\common\BitMatrix.cpp" />
-    <ClCompile Include="QZXing\zxing\common\BitSource.cpp" />
-    <ClCompile Include="QZXing\zxing\multi\ByQuadrantReader.cpp" />
-    <ClCompile Include="QZXing\CameraImageWrapper.cpp" />
-    <ClCompile Include="QZXing\zxing\common\CharacterSetECI.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\Code128Reader.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\Code39Reader.cpp" />
-    <ClCompile Include="QZXing\zxing\common\Counted.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixBitMatrixParser.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixCornerPoint.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixDataBlock.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixDecodedBitStreamParser.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixDecoder.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixDetectorException.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixMonochromeRectangleDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\DataMatrixReader.cpp" />
-    <ClCompile Include="QZXing\zxing\datamatrix\DataMatrixVersion.cpp" />
-    <ClCompile Include="QZXing\zxing\DecodeHints.cpp" />
-    <ClCompile Include="QZXing\zxing\common\DecoderResult.cpp" />
-    <ClCompile Include="QZXing\zxing\common\DetectorResult.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\EAN13Reader.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\EAN8Reader.cpp" />
-    <ClCompile Include="QZXing\zxing\common\EdgeDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\Exception.cpp" />
-    <ClCompile Include="QZXing\zxing\FormatException.cpp" />
-    <ClCompile Include="QZXing\zxing\common\reedsolomon\GenericGF.cpp" />
-    <ClCompile Include="QZXing\zxing\common\reedsolomon\GenericGFPoly.cpp" />
-    <ClCompile Include="QZXing\zxing\multi\GenericMultipleBarcodeReader.cpp" />
-    <ClCompile Include="QZXing\zxing\common\GlobalHistogramBinarizer.cpp" />
-    <ClCompile Include="QZXing\zxing\common\GreyscaleLuminanceSource.cpp" />
-    <ClCompile Include="QZXing\zxing\common\GreyscaleRotatedLuminanceSource.cpp" />
-    <ClCompile Include="QZXing\zxing\common\GridSampler.cpp" />
-    <ClCompile Include="QZXing\zxing\common\HybridBinarizer.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\ITFReader.cpp" />
-    <ClCompile Include="QZXing\zxing\common\IllegalArgumentException.cpp" />
-    <ClCompile Include="QZXing\zxing\LuminanceSource.cpp" />
-    <ClCompile Include="QZXing\zxing\common\detector\MonochromeRectangleDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\multi\qrcode\detector\MultiDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\multi\qrcode\detector\MultiFinderPatternFinder.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\MultiFormatOneDReader.cpp" />
-    <ClCompile Include="QZXing\zxing\MultiFormatReader.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\MultiFormatUPCEANReader.cpp" />
-    <ClCompile Include="QZXing\zxing\multi\MultipleBarcodeReader.cpp" />
-    <ClCompile Include="QZXing\zxing\NotFoundException.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\OneDReader.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\OneDResultPoint.cpp" />
-    <ClCompile Include="QZXing\zxing\common\PerspectiveTransform.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\detector\QRAlignmentPattern.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\detector\QRAlignmentPatternFinder.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRBitMatrixParser.cpp" />
-    <ClCompile Include="QZXing\zxing\multi\qrcode\QRCodeMultiReader.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\QRCodeReader.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDataBlock.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDataMask.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDecodedBitStreamParser.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDecoder.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\detector\QRDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\detector\QREdgeDetector.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\QRErrorCorrectionLevel.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\detector\QRFinderPattern.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\detector\QRFinderPatternFinder.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\detector\QRFinderPatternInfo.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\QRFormatInformation.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRMode.cpp" />
-    <ClCompile Include="QZXing\zxing\qrcode\QRVersion.cpp" />
-    <ClCompile Include="QZXing\zxing\Reader.cpp" />
-    <ClCompile Include="QZXing\zxing\ReaderException.cpp" />
-    <ClCompile Include="QZXing\zxing\common\reedsolomon\ReedSolomonDecoder.cpp" />
-    <ClCompile Include="QZXing\zxing\common\reedsolomon\ReedSolomonException.cpp" />
-    <ClCompile Include="QZXing\zxing\Result.cpp" />
-    <ClCompile Include="QZXing\zxing\ResultPoint.cpp" />
-    <ClCompile Include="QZXing\zxing\ResultPointCallback.cpp" />
-    <ClCompile Include="QZXing\zxing\common\Str.cpp" />
-    <ClCompile Include="QZXing\zxing\common\StringUtils.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\UPCAReader.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\UPCEANReader.cpp" />
-    <ClCompile Include="QZXing\zxing\oned\UPCEReader.cpp" />
-    <ClCompile Include="QZXing\zxing\common\detector\WhiteRectangleDetector.cpp" />
-    <ClCompile Include="dronepark1.cpp" />
-    <ClCompile Include="QZXing\imagehandler.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="QZXing\qzxing.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="GeneratedFiles\ui_dronepark1.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\detector\AlignmentPattern.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\detector\AlignmentPatternFinder.h" />
-    <ClInclude Include="QZXing\zxing\common\Array.h" />
-    <ClInclude Include="QZXing\zxing\aztec\AztecDetectorResult.h" />
-    <ClInclude Include="QZXing\zxing\aztec\AztecReader.h" />
-    <ClInclude Include="QZXing\zxing\BarcodeFormat.h" />
-    <ClInclude Include="QZXing\zxing\Binarizer.h" />
-    <ClInclude Include="QZXing\zxing\BinaryBitmap.h" />
-    <ClInclude Include="QZXing\zxing\common\BitArray.h" />
-    <ClInclude Include="QZXing\zxing\common\BitMatrix.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\decoder\BitMatrixParser.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\decoder\BitMatrixParser.h" />
-    <ClInclude Include="QZXing\zxing\common\BitSource.h" />
-    <ClInclude Include="QZXing\zxing\multi\ByQuadrantReader.h" />
-    <ClInclude Include="QZXing\CameraImageWrapper.h" />
-    <ClInclude Include="QZXing\zxing\common\CharacterSetECI.h" />
-    <ClInclude Include="QZXing\zxing\oned\Code128Reader.h" />
-    <ClInclude Include="QZXing\zxing\oned\Code39Reader.h" />
     <ClInclude Include="Config.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\detector\CornerPoint.h" />
-    <ClInclude Include="QZXing\zxing\common\Counted.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\decoder\DataBlock.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\decoder\DataBlock.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\decoder\DataMask.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\DataMatrixReader.h" />
     <ClInclude Include="DatabaseController.h" />
-    <ClInclude Include="QZXing\zxing\DecodeHints.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\decoder\DecodedBitStreamParser.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\decoder\DecodedBitStreamParser.h" />
-    <ClInclude Include="QZXing\zxing\aztec\decoder\Decoder.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\decoder\Decoder.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\decoder\Decoder.h" />
-    <ClInclude Include="QZXing\zxing\common\DecoderResult.h" />
-    <ClInclude Include="QZXing\zxing\aztec\detector\Detector.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\detector\Detector.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\detector\Detector.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\detector\DetectorException.h" />
-    <ClInclude Include="QZXing\zxing\common\DetectorResult.h" />
-    <ClInclude Include="QZXing\zxing\oned\EAN13Reader.h" />
-    <ClInclude Include="QZXing\zxing\oned\EAN8Reader.h" />
-    <ClInclude Include="QZXing\zxing\common\EdgeDetector.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\ErrorCorrectionLevel.h" />
-    <ClInclude Include="QZXing\zxing\Exception.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\detector\FinderPattern.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\detector\FinderPatternFinder.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\detector\FinderPatternInfo.h" />
-    <ClInclude Include="QZXing\zxing\FormatException.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\FormatInformation.h" />
-    <ClInclude Include="QZXing\zxing\common\reedsolomon\GenericGF.h" />
-    <ClInclude Include="QZXing\zxing\common\reedsolomon\GenericGFPoly.h" />
-    <ClInclude Include="QZXing\zxing\multi\GenericMultipleBarcodeReader.h" />
-    <ClInclude Include="QZXing\zxing\common\GlobalHistogramBinarizer.h" />
-    <ClInclude Include="QZXing\zxing\common\GreyscaleLuminanceSource.h" />
-    <ClInclude Include="QZXing\zxing\common\GreyscaleRotatedLuminanceSource.h" />
-    <ClInclude Include="QZXing\zxing\common\GridSampler.h" />
-    <ClInclude Include="QZXing\zxing\common\HybridBinarizer.h" />
-    <ClInclude Include="QZXing\zxing\oned\ITFReader.h" />
-    <ClInclude Include="QZXing\zxing\common\IllegalArgumentException.h" />
-    <ClInclude Include="QZXing\zxing\LuminanceSource.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\decoder\Mode.h" />
+    <ClInclude Include="GeneratedFiles\ui_dronepark1.h" />
     <ClInclude Include="Model.h" />
-    <ClInclude Include="QZXing\zxing\common\detector\MonochromeRectangleDetector.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\detector\MonochromeRectangleDetector.h" />
-    <ClInclude Include="QZXing\zxing\multi\qrcode\detector\MultiDetector.h" />
-    <ClInclude Include="QZXing\zxing\multi\qrcode\detector\MultiFinderPatternFinder.h" />
-    <ClInclude Include="QZXing\zxing\oned\MultiFormatOneDReader.h" />
-    <ClInclude Include="QZXing\zxing\MultiFormatReader.h" />
-    <ClInclude Include="QZXing\zxing\oned\MultiFormatUPCEANReader.h" />
-    <ClInclude Include="QZXing\zxing\multi\MultipleBarcodeReader.h" />
-    <ClInclude Include="QZXing\zxing\NotFoundException.h" />
-    <ClInclude Include="QZXing\zxing\oned\OneDReader.h" />
-    <ClInclude Include="QZXing\zxing\oned\OneDResultPoint.h" />
     <ClInclude Include="ParkingLot.h" />
     <ClInclude Include="ParkingStub.h" />
-    <ClInclude Include="QZXing\zxing\common\PerspectiveTransform.h" />
-    <ClInclude Include="QZXing\zxing\common\Point.h" />
-    <ClInclude Include="QZXing\zxing\multi\qrcode\QRCodeMultiReader.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\QRCodeReader.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\detector\QREdgeDetector.h" />
-    <ClInclude Include="QZXing\QZXing_global.h" />
-    <ClInclude Include="QZXing\zxing\Reader.h" />
-    <ClInclude Include="QZXing\zxing\ReaderException.h" />
-    <ClInclude Include="QZXing\zxing\common\reedsolomon\ReedSolomonDecoder.h" />
-    <ClInclude Include="QZXing\zxing\common\reedsolomon\ReedSolomonException.h" />
-    <ClInclude Include="QZXing\zxing\Result.h" />
-    <ClInclude Include="QZXing\zxing\ResultPoint.h" />
-    <ClInclude Include="QZXing\zxing\ResultPointCallback.h" />
     <ClInclude Include="ReturnCodes.h" />
     <ClInclude Include="Schedule.h" />
-    <ClInclude Include="QZXing\zxing\common\Str.h" />
-    <ClInclude Include="QZXing\zxing\common\StringUtils.h" />
     <ClInclude Include="SubjectObserver.h" />
-    <ClInclude Include="QZXing\zxing\oned\UPCAReader.h" />
-    <ClInclude Include="QZXing\zxing\oned\UPCEANReader.h" />
-    <ClInclude Include="QZXing\zxing\oned\UPCEReader.h" />
-    <ClInclude Include="QZXing\zxing\datamatrix\Version.h" />
-    <ClInclude Include="QZXing\zxing\qrcode\Version.h" />
-    <ClInclude Include="QZXing\zxing\common\detector\WhiteRectangleDetector.h" />
     <CustomBuild Include="dronepark1.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 if errorlevel 1 goto VCEnd
 
 if errorlevel 1 goto VCEnd
 endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
+"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing dronepark1.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 if errorlevel 1 goto VCEnd
 
 if errorlevel 1 goto VCEnd
 endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_NO_DEBUG -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\release" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
+"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\release" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing dronepark1.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
-    <CustomBuild Include="QZXing\imagehandler.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-if errorlevel 1 goto VCEnd
-
-if errorlevel 1 goto VCEnd
-endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing imagehandler.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-if errorlevel 1 goto VCEnd
-
-if errorlevel 1 goto VCEnd
-endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_NO_DEBUG -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\release" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing imagehandler.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-    </CustomBuild>
-    <CustomBuild Include="QZXing\qzxing.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
-if errorlevel 1 goto VCEnd
-
-if errorlevel 1 goto VCEnd
-endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qzxing.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
-if errorlevel 1 goto VCEnd
-
-if errorlevel 1 goto VCEnd
-endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_NO_DEBUG -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include" "-IC:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\release" "-I$(QTDIR)\mkspecs\win32-msvc2015"</Command>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qzxing.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

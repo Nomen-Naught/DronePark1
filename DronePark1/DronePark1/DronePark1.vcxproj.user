@@ -2,11 +2,11 @@
 <Project ToolsVersion="14.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <QTDIR>C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtbase</QTDIR>
+    <QTDIR>C:\Qt\qt-everywhere-opensource-src-5.5.1\qtbase</QTDIR>
     <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-    <QTDIR>C:\Qt\5.5\qt-everywhere-opensource-src-5.5.0\qtbase</QTDIR>
+    <QTDIR>C:\Qt\qt-everywhere-opensource-src-5.5.1\qtbase</QTDIR>
     <LocalDebuggerEnvironment>PATH=$(QTDIR)\bin%3b$(PATH)</LocalDebuggerEnvironment>
   </PropertyGroup>
 </Project>
