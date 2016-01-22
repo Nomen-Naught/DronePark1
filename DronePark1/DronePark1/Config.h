@@ -18,42 +18,21 @@ private:
 
 public:
 	// Returns currentLot
-	Lot getCurrentLot()
-	{
-		return currentLot;
-	}
+	Lot getCurrentLot();
 
 	// Returns currentSchedule
-	Schedule getCurrentSchedule()
-	{
-		return currentSchedule;
-	}
+	Schedule getCurrentSchedule();
 
 	// Returns useSchedule
-	bool getUseSchedule()
-	{
-		return useSchedule;
-	}
+	bool getUseSchedule();
 
 	// Sets currentLot and returns RC
-	int setCurrentLot(Lot _currentLot)
-	{
-		currentLot = _currentLot;
-		return RC_OK;
-	}
+	int setCurrentLot(Lot _currentLot);
 
 	// Sets currentSchedule and returns RC
-	int setCurrentSchedule(Schedule _currentSchedule)
-	{
-		currentSchedule = _currentSchedule;
-		return RC_OK;
-	}
+	int setCurrentSchedule(Schedule _currentSchedule);
 
 	// Sets useSchedule and returns RC
-	int setUseSchedule(bool _useSchedule)
-	{
-		useSchedule = _useSchedule;
-		return RC_OK;
-	}
+	int setUseSchedule(bool _useSchedule);
 	
 };

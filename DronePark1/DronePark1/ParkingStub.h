@@ -22,48 +22,24 @@ private:
 
 public:
 	// Constructor, should call DbObject constructor
-	Stub() : DbObject()
-	{
-		spot = NULL;
-	}
+	Stub();
 
 	// Returns the expireTime
-	QDateTime getExpireTime()
-	{
-		return expireTime;
-	}
+	QDateTime getExpireTime();
 
 	// Returns the valid flags
-	bool getValid()
-	{
-		return valid;
-	}
+	bool getValid();
 
 	// Returns the purchaseTime
-	QDateTime getPurchaseTime()
-	{
-		return purchaseTime;
-	}
+	QDateTime getPurchaseTime();
 
 	// Sets the expireTime, returns RC
-	int setExpireTime(QDateTime _expireTime)
-	{
-		expireTime = _expireTime;
-		return RC_OK;
-	}
+	int setExpireTime(QDateTime _expireTime);
 
 	// Sets the valid flag, returns RC
-	int setValid(bool _valid)
-	{
-		valid = _valid;
-		return RC_OK;
-	}
+	int setValid(bool _valid);
 
 	// Sets the purchaseTime, returns RC
-	int setPurchaseTime(QDateTime _purchaseTime)
-	{
-		purchaseTime = _purchaseTime;
-		return RC_OK;
-	}
+	int setPurchaseTime(QDateTime _purchaseTime);
 
 };

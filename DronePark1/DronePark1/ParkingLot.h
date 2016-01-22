@@ -14,37 +14,19 @@ private:
 
 public:
 	// Constructor, should call DbObject constructor
-	Spot() : DbObject()
-	{
-		empty = false;
-		ticketed = false;
-	}
+	Spot();
 
 	// Returns the ticketed flag
-	bool getTicketed()
-	{
-		return ticketed;
-	}
+	bool getTicketed();
 
 	// Returns the empty flag
-	bool getEmpty()
-	{
-		return empty;
-	}
+	bool getEmpty();
 
 	// Sets the Ticketed flag, returns RC
-	int setTicketed(bool _ticketed)
-	{
-		ticketed = _ticketed;
-		return RC_OK;
-	}
+	int setTicketed(bool _ticketed);
 
 	// Sets the Empty flag, returns RC
-	int setEmpty(bool _empty)
-	{
-		empty = _empty;
-		return RC_OK;
-	}
+	int setEmpty(bool _empty);
 
 };
 
@@ -56,24 +38,13 @@ private:
 
 public:
 
-	//TODO: Nick: Lot Constructor maybe should do something?
 	// Constructor, should call DbObject constructor
-	Lot(): DbObject()
-	{
-		
-	}
+	Lot();
 
 	// Returns the Spot list
-	std::list<Spot> getSpots()
-	{
-		return spots;
-	}
+	std::list<Spot> getSpots();
 
 	// Sets the spot list, returns RC
-	int setSpots(std::list<Spot> _spots)
-	{
-		spots = _spots;
-		return RC_OK;
-	}
+	int setSpots(std::list<Spot> _spots);
 };
 

@@ -10,7 +10,7 @@ class Observer
 {
 public:
 	// A virtual method which is intended to inform the Observer of a change in a subject object.
-	virtual int notify(Subject subject);
+	virtual int notify(Subject subject) = 0;
 };
 
 class Subject
@@ -18,18 +18,18 @@ class Subject
 public:
 
 	// List of Observers associated with the subject
-	std::list<Observer> observers;
+	std::list<Observer*> observers;
 
 	//TODO: Nick: Implement addObserver
 	// Adds an Observer object to the observer list 
-	int addObserver(Observer)
+	int addObserver(Observer* observer)
 	{
 		return RC_ERR;
 	}
 
 	//TODO: Nick: Implement removeObserver
 	// Removes an Observer object from the observer list
-	int removeObserver(Observer)
+	int removeObserver(Observer* observer)
 	{
 		return RC_ERR;
 	}
@@ -41,12 +41,6 @@ public:
 		return RC_ERR;
 	}
 
-	// TODO: Nick: idk how constructors work (Subject object)
-	// Subject Constructor
-	Subject()
-	{
-		observers = std::list<Observer>();
-	}
 };
 
 class DbObject : Subject
