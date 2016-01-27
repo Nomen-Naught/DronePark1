@@ -56,6 +56,21 @@ int DroneParkController::initialize()
 	rc = loadConfig(DEFAULT_CONFIG);
 	DP_ASSERT(rc == RC_OK, "loadConfig")
 
+	//We need to hook up our Spots with our database observers
+	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
+		end = currentConfig->getCurrentLot()->getSpots()->end();
+		iterator != end;
+		++iterator)
+	{
+		//Hook up ticketed field to database writer
+		QObject::connect(*iterator, SIGNAL(spotTicketedChanged(int, bool)),
+					     databaseController, SLOT(updateSpotTicketed(int, bool)));
+
+		//Hook up empty field to database writer
+		QObject::connect(*iterator, SIGNAL(spotEmptyChanged(int, bool)),
+			databaseController, SLOT(updateSpotEmpty(int, bool)));
+	}
+
 	//Create sweepController object
 	//sweepController = SweepController();
 	//^^ above needs to be initialized (maybe? this is just supposed to be enough for first page)

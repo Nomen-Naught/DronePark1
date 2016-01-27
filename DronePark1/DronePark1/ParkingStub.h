@@ -1,5 +1,5 @@
 #pragma once
-#include "SubjectObserver.h"
+#include "DBObject.h"
 #include "ReturnCodes.h"
 #include "ParkingLot.h"
 #include <list>

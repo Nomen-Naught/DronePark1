@@ -1,12 +1,14 @@
 #pragma once
-#include "SubjectObserver.h"
+#include "DBObject.h"
 #include "ParkingLot.h"
 #include "Schedule.h"
 #include "Config.h"
 #include "ParkingStub.h"
+#include <QObject>
 
-class DatabaseController : Observer
+class DatabaseController : public QObject
 {
+	Q_OBJECT
 
 private:
 
@@ -73,6 +75,8 @@ public:
 	// Updates Spot from db by id, returns rc
 	int updateSpot(Spot newSpot, int id);
 
-	int notify(Subject subject);
+public slots:
+	void updateSpotTicketed(int id, bool ticketed);
+	void updateSpotEmpty(int id, bool empty);
 
 };

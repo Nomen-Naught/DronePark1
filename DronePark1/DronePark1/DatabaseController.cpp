@@ -1,5 +1,7 @@
 #include "DatabaseController.h"
 #include "Tests_Misc.h"
+#include <QMessageBox>
+
 
 //TODO: Nick: DatabaseController Constructor maybe should do something?
 // Constructor, should call Observer constructor
@@ -162,10 +164,22 @@ int DatabaseController::updateSpot(Spot newSpot, int id)
 	return RC_ERR;
 }
 
-//TODO: Nick: Implement DatabaseController::notify
-// Does stuff
-int DatabaseController::notify(Subject subject)
+//TODO: Implement updateSpotTicketed
+//Slot for updating a spot object
+void DatabaseController::updateSpotTicketed(int id, bool ticketed) 
 {
-	return RC_ERR;
+	//STUB
+	QMessageBox msgBox;
+	msgBox.setText("Ticketed has been updated");
+	msgBox.exec();
 }
 
+//TODO: Implement updateSpotEmpty
+//Slot for updating a spot object
+void DatabaseController::updateSpotEmpty(int id, bool empty)
+{
+	//STUB
+	QMessageBox msgBox;
+	msgBox.setText("Empty has been updated");
+	msgBox.exec();
+}

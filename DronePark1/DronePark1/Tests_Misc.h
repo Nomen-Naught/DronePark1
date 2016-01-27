@@ -10,11 +10,11 @@ public:
 	Lot* generateLot()
 	{
 		Lot* _lot = new Lot();
-		std::list<Spot*> spots;
+		std::list<Spot*>* spots = new std::list<Spot*>;
 
 		for (int i = 0; i < 10; i++)
 		{
-			spots.push_front(new Spot());
+			spots->push_front(new Spot());
 		}
 
 		_lot->setSpots(spots);

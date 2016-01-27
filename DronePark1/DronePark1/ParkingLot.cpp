@@ -27,7 +27,7 @@ int Spot::setTicketed(bool _ticketed)
 	{
 		ticketed = _ticketed;
 		//Emit Qt signal to update listeners
-		//emit spotTicketedChanged(_ticketed);
+		emit spotTicketedChanged(id, _ticketed);
 	}
 
 	return RC_OK;
@@ -36,7 +36,12 @@ int Spot::setTicketed(bool _ticketed)
 // Sets the Empty flag, returns RC
 int Spot::setEmpty(bool _empty)
 {
-	empty = _empty;
+	if (empty != _empty)
+	{
+		empty = _empty;
+		//Emit Qt signal to update listeners
+		emit spotEmptyChanged(id, _empty);
+	}
 	return RC_OK;
 }
 
@@ -49,13 +54,13 @@ Lot::Lot() : DbObject()
 
 
 // Returns the Spot list
-std::list<Spot*> Lot::getSpots()
+std::list<Spot*>* Lot::getSpots()
 {
 	return spots;
 }
 
 // Sets the spot list, returns RC
-int Lot::setSpots(std::list<Spot*> _spots)
+int Lot::setSpots(std::list<Spot*>* _spots)
 {
 	spots = _spots;
 	return RC_OK;

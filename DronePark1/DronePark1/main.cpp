@@ -17,11 +17,6 @@ int main(int argc, char *argv[])
 	// Launches Qt window
 	QApplication a(argc, argv);
 	DronePark1 w;
-
-	//Let's find some UI elements
-
-	//
-
 	w.show();
 
 	// Program Start use-case BEGIN***
