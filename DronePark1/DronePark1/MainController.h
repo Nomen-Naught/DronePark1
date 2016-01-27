@@ -2,6 +2,9 @@
 #include "ParkingLot.h"
 #include "Config.h"
 #include "DecideController.h"
+#include "DatabaseController.h"
+#include "ImageController.h"
+#include "DronePilot.h"
 
 class SweepController
 {
@@ -10,16 +13,16 @@ private:
 	Spot currentSpot;
 
 	//A controller object which handles all communications with the physical drone
-	//FlightCommsController droneComms;
+	FlightCommsController droneComms;
 
 	//A controller object which handles the actual flight of the drone.
-	//FlightController dronePilot;
+	FlightController dronePilot;
 
 	//A controller object which handles all communications with the physical camera.
-	//ImageCommsController imageComms;
+	ImageCommsController imageComms;
 
 	//A controller object which handles all the image analysis.
-	//ImageProcessorController imageProcessor;
+	ImageProcessController imageProcessor;
 
 	//A controller object which handles the decision of validity of the spot.
 	DecideSpotController stubDecider;
@@ -52,14 +55,21 @@ public:
 
 class DroneParkController
 {
-private:
+public :
 	//The currently loaded configuration for the session
-	Config currentConfig;
+	Config* currentConfig;
+private:
+
 
 	//controls the Drone and all processing associated with it.
 	SweepController sweepController;
 
+	//Deviation from design, adding DatabaseController
+	DatabaseController* databaseController;
+
 public:
+
+	~DroneParkController();
 
 	//Begins automated drone operations based on currentConfig.
 	int beginDroneOperations();

@@ -8,9 +8,17 @@
 class DatabaseController : Observer
 {
 
+private:
+
+	//Flag indicating whether we are connected to a db or not
+	bool dbConnected;
+
 public:
 	// Constructor, should call Observer constructor
 	DatabaseController();
+
+	// Connect to db using specified connectionString, repeated calls should be no-op/return error
+	int connectToDb(QString connectionString);
 
 	// Inserts lot into db, returns rc
 	int insertLot(Lot newLot);
@@ -22,20 +30,20 @@ public:
 	int insertStub(Stub newStub);
 
 	// Queries db for config from id
-	Config queryConfig(int id);
+	int queryConfig(int id, Config** config);
 
 	//TODO: Nick: Implement queryLot
 	// Queries db for Lot from id
-	Lot queryLot(int id);
+	Lot* queryLot(int id);
 
 	// Queries db for Schedule from id
-	Schedule querySchedule(int id);
+	Schedule* querySchedule(int id);
 
 	// Queries db for Stub from id
-	Stub queryStub(int id);
+	Stub* queryStub(int id);
 
 	// Queries db for Spot from id
-	Spot querySpot(int id);
+	Spot* querySpot(int id);
 
 	// Removes Lot from db by id, returns rc
 	int removeLot(int id);

@@ -1,5 +1,7 @@
 #include "MainController.h"
 
+#define DEFAULT_CONFIG 0
+
 //TODO: Nick: implement beginDroneOperations
 //Begins automated drone operations based on currentConfig.
 int DroneParkController::beginDroneOperations() 
@@ -37,14 +39,42 @@ int DroneParkController::initiateDrone()
 //screen.
 int DroneParkController::initialize()
 {
-	return RC_ERR;
+	//Declarations--------------
+
+	int rc = RC_OK;			//Return code
+
+	//End Delcarations----------
+
+	// Allocate and set databaseController, deallocated in destructor hopefully
+	databaseController = new DatabaseController();
+
+	//connectToDb is currently a placeholder btw
+	rc = databaseController->connectToDb("Test");
+	DP_ASSERT(rc == RC_OK, "databaseController->connectToDb")
+
+	//Load the default config
+	rc = loadConfig(DEFAULT_CONFIG);
+	DP_ASSERT(rc == RC_OK, "loadConfig")
+
+	//Create sweepController object
+	//sweepController = SweepController();
+	//^^ above needs to be initialized (maybe? this is just supposed to be enough for first page)
+
+	//At this point, something needs to update the UI with the data we have in currentConfig!!
+	//TODO: Update UI in droneParkController->initialize();
+
+	return rc;
 }
 
 //TODO: Nick: implement loadConfig
 //Queries the database with an id and loads a new configuration.
 int DroneParkController::loadConfig(int id)
 {
-	return RC_ERR;
+	int rc = RC_OK;		// return code
+
+	rc = databaseController->queryConfig(id, &currentConfig);
+
+	return rc;
 }
 
 //TODO: Nick: implement ticketIssued
@@ -96,6 +126,24 @@ int DroneParkController::updateConfig_EnableSchedule()
 int DroneParkController::updateConfig_DisableSchedule()
 {
 	return RC_ERR;
+}
+
+
+//DroneParkController destructor
+DroneParkController::~DroneParkController()
+{
+	// Not sure if this is a good idea... what about the chained pointers?
+	// Nuke databaseController object if we got it
+	if (databaseController != NULL)
+	{
+		delete databaseController;
+	}
+
+	// Nuke currentConfig object if we got it
+	if (currentConfig != NULL)
+	{
+		delete currentConfig;
+	}
 }
 
 //TODO: Nick: implement emergencyShutDown

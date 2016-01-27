@@ -1,5 +1,6 @@
 #pragma once
 #include <list>
+#include <QObject>
 #include "ReturnCodes.h"
 
 // Forward delcarations
@@ -13,8 +14,9 @@ public:
 	virtual int notify(Subject subject) = 0;
 };
 
-class Subject
+class Subject : public QObject
 {
+	Q_OBJECT
 public:
 
 	// List of Observers associated with the subject
@@ -43,14 +45,17 @@ public:
 
 };
 
-class DbObject : Subject
+class DbObject : public Subject
 {
 protected:
+
+
+public:
+
 	// Unique identifier, generated and set by Database!
 	// -1 means a proper ID has not been set yet.
 	int id;
 
-public:
 	// Constructor
 	DbObject()
 	{

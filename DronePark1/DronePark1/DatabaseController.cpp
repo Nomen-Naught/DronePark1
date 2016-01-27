@@ -1,10 +1,35 @@
 #include "DatabaseController.h"
+#include "Tests_Misc.h"
 
 //TODO: Nick: DatabaseController Constructor maybe should do something?
 // Constructor, should call Observer constructor
 DatabaseController::DatabaseController()
 {
+	//Start with no db connected
+	dbConnected = false;
+}
 
+// CURRENTLY A NO-OP PLACEHOLDER!!!!
+// Connect to db using specified connectionString, repeated calls should be no-op/return error
+int DatabaseController::connectToDb(QString connectionString)
+{
+
+	int rc = RC_OK;	// return code
+
+	if (dbConnected)
+	{
+		rc = RC_2DB_CONN_ATTEPTS;
+		goto exit;
+	}
+
+	//TODO: connect to databse
+
+	//Placeholder!!
+	dbConnected = true;
+
+
+exit:
+	return RC_OK;
 }
 
 //TODO: Nick: Implement insertLot
@@ -30,37 +55,48 @@ int DatabaseController::insertStub(Stub newStub)
 
 //TODO: Nick: Implement queryConfig
 // Queries db for config from id
-Config DatabaseController::queryConfig(int id)
+int DatabaseController::queryConfig(int id, Config** config)
 {
-	return Config();
+	//dummy function for now
+
+	int rc = RC_OK;		// return code
+
+	//TestObject
+	Tester tester;
+	//TestObject
+
+	//Genreate a dummy config
+	tester.generateConfigPtr(config);
+
+	return rc;
 }
 
 //TODO: Nick: Implement queryLot
 // Queries db for Lot from id
-Lot DatabaseController::queryLot(int id)
+Lot* DatabaseController::queryLot(int id)
 {
-	return Lot();
+	return new Lot();
 }
 
 //TODO: Nick: Implement querySchedule
 // Queries db for Schedule from id
-Schedule DatabaseController::querySchedule(int id)
+Schedule* DatabaseController::querySchedule(int id)
 {
-	return Schedule();
+	return new Schedule();
 }
 
 //TODO: Nick: Implement queryStub
 // Queries db for Stub from id
-Stub DatabaseController::queryStub(int id)
+Stub* DatabaseController::queryStub(int id)
 {
-	return Stub();
+	return new Stub();
 }
 
 //TODO: Nick: Implement querySpot
 // Queries db for Spot from id
-Spot DatabaseController::querySpot(int id)
+Spot* DatabaseController::querySpot(int id)
 {
-	return Spot();
+	return new Spot();
 }
 
 //TODO: Nick: Implement removeLot
