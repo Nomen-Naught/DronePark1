@@ -18,6 +18,9 @@ void DronePark1::connectNewSpot(Spot* spot)
 	//Create a new widget
 	SpotButton* spotButton = new SpotButton();
 
+	//Associate the spot with the widget
+	spotButton->setSpot(spot);
+
 	//Add the new widget to the layout
 	ui.verticalLayout_2->addWidget(spotButton);
 
