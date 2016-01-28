@@ -16,13 +16,13 @@ int main(int argc, char *argv[])
 
 	// Launches Qt window
 	QApplication a(argc, argv);
-	DronePark1 w;
-	w.show();
+	DronePark1 gui;
+	gui.show();
 
 	// Program Start use-case BEGIN***
 
 	//Should instantiate a database controller for this session AND do everything needed to load first page!!
-	rc = droneParkController.initialize();
+	rc = droneParkController.initialize(&gui);
 	DP_ASSERT(rc == RC_OK, "droneParkController.initialize()");
 
 	// Program Start use-case END***

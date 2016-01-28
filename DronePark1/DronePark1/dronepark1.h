@@ -3,6 +3,7 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_dronepark1.h"
+#include "ParkingLot.h"
 
 class DronePark1 : public QMainWindow
 {
@@ -11,6 +12,9 @@ class DronePark1 : public QMainWindow
 public:
 	DronePark1(QWidget *parent = 0);
 	~DronePark1();
+
+	//Connect a new spot object to the gui and add a widget for it
+	void connectNewSpot(Spot* spot);
 
 private:
 	Ui::DronePark1Class ui;

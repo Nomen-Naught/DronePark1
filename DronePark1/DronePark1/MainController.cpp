@@ -1,4 +1,5 @@
 #include "MainController.h"
+#include "dronepark1.h"
 
 #define DEFAULT_CONFIG 0
 
@@ -37,7 +38,7 @@ int DroneParkController::initiateDrone()
 //TODO: Nick: implement initialize
 //Initialize all controllers and models needed to start and display the first
 //screen.
-int DroneParkController::initialize()
+int DroneParkController::initialize(DronePark1* gui)
 {
 	//Declarations--------------
 
@@ -56,7 +57,7 @@ int DroneParkController::initialize()
 	rc = loadConfig(DEFAULT_CONFIG);
 	DP_ASSERT(rc == RC_OK, "loadConfig")
 
-	//We need to hook up our Spots with our database observers
+	//We need to hook up our Spots with our database observers and the gui
 	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
 		end = currentConfig->getCurrentLot()->getSpots()->end();
 		iterator != end;
@@ -69,14 +70,17 @@ int DroneParkController::initialize()
 		//Hook up empty field to database writer
 		QObject::connect(*iterator, SIGNAL(spotEmptyChanged(int, bool)),
 			databaseController, SLOT(updateSpotEmpty(int, bool)));
+
+		//Connect fields with gui
+		gui->connectNewSpot(*iterator);
 	}
+
+	//TESTING OUR SIGNALS AND SLOTS ON SPOT OBJECT
+	currentConfig->getCurrentLot()->getSpots()->front()->setEmpty(true);
 
 	//Create sweepController object
 	//sweepController = SweepController();
 	//^^ above needs to be initialized (maybe? this is just supposed to be enough for first page)
-
-	//At this point, something needs to update the UI with the data we have in currentConfig!!
-	//TODO: Update UI in droneParkController->initialize();
 
 	return rc;
 }

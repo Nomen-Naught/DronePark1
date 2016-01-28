@@ -169,9 +169,9 @@ int DatabaseController::updateSpot(Spot newSpot, int id)
 void DatabaseController::updateSpotTicketed(int id, bool ticketed) 
 {
 	//STUB
-	QMessageBox msgBox;
-	msgBox.setText("Ticketed has been updated");
-	msgBox.exec();
+	//QMessageBox msgBox;
+	//msgBox.setText("Ticketed has been updated");
+	//msgBox.exec();
 }
 
 //TODO: Implement updateSpotEmpty
@@ -179,7 +179,7 @@ void DatabaseController::updateSpotTicketed(int id, bool ticketed)
 void DatabaseController::updateSpotEmpty(int id, bool empty)
 {
 	//STUB
-	QMessageBox msgBox;
-	msgBox.setText("Empty has been updated");
-	msgBox.exec();
+	//QMessageBox msgBox;
+	//msgBox.setText("Empty has been updated");
+	//msgBox.exec();
 }

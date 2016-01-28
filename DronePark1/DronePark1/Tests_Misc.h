@@ -12,7 +12,7 @@ public:
 		Lot* _lot = new Lot();
 		std::list<Spot*>* spots = new std::list<Spot*>;
 
-		for (int i = 0; i < 10; i++)
+		for (int i = 0; i < 5; i++)
 		{
 			spots->push_front(new Spot());
 		}

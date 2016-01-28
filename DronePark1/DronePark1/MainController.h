@@ -5,6 +5,7 @@
 #include "DatabaseController.h"
 #include "ImageController.h"
 #include "DronePilot.h"
+#include "dronepark1.h"
 
 class SweepController
 {
@@ -89,7 +90,7 @@ public:
 
 	//nitialize all controllers and models needed to start and display the first
 	//screen.
-	int initialize();
+	int initialize(DronePark1* gui);
 
 	//Queries the database with an id and loads a new configuration.
 	int loadConfig(int id);
