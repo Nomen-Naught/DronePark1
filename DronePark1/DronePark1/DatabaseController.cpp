@@ -25,7 +25,6 @@ DatabaseController::~DatabaseController()
 	}
 }
 
-// CURRENTLY A NO-OP PLACEHOLDER!!!!
 // Connect to db using specified connectionString, repeated calls should be no-op/return error
 int DatabaseController::connectToDb(QString connectionString)
 {
@@ -59,7 +58,7 @@ int DatabaseController::connectToDb(QString connectionString)
 		db->rlogon(logon); // connect to ODBC
 
 		//TEST Generate a completely new schema and tables
-		tester.generateDB(db);
+		//tester.generateDB(db);
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	
@@ -107,25 +106,9 @@ int DatabaseController::queryConfig(int id, Config** config)
 	int config_lot;
 	int config_schedule;
 
-	//Lot temp variables
-	int lot_id;
-	char create_date[50];
-	int num_spots;
-	char lot_name[20];
-	char city[20];
-
-	//Spot temp variables
-	int spot_id;
-	int stub_id;
-	int is_empty;
-	int is_ticketed;
-	int state;
-
 	Config* newConfig;
 	Lot* newLot;
-	Spot* newSpot;
-
-	std::list<Spot*>* spots;
+	std::list<Spot*>* newSpots;
 
 	// Query everything we need for the Config object
 	try {
@@ -149,45 +132,16 @@ int DatabaseController::queryConfig(int id, Config** config)
 		newConfig = new Config();
 		newConfig->setId(config_id);
 
-		//Create the stream object for Lot query
-		otl_stream j(1, // buffer size
-			"select * from Lot where lot_id=:lot_id<int>",
-			// SELECT statement
-			*db // connect object
-			);
+		// Query the Lot object next
+		rc = queryLot(config_lot, &newLot);
+		DP_ASSERT(rc, "queryLot");
 
-		//Write variables into query
-		otl_write_row(j, config_lot);
-
-		//Loop through results
-		for (auto& it : j) {
-			otl_read_row(it, lot_id, num_spots, lot_name, city);
-		}
-
-		// We have enough data to construct the Lot object
-		newLot = new Lot();
-		newLot->setId(lot_id);
-
-		//Create the stream object for Spot query
-		otl_stream k(1, // buffer size
-			"select * from Spot where lot_id=:lot_id<int>",
-			// SELECT statement
-			*db // connect object
-			);
-
-		//Write variables into query
-		otl_write_row(k, lot_id);
-
-		spots = new std::list<Spot*>;
-
-		//Loop through results
-		for (auto& it : k) {
-			otl_read_row(it, spot_id, lot_id, stub_id, is_empty, is_ticketed, state);
-			spots->push_front(new Spot(spot_id, is_empty, is_ticketed));
-		}
+		// Query the spots for the Lot
+		rc = querySpots(newLot->getId(), &newSpots);
+		DP_ASSERT(rc, "querySpots");
 
 		//Set up Config structure with our newly queried data!
-		newLot->setSpots(spots);
+		newLot->setSpots(newSpots);
 		newConfig->setCurrentLot(newLot);
 
 		//TODO: Query stub info
@@ -208,11 +162,52 @@ exit:
 	return rc;
 }
 
-//TODO: Nick: Implement queryLot
 // Queries db for Lot from id
-Lot* DatabaseController::queryLot(int id)
+int DatabaseController::queryLot(int id, Lot** lot)
 {
-	return new Lot();
+
+	int rc = RC_OK;
+
+	//Lot temp variables
+	int lot_id;
+	char create_date[50];
+	int num_spots;
+	char lot_name[20];
+	char city[20];
+
+	Lot* newLot;
+
+	try {
+
+		//Create the stream object for Lot query
+		otl_stream j(1, // buffer size
+			"select * from Lot where lot_id=:lot_id<int>",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Write variables into query
+		otl_write_row(j, id);
+
+		//Loop through results
+		for (auto& it : j) {
+			otl_read_row(it, lot_id, num_spots, lot_name, city);
+		}
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	// We have enough data to construct the Lot object
+	newLot = new Lot();
+	newLot->setId(lot_id);
+
+	*lot = newLot;
+
+exit:
+	return rc;
 }
 
 //TODO: Nick: Implement querySchedule
@@ -229,11 +224,51 @@ Stub* DatabaseController::queryStub(int id)
 	return new Stub();
 }
 
-//TODO: Nick: Implement querySpot
-// Queries db for Spot from id
-Spot* DatabaseController::querySpot(int id)
+// Queries db for spots list from lot_id
+int DatabaseController::querySpots(int _lot_id, std::list<Spot*>** spots)
 {
-	return new Spot();
+	int rc = RC_OK;
+
+	//Spot temp variables
+	int spot_id;
+	int stub_id;
+	int lot_id;
+	int is_empty;
+	int is_ticketed;
+	int state;
+
+	std::list<Spot*>* newSpots;
+
+	try 
+	{
+		//Create the stream object for Spot query
+		otl_stream k(50, // buffer size
+			"select * from Spot where lot_id=:lot_id<int>",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Write variables into query
+		otl_write_row(k, _lot_id);
+
+		newSpots = new std::list<Spot*>;
+
+		//Loop through results
+		for (auto& it : k) {
+			otl_read_row(it, spot_id, lot_id, stub_id, is_empty, is_ticketed, state);
+			newSpots->push_front(new Spot(spot_id, is_empty, is_ticketed));
+		}
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	*spots = newSpots;
+
+exit:
+	return rc;
 }
 
 //TODO: Nick: Implement removeLot
@@ -299,14 +334,36 @@ int DatabaseController::updateSpot(Spot newSpot, int id)
 	return RC_ERR;
 }
 
-//TODO: Implement updateSpotTicketed
+//TODO: updateSpotTicketed has no error handling at all
 //Slot for updating a spot object
 void DatabaseController::updateSpotTicketed(int id, bool ticketed) 
 {
-	//STUB
-	//QMessageBox msgBox;
-	//msgBox.setText("Ticketed has been updated");
-	//msgBox.exec();
+	//Declarations
+	int rc = RC_OK;
+	int _ticketed = ticketed; //Convert to int for the db
+
+	try {
+		otl_stream o(1, // buffer size should be == 1 always on UPDATE
+			"UPDATE Spot "
+			"   SET is_ticketed=:is_ticketed<int> "
+			" WHERE spot_id=:spot_id<int>",
+			// UPDATE statement
+			*db // connect object
+			);
+
+		//Write variables into query
+		otl_write_row(o, _ticketed, id);
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+exit:
+	return;
+	//return rc;
+
 }
 
 //TODO: Implement updateSpotEmpty

@@ -46,7 +46,7 @@ public:
 
 	//TODO: Nick: Implement queryLot
 	// Queries db for Lot from id
-	Lot* queryLot(int id);
+	int queryLot(int id, Lot** lot);
 
 	// Queries db for Schedule from id
 	Schedule* querySchedule(int id);
@@ -54,8 +54,8 @@ public:
 	// Queries db for Stub from id
 	Stub* queryStub(int id);
 
-	// Queries db for Spot from id
-	Spot* querySpot(int id);
+	// Queries db for spot list from lot_id
+	int querySpots(int lot_id, std::list<Spot*>** spots);
 
 	// Removes Lot from db by id, returns rc
 	int removeLot(int id);

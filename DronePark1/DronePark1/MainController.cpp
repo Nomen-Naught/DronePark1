@@ -1,7 +1,7 @@
 #include "MainController.h"
 #include "dronepark1.h"
 
-#define DEFAULT_CONFIG 0
+#define DEFAULT_CONFIG 1
 
 //TODO: Nick: implement beginDroneOperations
 //Begins automated drone operations based on currentConfig.
@@ -51,11 +51,11 @@ int DroneParkController::initialize(DronePark1* gui)
 
 	//connectToDb is currently a placeholder btw
 	rc = databaseController->connectToDb("Test");
-	DP_ASSERT(rc == RC_OK, "databaseController->connectToDb")
+	DP_ASSERT(rc, "databaseController->connectToDb");
 
 	//Load the default config
 	rc = loadConfig(DEFAULT_CONFIG);
-	DP_ASSERT(rc == RC_OK, "loadConfig")
+	DP_ASSERT(rc, "loadConfig")
 
 	//We need to hook up our Spots with our database observers and the gui
 	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
@@ -74,9 +74,6 @@ int DroneParkController::initialize(DronePark1* gui)
 		//Connect fields with gui
 		gui->connectNewSpot(*iterator);
 	}
-
-	//TESTING OUR SIGNALS AND SLOTS ON SPOT OBJECT
-	currentConfig->getCurrentLot()->getSpots()->front()->setEmpty(true);
 
 	//Create sweepController object
 	//sweepController = SweepController();
