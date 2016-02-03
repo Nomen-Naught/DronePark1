@@ -23,7 +23,7 @@ int main(int argc, char *argv[])
 
 	//Should instantiate a database controller for this session AND do everything needed to load first page!!
 	rc = droneParkController.initialize(&gui);
-	DP_ASSERT(rc == RC_OK, "droneParkController.initialize()");
+	DP_ASSERT(rc, "droneParkController.initialize()");
 
 	// Program Start use-case END***
 

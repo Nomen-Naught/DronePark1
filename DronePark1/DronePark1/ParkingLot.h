@@ -17,6 +17,7 @@ private:
 public:
 	// Constructor, should call DbObject constructor
 	Spot();
+	Spot(int, int, int);
 
 	// Returns the ticketed flag
 	bool getTicketed();

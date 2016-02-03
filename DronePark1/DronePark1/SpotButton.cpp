@@ -52,13 +52,14 @@ void SpotButton::handleClick()
 		//It doesn't make sense to be able to ticket an empty spot
 		if (currentEmpty != false)
 		{
-			associatedSpot->setTicketed(true);
+			//Currently toggles, up for discussion ( database write could slow things down?? )
+			associatedSpot->setTicketed(!currentTicketed);
 			return;
 		}
 	}
 	else
 	{
-		DP_ASSERT(false, "handleClick", "no associated spot");
+		DP_ASSERT2(false, "handleClick", "no associated spot");
 		return;
 	}
 }

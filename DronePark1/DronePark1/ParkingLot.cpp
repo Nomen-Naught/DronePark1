@@ -7,6 +7,13 @@ Spot::Spot() : DbObject()
 	ticketed = false;
 }
 
+Spot::Spot(int _spot_id, int _empty, int _is_ticketed ) : DbObject()
+{
+	id = _spot_id;
+	empty = _empty;
+	ticketed = _is_ticketed;
+}
+
 // Returns the ticketed flag
 bool Spot::getTicketed()
 {

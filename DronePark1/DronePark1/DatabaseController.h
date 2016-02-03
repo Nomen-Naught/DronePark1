@@ -6,6 +6,10 @@
 #include "ParkingStub.h"
 #include <QObject>
 
+//Database stuff
+#define OTL_ODBC_MYSQL // Compile OTL 4.0/ODBC/MySQL
+#include <otlv4.h> // include the OTL 4.0 header file
+
 class DatabaseController : public QObject
 {
 	Q_OBJECT
@@ -15,9 +19,15 @@ private:
 	//Flag indicating whether we are connected to a db or not
 	bool dbConnected;
 
+	// connect object
+	otl_connect* db;
+
 public:
 	// Constructor, should call Observer constructor
 	DatabaseController();
+
+	// Destructor
+	~DatabaseController();
 
 	// Connect to db using specified connectionString, repeated calls should be no-op/return error
 	int connectToDb(QString connectionString);
