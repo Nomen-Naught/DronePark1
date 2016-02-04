@@ -52,7 +52,7 @@ public:
 	Schedule* querySchedule(int id);
 
 	// Queries db for Stub from id
-	Stub* queryStub(int id);
+	int queryStub(int id, Stub** stub);
 
 	// Queries db for spot list from lot_id
 	int querySpots(int lot_id, std::list<Spot*>** spots);

@@ -7,7 +7,7 @@ Stub::Stub() : DbObject()
 }
 
 // Returns the expireTime
-QDateTime Stub::getExpireTime()
+QDateTime* Stub::getExpireTime()
 {
 	return expireTime;
 }
@@ -19,13 +19,13 @@ bool Stub::getValid()
 }
 
 // Returns the purchaseTime
-QDateTime Stub::getPurchaseTime()
+QDateTime* Stub::getPurchaseTime()
 {
 	return purchaseTime;
 }
 
 // Sets the expireTime, returns RC
-int Stub::setExpireTime(QDateTime _expireTime)
+int Stub::setExpireTime(QDateTime* _expireTime)
 {
 	expireTime = _expireTime;
 	return RC_OK;
@@ -39,7 +39,7 @@ int Stub::setValid(bool _valid)
 }
 
 // Sets the purchaseTime, returns RC
-int Stub::setPurchaseTime(QDateTime _purchaseTime)
+int Stub::setPurchaseTime(QDateTime* _purchaseTime)
 {
 	purchaseTime = _purchaseTime;
 	return RC_OK;

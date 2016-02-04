@@ -139,5 +139,37 @@ public:
 				"VALUES"
 				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL);"
 				);  // insert some rows
+
+		// Stub table
+		otl_cursor::direct_exec
+			(
+				*db,
+				"drop table Stub",
+				otl_exception::disabled // disable OTL exceptions
+				); // drop table
+
+		otl_cursor::direct_exec
+			(
+				*db,
+				"CREATE TABLE `Stub` ("
+				"  `stub_id` int(11) NOT NULL AUTO_INCREMENT,"
+				"  `spot_id` int(11) DEFAULT NULL,"
+				"  `purchase_date` datetime DEFAULT NULL,"
+				"  `expire_date` datetime DEFAULT NULL,"
+				"  PRIMARY KEY (`stub_id`),"
+				"  UNIQUE KEY `stub_id_UNIQUE` (`stub_id`)"
+				") ENGINE=InnoDB DEFAULT CHARSET=latin1;"
+				);  // create table
+
+		otl_cursor::direct_exec
+			(
+				*db,
+				"INSERT INTO `DRONEPARK`.`Stub`"
+				"(`spot_id`,"
+				"`purchase_date`,"
+				"`expire_date`)"
+				"VALUES"
+				"(1, '1000-01-01 00:00:00', '9999-12-31 23:59:59'), (2, '1000-01-01 00:00:00', '9999-12-31 23:59:59'), (6, '1000-01-01 00:00:00','9999-12-31 23:59:59');"
+				);  // insert some rows
 	}
 };

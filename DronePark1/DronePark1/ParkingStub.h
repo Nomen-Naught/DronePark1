@@ -9,10 +9,10 @@ class Stub : DbObject
 {
 private:
 	// Time at which a stub expires
-	QDateTime expireTime;
+	QDateTime* expireTime;
 
 	// Time that Stub was purchased
-	QDateTime purchaseTime;
+	QDateTime* purchaseTime;
 
 	// Associated pointer to Spot object
 	Spot* spot;
@@ -25,21 +25,21 @@ public:
 	Stub();
 
 	// Returns the expireTime
-	QDateTime getExpireTime();
+	QDateTime* getExpireTime();
 
 	// Returns the valid flags
 	bool getValid();
 
 	// Returns the purchaseTime
-	QDateTime getPurchaseTime();
+	QDateTime* getPurchaseTime();
 
 	// Sets the expireTime, returns RC
-	int setExpireTime(QDateTime _expireTime);
+	int setExpireTime(QDateTime* _expireTime);
 
 	// Sets the valid flag, returns RC
 	int setValid(bool _valid);
 
 	// Sets the purchaseTime, returns RC
-	int setPurchaseTime(QDateTime _purchaseTime);
+	int setPurchaseTime(QDateTime* _purchaseTime);
 
 };

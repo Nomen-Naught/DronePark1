@@ -55,7 +55,7 @@ int DroneParkController::initialize(DronePark1* gui)
 
 	//Load the default config
 	rc = loadConfig(DEFAULT_CONFIG);
-	DP_ASSERT(rc, "loadConfig")
+	DP_ASSERT(rc, "loadConfig");
 
 	//We need to hook up our Spots with our database observers and the gui
 	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),

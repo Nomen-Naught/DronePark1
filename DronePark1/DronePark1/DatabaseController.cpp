@@ -3,6 +3,10 @@
 #include <QMessageBox>
 #include <string>
 
+#include <QString>
+#include <QDateTime>
+#include <QDebug>
+
 #define UID "nicholas"
 #define PWD "nicholas"
 #define DSN "DronePark_MySQL"
@@ -58,7 +62,7 @@ int DatabaseController::connectToDb(QString connectionString)
 		db->rlogon(logon); // connect to ODBC
 
 		//TEST Generate a completely new schema and tables
-		//tester.generateDB(db);
+		tester.generateDB(db);
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	
@@ -153,10 +157,12 @@ int DatabaseController::queryConfig(int id, Config** config)
 		goto exit;
 	}
 
-	//Test stuff
-	//newConfig->setCurrentLot(tester.generateLot());
-
 	*config = newConfig;
+
+
+	//TESTING
+	Stub* testStub;
+	queryStub(1, &testStub);
 
 exit:
 	return rc;
@@ -217,11 +223,57 @@ Schedule* DatabaseController::querySchedule(int id)
 	return new Schedule();
 }
 
-//TODO: Nick: Implement queryStub
+//TODO: Nick: idk if this actually works, the QDateTime is being screwy!!
 // Queries db for Stub from id
-Stub* DatabaseController::queryStub(int id)
+int DatabaseController::queryStub(int id, Stub** stub)
 {
-	return new Stub();
+	// Declarations
+	int rc = RC_OK;
+
+	Stub* newStub;
+
+	QDateTime* purchaseDateTime;
+	QDateTime* expireDateTime;
+
+	TIMESTAMP_STRUCT purchase_date;
+	TIMESTAMP_STRUCT expire_date;
+
+	try {
+
+		//Create the stream object for Lot query
+		otl_stream j(1, // buffer size
+			"select purchase_date, expire_date from Stub where stub_id=:stub_id<int>",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Write variables into query
+		otl_write_row(j, id);
+
+		//Loop through results
+		for (auto& it : j) {
+			otl_read_row(it, purchase_date, expire_date);
+		}
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	// Construct the struct object with the data we got from the query
+	newStub = new Stub();
+
+	purchaseDateTime = new QDateTime(QDate(purchase_date.year, purchase_date.month, purchase_date.day), QTime(purchase_date.hour, purchase_date.minute, purchase_date.second));
+	expireDateTime = new QDateTime(QDate(expire_date.year, expire_date.month, expire_date.day), QTime(expire_date.hour, expire_date.minute, expire_date.second));
+
+	rc |= newStub->setPurchaseTime(purchaseDateTime);
+	rc |= newStub->setExpireTime(expireDateTime);
+
+	*stub = newStub;
+
+exit:
+	return rc;
 }
 
 // Queries db for spots list from lot_id
