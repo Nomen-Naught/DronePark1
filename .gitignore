@@ -75,3 +75,6 @@ DronePark1/DronePark1/DronePark1.vcxproj.user
 DronePark1/.vs/DronePark1/v14/.suo
 DronePark1/DronePark1.sln
 DronePark1/DronePark1.VC.opendb
+
+# ImageMagick Library
+DronePark1/ImageMagick/*
