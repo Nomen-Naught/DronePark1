@@ -14,9 +14,9 @@ public:
 	~ImageProcessor();
 
 private:
-	QImage enhanceImage(QImage preImage);
-
 	QZXing decoder;
+
+	QImage* enhanceImage(QImage* preImage);
 
 	Magick::Image* toImage(QImage *qImage);
 	QImage* toQImage(Magick::Image *mImage);

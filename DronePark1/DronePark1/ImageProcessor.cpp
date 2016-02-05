@@ -7,29 +7,29 @@ ImageProcessor::ImageProcessor()
 
 QString ImageProcessor::getQRCode(QImage *image)
 {
-	QTime timer;
+	QString code = decoder.decodeImage(*image);
 
-	timer.start();
-	Magick::Image *mImage = toImage(image);
-	int ms = timer.elapsed();
-	qDebug() << "Convert to Image took " << ms << " milliseconds";
-	
-	timer.restart();
-	mImage->sharpen(2.0, 1.0);
-	ms = timer.elapsed();
-	qDebug() << "Sharpen took " << ms << " milliseconds";
+	// Try sharpening if the first try doesn't find a QR code
+	if (code.length() <= 1)
+	{
+		qDebug() << "No QR code found. Attempting to improve image...";
+		QImage *newImage = enhanceImage(image);
+		code = decoder.decodeImage(*newImage);
 
-	timer.restart();
-	QImage *newImage = toQImage(mImage);
-	ms = timer.elapsed();
-	qDebug() << "Convert to QImage took " << ms << " milliseconds";
-
-	timer.restart();
-	QString code = decoder.decodeImage(*newImage);
-	ms = timer.elapsed();
-	qDebug() << "QR decode took " << ms << " milliseconds";
+		delete newImage;
+	}
 
 	return code;
+}
+
+QImage* ImageProcessor::enhanceImage(QImage* preImage)
+{
+	Magick::Image *mImage = toImage(preImage);
+
+	mImage->sharpen(2.0, 1.0);
+	QImage *newImage = toQImage(mImage);
+
+	return newImage;
 }
 
 QImage* ImageProcessor::toQImage(Magick::Image *mImage)
