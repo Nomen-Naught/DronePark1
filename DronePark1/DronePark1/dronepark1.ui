@@ -68,7 +68,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="startSweepButton">
+   <widget class="StartSweepButton" name="startSweepButton">
     <property name="geometry">
      <rect>
       <x>450</x>
@@ -103,6 +103,13 @@
   <widget class="QStatusBar" name="statusBar"/>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>StartSweepButton</class>
+   <extends>QPushButton</extends>
+   <header>StartSweepButton.h</header>
+  </customwidget>
+ </customwidgets>
  <resources>
   <include location="dronepark1.qrc"/>
  </resources>

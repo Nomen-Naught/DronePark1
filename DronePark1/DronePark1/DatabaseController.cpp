@@ -3,10 +3,6 @@
 #include <QMessageBox>
 #include <string>
 
-#include <QString>
-#include <QDateTime>
-#include <QDebug>
-
 #define UID "nicholas"
 #define PWD "nicholas"
 #define DSN "DronePark_MySQL"
@@ -62,7 +58,7 @@ int DatabaseController::connectToDb(QString connectionString)
 		db->rlogon(logon); // connect to ODBC
 
 		//TEST Generate a completely new schema and tables
-		tester.generateDB(db);
+		//tester.generateDB(db);
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	
@@ -158,11 +154,6 @@ int DatabaseController::queryConfig(int id, Config** config)
 	}
 
 	*config = newConfig;
-
-
-	//TESTING
-	Stub* testStub;
-	queryStub(1, &testStub);
 
 exit:
 	return rc;

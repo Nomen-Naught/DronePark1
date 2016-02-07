@@ -1,5 +1,6 @@
 #include "dronepark1.h"
 #include "SpotButton.h"
+#include "MainController.h"
 
 DronePark1::DronePark1(QWidget *parent)
 	: QMainWindow(parent)
@@ -10,6 +11,12 @@ DronePark1::DronePark1(QWidget *parent)
 DronePark1::~DronePark1()
 {
 
+}
+
+//Return the ui object. This is probably bad practice...
+Ui::DronePark1Class DronePark1::returnUI()
+{
+	return ui;
 }
 
 //Connect a new spot object to the gui and add a widget for it

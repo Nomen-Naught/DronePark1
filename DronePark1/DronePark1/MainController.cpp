@@ -1,6 +1,7 @@
 #include "MainController.h"
 #include "dronepark1.h"
 
+
 #define DEFAULT_CONFIG 1
 
 //TODO: Nick: implement beginDroneOperations
@@ -35,7 +36,6 @@ int DroneParkController::initiateDrone()
 	return RC_ERR;
 }
 
-//TODO: Nick: implement initialize
 //Initialize all controllers and models needed to start and display the first
 //screen.
 int DroneParkController::initialize(DronePark1* gui)
@@ -49,12 +49,12 @@ int DroneParkController::initialize(DronePark1* gui)
 	// Allocate and set databaseController, deallocated in destructor hopefully
 	databaseController = new DatabaseController();
 
-	//connectToDb is currently a placeholder btw
-	rc = databaseController->connectToDb("Test");
+	// Connect to the database (This doesn't really need an argument, it does nothing
+	rc |= databaseController->connectToDb("Test");
 	DP_ASSERT(rc, "databaseController->connectToDb");
 
 	//Load the default config
-	rc = loadConfig(DEFAULT_CONFIG);
+	rc |= loadConfig(DEFAULT_CONFIG);
 	DP_ASSERT(rc, "loadConfig");
 
 	//We need to hook up our Spots with our database observers and the gui
@@ -75,9 +75,10 @@ int DroneParkController::initialize(DronePark1* gui)
 		gui->connectNewSpot(*iterator);
 	}
 
-	//Create sweepController object
-	//sweepController = SweepController();
-	//^^ above needs to be initialized (maybe? this is just supposed to be enough for first page)
+	//Connect the startSweep button to this controller's handler.
+	//For whatever reason, I have to do it like this, can't pass a 'this' pointer to the gui
+	QObject::connect(gui->returnUI().startSweepButton, SIGNAL(startSweep()),
+					 this, SLOT(startSweepButtonSlot()));
 
 	return rc;
 }
@@ -144,6 +145,10 @@ int DroneParkController::updateConfig_DisableSchedule()
 	return RC_ERR;
 }
 
+//DroneParkController constructor
+DroneParkController::DroneParkController()
+{
+}
 
 //DroneParkController destructor
 DroneParkController::~DroneParkController()
@@ -160,6 +165,39 @@ DroneParkController::~DroneParkController()
 	{
 		delete currentConfig;
 	}
+}
+
+// Click handler for startSweepButton
+void DroneParkController::startSweepButtonSlot()
+{
+	//Declarations
+	int rc = RC_OK;
+
+	// Create controllers if we need to
+	if (sweepController == NULL)
+	{
+		// Create sweep controller, should create all other controllers
+		sweepController = new SweepController();
+	}
+
+	// Call initialize drone, should handle everything, if already initialzed, should be a no-op
+	rc |= sweepController->initializeDrone();
+	DP_ASSERT(rc, "sweepController->initializeDrone");
+
+	if (currentConfig->getCurrentLot() == NULL)
+	{
+		//TODO: startSweep: Handle when there's no lot loaded!!!
+		goto exit;
+	}
+
+	//Start the sweep
+	rc |= sweepController->initiateSweep(currentConfig->getCurrentLot());
+
+exit:
+
+	DP_ASSERT(rc, "sweepController->initializeDrone exit");
+
+	return;
 }
 
 //TODO: Nick: implement emergencyShutDown
@@ -186,7 +224,7 @@ int SweepController::initiateSchedule(Schedule schedule, Lot lot)
 
 //TODO: Nick: implement initiateSweep
 //Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
-int SweepController::initiateSweep(Lot lot)
+int SweepController::initiateSweep(Lot* lot)
 {
 	return RC_ERR;
 }
@@ -195,7 +233,8 @@ int SweepController::initiateSweep(Lot lot)
 //Initializes the controllers and the connection to the camera and the drone
 int SweepController::initializeDrone()
 {
-	return RC_ERR;
+	//CURRENTLY A STUB, NEEDS TO BE FINISHED
+	return RC_OK;
 }
 
 //TODO: Nick: implement advanceSpot
@@ -210,4 +249,50 @@ int SweepController::advanceSpot()
 int SweepController::updateSpot(bool decision)
 {
 	return RC_ERR;
+}
+
+SweepController::SweepController()
+{
+	//A controller object which handles all communications with the physical drone
+	droneComms = new FlightCommsController();
+
+	//A controller object which handles the actual flight of the drone.
+	dronePilot = new FlightController();
+
+	//A controller object which handles all communications with the physical camera.
+	imageComms = new ImageCommsController();
+
+	//A controller object which handles all the image analysis.
+	imageProcessor = new ImageProcessController;
+
+	//A controller object which handles the decision of validity of the spot.
+	stubDecider = new DecideSpotController();
+}
+
+SweepController::~SweepController()
+{
+	if (droneComms != NULL)
+	{
+		delete droneComms;
+	}
+
+	if (dronePilot != NULL)
+	{
+		delete dronePilot;
+	}
+
+	if (imageComms != NULL)
+	{
+		delete imageComms;
+	}
+
+	if (imageProcessor != NULL)
+	{
+		delete imageProcessor;
+	}
+
+	if (stubDecider != NULL)
+	{
+		delete stubDecider;
+	}
 }

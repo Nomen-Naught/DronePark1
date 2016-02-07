@@ -6,27 +6,28 @@
 #include "ImageController.h"
 #include "DronePilot.h"
 #include "dronepark1.h"
+#include <QObject>
 
 class SweepController
 {
 private:
 	//The current spot under review
-	Spot currentSpot;
+	Spot* currentSpot;
 
 	//A controller object which handles all communications with the physical drone
-	FlightCommsController droneComms;
+	FlightCommsController* droneComms;
 
 	//A controller object which handles the actual flight of the drone.
-	FlightController dronePilot;
+	FlightController* dronePilot;
 
 	//A controller object which handles all communications with the physical camera.
-	ImageCommsController imageComms;
+	ImageCommsController* imageComms;
 
 	//A controller object which handles all the image analysis.
-	ImageProcessController imageProcessor;
+	ImageProcessController* imageProcessor;
 
 	//A controller object which handles the decision of validity of the spot.
-	DecideSpotController stubDecider;
+	DecideSpotController* stubDecider;
 
 	//Change currentSpot to the next spot to be examined.
 	int advanceSpot();
@@ -35,6 +36,9 @@ private:
 	int updateSpot(bool decision);
 
 public:
+
+	SweepController();
+	~SweepController();
 
 	//Stops all current operations and shuts down the physical drone.
 	int emergencyShutDown();
@@ -47,15 +51,17 @@ public:
 	int initiateSchedule(Schedule schedule, Lot lot);
 
 	//Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
-	int initiateSweep(Lot lot);
+	int initiateSweep(Lot* lot);
 
 	//Initializes the controllers and the connection to the camera and the drone
 	int initializeDrone();
 
 };
 
-class DroneParkController
+class DroneParkController : public QObject
 {
+	Q_OBJECT
+
 public :
 	//The currently loaded configuration for the session
 	Config* currentConfig;
@@ -63,13 +69,14 @@ private:
 
 
 	//controls the Drone and all processing associated with it.
-	SweepController sweepController;
+	SweepController* sweepController;
 
 	//Deviation from design, adding DatabaseController
 	DatabaseController* databaseController;
 
 public:
 
+	DroneParkController();
 	~DroneParkController();
 
 	//Begins automated drone operations based on currentConfig.
@@ -117,6 +124,10 @@ public:
 	//Sets the currentConfig’s useSchedule member to false.End the
 	//sweepControl’s scheduled mode
 	int updateConfig_DisableSchedule();
+
+	public slots:
+	// Slot for startSweepButton slot
+	void startSweepButtonSlot();
 
 };
 
