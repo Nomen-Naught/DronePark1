@@ -1,8 +1,9 @@
 #pragma once
 #include <QtWidgets/QPushButton>
+#include <QToolButton>
 #include "ParkingLot.h"
 
-class SpotButton : public QPushButton
+class SpotButton : public QToolButton
 {
 	Q_OBJECT
 

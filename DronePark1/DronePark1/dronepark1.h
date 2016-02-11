@@ -7,6 +7,7 @@
 #include "ParkingLotLayout.h"
 #include <QPixmap>
 #include <QIcon>
+#include <QImage>
 
 class DronePark1 : public QMainWindow
 {
@@ -30,10 +31,6 @@ private:
 
 	// Custom grid layout for drawing parking spots
 	ParkingLotLayout* lotGridLayout;
-
-	// Holds image for spots
-	QPixmap spotPixMap;
-	QIcon* spotIcon;
 
 };
 

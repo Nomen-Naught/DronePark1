@@ -103,7 +103,7 @@ public:
 				"`lot_name`,"
 				"`city`)"
 				"VALUES"
-				"( 6, 3, 2, 'ImPark', 'London'),"
+				"( 6, 5, 4, 'ImPark', 'London'),"
 				"( 10, 2, 5, 'Rogers Center', 'Toronto');"
 				);  // insert some rows
 
@@ -142,6 +142,8 @@ public:
 				"`state`)"
 				"VALUES"
 				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL),"
+				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL),"
+				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL),"
 				"(2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL)"
 				);  // insert some rows
 

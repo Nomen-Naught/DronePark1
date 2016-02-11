@@ -4,6 +4,7 @@
 #define MY_GRID_LAYOUT_H
 #endif
 #include "ParkingLot.h"
+#include "SpotButton.h"
 
 class ParkingLotLayout : public QGridLayout
 {
@@ -13,10 +14,17 @@ public:
 	ParkingLotLayout(int _row, int _col, QWidget *parent = 0);
 	~ParkingLotLayout();
 
-	void add_widget(QWidget* p_widget);
+	void add_spot(SpotButton* spotButton);
 
 private:
 	int row;
 	int col;
+
+	// Holds image for spots
+	QImage spotImage;
+	QPixmap spotPixMap;
+	QPixmap spotPixMap_mirror;
+	QIcon* spotIcon;
+	QIcon* spotIcon_mirror;
 
 };

@@ -2,10 +2,12 @@
 #include <QMessageBox>
 
 SpotButton::SpotButton(QWidget *parent)
-	: QPushButton(parent)
+	: QToolButton(parent)
 {
 	currentTicketed = false;
 	currentEmpty = false;
+
+	setToolButtonStyle(Qt::ToolButtonTextUnderIcon);
 
 	//Connect our own clicked signal to our own click handler
 	QObject::connect(this, SIGNAL(clicked()), this, SLOT(handleClick()));

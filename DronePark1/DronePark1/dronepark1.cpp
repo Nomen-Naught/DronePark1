@@ -7,10 +7,6 @@ DronePark1::DronePark1(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
-
-	spotPixMap.load("parkingSpot.png");
-	spotPixMap = spotPixMap.scaled(QSize(100, 200), Qt::KeepAspectRatio);
-	spotIcon = new QIcon(spotPixMap);
 }
 
 DronePark1::~DronePark1()
@@ -42,12 +38,8 @@ void DronePark1::connectNewSpot(Spot* spot)
 	//Associate the spot with the widget
 	spotButton->setSpot(spot);
 
-	spotButton->setIcon(*spotIcon);
-	spotButton->setIconSize(spotPixMap.rect().size());
-	spotButton->setFixedSize(QSize(spotPixMap.rect().width() * (2.2), spotPixMap.rect().height() * (1.4)));
-
 	//Add the new widget to the layout
-	lotGridLayout->add_widget(spotButton);
+	lotGridLayout->add_spot(spotButton);
 
 	//Connect the widget to the passed in spot object
 	QObject::connect(spot, SIGNAL(spotTicketedChanged(int, bool)),
