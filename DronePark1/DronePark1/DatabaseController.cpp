@@ -169,6 +169,8 @@ int DatabaseController::queryLot(int id, Lot** lot)
 	int lot_id;
 	char create_date[50];
 	int num_spots;
+	int row;
+	int col;
 	char lot_name[20];
 	char city[20];
 
@@ -188,7 +190,7 @@ int DatabaseController::queryLot(int id, Lot** lot)
 
 		//Loop through results
 		for (auto& it : j) {
-			otl_read_row(it, lot_id, num_spots, lot_name, city);
+			otl_read_row(it, lot_id, num_spots, row, col, lot_name, city);
 		}
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
@@ -198,7 +200,7 @@ int DatabaseController::queryLot(int id, Lot** lot)
 	}
 
 	// We have enough data to construct the Lot object
-	newLot = new Lot();
+	newLot = new Lot(row, col);
 	newLot->setId(lot_id);
 
 	*lot = newLot;

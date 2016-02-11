@@ -1,11 +1,16 @@
 #include "dronepark1.h"
 #include "SpotButton.h"
 #include "MainController.h"
+#include "ParkingLot.h"
 
 DronePark1::DronePark1(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
+
+	spotPixMap.load("parkingSpot.png");
+	spotPixMap = spotPixMap.scaled(QSize(100, 200), Qt::KeepAspectRatio);
+	spotIcon = new QIcon(spotPixMap);
 }
 
 DronePark1::~DronePark1()
@@ -19,6 +24,15 @@ Ui::DronePark1Class DronePark1::returnUI()
 	return ui;
 }
 
+int DronePark1::buildLotGui(Lot* lot)
+{
+	lotGridLayout = new ParkingLotLayout(lot->getRow(), lot->getCol());
+
+	ui.parkingLotLayout->addLayout(lotGridLayout);
+
+	return RC_OK;
+}
+
 //Connect a new spot object to the gui and add a widget for it
 void DronePark1::connectNewSpot(Spot* spot)
 {
@@ -28,8 +42,12 @@ void DronePark1::connectNewSpot(Spot* spot)
 	//Associate the spot with the widget
 	spotButton->setSpot(spot);
 
+	spotButton->setIcon(*spotIcon);
+	spotButton->setIconSize(spotPixMap.rect().size());
+	spotButton->setFixedSize(QSize(spotPixMap.rect().width() * (2.2), spotPixMap.rect().height() * (1.4)));
+
 	//Add the new widget to the layout
-	ui.verticalLayout_2->addWidget(spotButton);
+	lotGridLayout->add_widget(spotButton);
 
 	//Connect the widget to the passed in spot object
 	QObject::connect(spot, SIGNAL(spotTicketedChanged(int, bool)),

@@ -54,9 +54,10 @@ int Spot::setEmpty(bool _empty)
 
 //TODO: Nick: Lot Constructor maybe should do something?
 // Constructor, should call DbObject constructor
-Lot::Lot() : DbObject()
+Lot::Lot(int _row, int _col) : DbObject()
 {
-
+	row = _row;
+	col = _col;
 }
 
 
@@ -71,4 +72,16 @@ int Lot::setSpots(std::list<Spot*>* _spots)
 {
 	spots = _spots;
 	return RC_OK;
+}
+
+// gets column count
+int Lot::getCol()
+{
+	return col;
+}
+
+// gets row count
+int Lot::getRow()
+{
+	return row;
 }

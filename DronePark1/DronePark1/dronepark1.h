@@ -4,6 +4,9 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_dronepark1.h"
 #include "ParkingLot.h"
+#include "ParkingLotLayout.h"
+#include <QPixmap>
+#include <QIcon>
 
 class DronePark1 : public QMainWindow
 {
@@ -13,6 +16,9 @@ public:
 	DronePark1(QWidget *parent = 0);
 	~DronePark1();
 
+
+	int buildLotGui(Lot* lot);
+
 	//Connect a new spot object to the gui and add a widget for it
 	void connectNewSpot(Spot* spot);
 
@@ -21,6 +27,14 @@ public:
 
 private:
 	Ui::DronePark1Class ui;
+
+	// Custom grid layout for drawing parking spots
+	ParkingLotLayout* lotGridLayout;
+
+	// Holds image for spots
+	QPixmap spotPixMap;
+	QIcon* spotIcon;
+
 };
 
 #endif // DRONEPARK1_H

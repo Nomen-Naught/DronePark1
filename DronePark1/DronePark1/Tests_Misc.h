@@ -9,7 +9,7 @@ public:
 	//Generates a Lot with spots in it
 	Lot* generateLot()
 	{
-		Lot* _lot = new Lot();
+		Lot* _lot = new Lot(3, 3);
 		std::list<Spot*>* spots = new std::list<Spot*>;
 
 		for (int i = 0; i < 5; i++)
@@ -84,6 +84,8 @@ public:
 				"CREATE TABLE `Lot` ("
 				"  `lot_id` int(11) NOT NULL AUTO_INCREMENT,"
 				"  `num_spots` int(11) DEFAULT NULL,"
+				"  `row` int(11) DEFAULT NULL,"
+				"  `col` int(11) DEFAULT NULL,"
 				"  `lot_name` varchar(20) DEFAULT NULL,"
 				"  `city` varchar(20) DEFAULT NULL,"
 				"  PRIMARY KEY (`lot_id`),"
@@ -96,11 +98,13 @@ public:
 				*db,
 				"INSERT INTO `DRONEPARK`.`Lot`"
 				"(`num_spots`,"
+				"`row`,"
+				"`col`,"
 				"`lot_name`,"
 				"`city`)"
 				"VALUES"
-				"( 6, 'ImPark', 'London'),"
-				"( 10, 'Rogers Center', 'Toronto');"
+				"( 6, 3, 2, 'ImPark', 'London'),"
+				"( 10, 2, 5, 'Rogers Center', 'Toronto');"
 				);  // insert some rows
 
 		//Spot Table
@@ -137,7 +141,8 @@ public:
 				"`is_ticketed`,"
 				"`state`)"
 				"VALUES"
-				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL);"
+				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL),"
+				"(2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL)"
 				);  // insert some rows
 
 		// Stub table

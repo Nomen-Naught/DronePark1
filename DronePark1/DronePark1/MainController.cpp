@@ -1,7 +1,6 @@
 #include "MainController.h"
 #include "dronepark1.h"
 
-
 #define DEFAULT_CONFIG 1
 
 //TODO: Nick: implement beginDroneOperations
@@ -56,6 +55,9 @@ int DroneParkController::initialize(DronePark1* gui)
 	//Load the default config
 	rc |= loadConfig(DEFAULT_CONFIG);
 	DP_ASSERT(rc, "loadConfig");
+
+	//Start populating the gui with the lot
+	gui->buildLotGui(currentConfig->getCurrentLot());
 
 	//We need to hook up our Spots with our database observers and the gui
 	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
@@ -257,7 +259,7 @@ SweepController::SweepController()
 	droneComms = new FlightCommsController();
 
 	//A controller object which handles the actual flight of the drone.
-	dronePilot = new FlightController();
+	//dronePilot = new FlightController();
 
 	//A controller object which handles all communications with the physical camera.
 	imageComms = new ImageCommsController();

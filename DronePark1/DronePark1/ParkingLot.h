@@ -40,18 +40,26 @@ signals:
 class Lot : public DbObject
 {
 private:
-	// List of spots held in the lot
+	// List of spots held in the lot, searlized, organization will be determined by column and row count
 	std::list<Spot*>* spots;
+
+	//Column and row count
+	int col;
+	int row;
 
 public:
 
 	// Constructor, should call DbObject constructor
-	Lot();
+	Lot(int, int);
 
 	// Returns the Spot list
 	std::list<Spot*>* getSpots();
 
 	// Sets the spot list, returns RC
 	int setSpots(std::list<Spot*>* _spots);
+
+	//getters
+	int getCol();
+	int getRow();
 };
 
