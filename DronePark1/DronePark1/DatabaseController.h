@@ -88,5 +88,6 @@ public:
 public slots:
 	void updateSpotTicketed(int id, bool ticketed);
 	void updateSpotEmpty(int id, bool empty);
+	void updateSpotIllegal(int id, bool illegal);
 
 };

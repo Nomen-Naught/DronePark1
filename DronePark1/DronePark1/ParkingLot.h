@@ -14,10 +14,13 @@ private:
 	// Boolean flag set if a vehicle has received a ticket
 	bool ticketed;
 
+	// Boolean flag set if vehicle is parked illegaly
+	bool illegal;
+
 public:
 	// Constructor, should call DbObject constructor
 	Spot();
-	Spot(int, int, int);
+	Spot(int, int, int, int);
 
 	// Returns the ticketed flag
 	bool getTicketed();
@@ -25,15 +28,22 @@ public:
 	// Returns the empty flag
 	bool getEmpty();
 
+	// Returns the illegal flag
+	bool getIllegal();
+
 	// Sets the Ticketed flag, returns RC
 	int setTicketed(bool _ticketed);
 
 	// Sets the Empty flag, returns RC
 	int setEmpty(bool _empty);
 
+	// Sets the illegal flag
+	int setIllegal(bool _illegal);
+
 signals:
 	void spotTicketedChanged(int id, bool newValue);
 	void spotEmptyChanged(int id, bool newValue);
+	void spotIllegalChanged(int id, bool newValue);
 
 };
 
@@ -47,10 +57,13 @@ private:
 	int col;
 	int row;
 
+	QString name;
+	QString city;
+
 public:
 
 	// Constructor, should call DbObject constructor
-	Lot(int, int);
+	Lot(int, int, QString _name, QString _city);
 
 	// Returns the Spot list
 	std::list<Spot*>* getSpots();
@@ -61,5 +74,7 @@ public:
 	//getters
 	int getCol();
 	int getRow();
+	QString getName();
+	QString getCity();
 };
 

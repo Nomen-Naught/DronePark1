@@ -9,7 +9,7 @@ public:
 	//Generates a Lot with spots in it
 	Lot* generateLot()
 	{
-		Lot* _lot = new Lot(3, 3);
+		Lot* _lot = new Lot(3, 3, "test", "test");
 		std::list<Spot*>* spots = new std::list<Spot*>;
 
 		for (int i = 0; i < 5; i++)
@@ -123,6 +123,7 @@ public:
 				"  `lot_id` int(11) NOT NULL,"
 				"  `stub_id` int(11) DEFAULT NULL,"
 				"  `is_empty` int(11) NOT NULL DEFAULT '0' COMMENT 'No bool in MySQL, 0 means is_ticketed = false, 1 means is_ticketed = true',"
+				"  `is_illegal` int(11) NOT NULL DEFAULT '0' COMMENT 'No bool in MySQL, 0 means is_ticketed = false, 1 means is_ticketed = true',"
 				"  `is_ticketed` int(11) NOT NULL DEFAULT '0' COMMENT 'No bool in MySQL, 0 means is_ticketed = false, 1 means is_ticketed = true',"
 				"  `state` int(11) DEFAULT NULL,"
 				"  PRIMARY KEY (`spot_id`),"
@@ -138,13 +139,14 @@ public:
 				"(`lot_id`,"
 				"`stub_id`,"
 				"`is_empty`,"
+				"`is_illegal`,"
 				"`is_ticketed`,"
 				"`state`)"
 				"VALUES"
-				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL),"
-				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL),"
-				"(1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 0, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL), (1, NULL, 1, 0, NULL),"
-				"(2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 0, 0, NULL), (2, NULL, 1, 0, NULL), (2, NULL, 1, 0, NULL)"
+				"(1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL),"
+				"(1, NULL, 1, 1, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL),"
+				"(1, NULL, 1, 1, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL),"
+				"(2, NULL, 1, 1, 0, NULL), (2, NULL, 0, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 0, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 1, 0, 1, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 0, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL)"
 				);  // insert some rows
 
 		// Stub table

@@ -200,7 +200,7 @@ int DatabaseController::queryLot(int id, Lot** lot)
 	}
 
 	// We have enough data to construct the Lot object
-	newLot = new Lot(row, col);
+	newLot = new Lot(row, col, lot_name, city);
 	newLot->setId(lot_id);
 
 	*lot = newLot;
@@ -279,6 +279,7 @@ int DatabaseController::querySpots(int _lot_id, std::list<Spot*>** spots)
 	int stub_id;
 	int lot_id;
 	int is_empty;
+	int is_illegal;
 	int is_ticketed;
 	int state;
 
@@ -300,8 +301,8 @@ int DatabaseController::querySpots(int _lot_id, std::list<Spot*>** spots)
 
 		//Loop through results
 		for (auto& it : k) {
-			otl_read_row(it, spot_id, lot_id, stub_id, is_empty, is_ticketed, state);
-			newSpots->push_front(new Spot(spot_id, is_empty, is_ticketed));
+			otl_read_row(it, spot_id, lot_id, stub_id, is_empty, is_illegal, is_ticketed, state);
+			newSpots->push_front(new Spot(spot_id, is_empty, is_ticketed, is_illegal));
 		}
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
@@ -408,6 +409,13 @@ void DatabaseController::updateSpotTicketed(int id, bool ticketed)
 exit:
 	return;
 	//return rc;
+
+}
+
+//TODO: Implement updateSpotIllegal
+//Slot for updating a spot object
+void DatabaseController::updateSpotIllegal(int id, bool illegal)
+{
 
 }
 

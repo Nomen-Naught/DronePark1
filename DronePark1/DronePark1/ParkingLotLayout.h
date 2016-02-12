@@ -20,11 +20,6 @@ private:
 	int row;
 	int col;
 
-	// Holds image for spots
-	QImage spotImage;
-	QPixmap spotPixMap;
-	QPixmap spotPixMap_mirror;
-	QIcon* spotIcon;
-	QIcon* spotIcon_mirror;
+	QSize* iconSize;
 
 };

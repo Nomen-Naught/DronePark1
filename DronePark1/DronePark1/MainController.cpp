@@ -71,7 +71,11 @@ int DroneParkController::initialize(DronePark1* gui)
 
 		//Hook up empty field to database writer
 		QObject::connect(*iterator, SIGNAL(spotEmptyChanged(int, bool)),
-			databaseController, SLOT(updateSpotEmpty(int, bool)));
+						 databaseController, SLOT(updateSpotEmpty(int, bool)));
+
+		//Hook up illegal field to database writer
+		QObject::connect(*iterator, SIGNAL(spotIllegalChanged(int, bool)),
+						 databaseController, SLOT(updateSpotIllegal(int, bool)));
 
 		//Connect fields with gui
 		gui->connectNewSpot(*iterator);

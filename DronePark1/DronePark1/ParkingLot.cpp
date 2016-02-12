@@ -7,11 +7,12 @@ Spot::Spot() : DbObject()
 	ticketed = false;
 }
 
-Spot::Spot(int _spot_id, int _empty, int _is_ticketed ) : DbObject()
+Spot::Spot(int _spot_id, int _empty, int _is_ticketed, int _illegal ) : DbObject()
 {
 	id = _spot_id;
 	empty = _empty;
 	ticketed = _is_ticketed;
+	illegal = _illegal;
 }
 
 // Returns the ticketed flag
@@ -25,6 +26,13 @@ bool Spot::getEmpty()
 {
 	return empty;
 }
+
+// Returns the illegal flag
+bool Spot::getIllegal()
+{
+	return illegal;
+}
+
 
 // Sets the Ticketed flag, returns RC
 int Spot::setTicketed(bool _ticketed)
@@ -52,12 +60,26 @@ int Spot::setEmpty(bool _empty)
 	return RC_OK;
 }
 
+// Sets the Illegal flag, returns RC
+int Spot::setIllegal(bool _illegal)
+{
+	if (illegal != _illegal)
+	{
+		illegal = _illegal;
+		//Emit Qt signal to update listeners
+		emit spotIllegalChanged(id, _illegal);
+	}
+	return RC_OK;
+}
+
 //TODO: Nick: Lot Constructor maybe should do something?
 // Constructor, should call DbObject constructor
-Lot::Lot(int _row, int _col) : DbObject()
+Lot::Lot(int _row, int _col, QString _name, QString _city) : DbObject()
 {
 	row = _row;
 	col = _col;
+	name = _name;
+	city = _city;
 }
 
 
@@ -84,4 +106,16 @@ int Lot::getCol()
 int Lot::getRow()
 {
 	return row;
+}
+
+// gets row count
+QString Lot::getName()
+{
+	return name;
+}
+
+// gets row count
+QString Lot::getCity()
+{
+	return city;
 }
