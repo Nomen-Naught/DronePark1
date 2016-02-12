@@ -22,6 +22,10 @@ private:
 	Lot currentLot;
 
 public:
+
+	FlightController();
+	~FlightController();
+
 	//Initiates the drone flightpath
 	int asyncStartFlight();
 

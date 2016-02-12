@@ -1,6 +1,18 @@
 #include "DronePilot.h"
 #include "ReturnCodes.h"
 
+//FlightController constructor
+FlightController::FlightController()
+{
+
+}
+
+//FlightController destructor
+FlightController::~FlightController()
+{
+
+}
+
 //Initiates the drone flightpath
 int FlightController::asyncStartFlight()
 {

@@ -62,6 +62,10 @@ private:
 
 public:
 
+	//Default constructor and destructor
+	Lot();
+	~Lot();
+
 	// Constructor, should call DbObject constructor
 	Lot(int, int, QString _name, QString _city);
 

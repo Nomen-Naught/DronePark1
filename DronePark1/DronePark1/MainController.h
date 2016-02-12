@@ -102,9 +102,6 @@ public:
 	//Queries the database with an id and loads a new configuration.
 	int loadConfig(int id);
 
-	//Sets the Spot object’s member “ticketed” to true.
-	int ticketIssued(Spot spot);
-
 	//Sets the currentConfig’s currentLot to the Lot passed in.
 	int updateConfig_Lot(Lot newlot);
 

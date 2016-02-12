@@ -72,7 +72,24 @@ int Spot::setIllegal(bool _illegal)
 	return RC_OK;
 }
 
-//TODO: Nick: Lot Constructor maybe should do something?
+
+//Lot Constructor
+Lot::Lot()
+{
+
+}
+
+//Lot Destructor
+Lot::~Lot()
+{
+	//de-allocate spots if we got it
+	if (spots != NULL)
+	{
+		spots->clear();
+		delete spots;
+	}
+}
+
 // Constructor, should call DbObject constructor
 Lot::Lot(int _row, int _col, QString _name, QString _city) : DbObject()
 {

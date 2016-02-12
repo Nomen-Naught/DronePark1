@@ -100,12 +100,6 @@ int DroneParkController::loadConfig(int id)
 	return rc;
 }
 
-//TODO: Nick: implement ticketIssued
-//Sets the Spot object’s member “ticketed” to true.
-int DroneParkController::ticketIssued(Spot spot)
-{
-	return RC_ERR;
-}
 
 //TODO: Nick: implement updateConfig_Lot
 //Sets the currentConfig’s currentLot to the Lot passed in.
@@ -190,6 +184,7 @@ void DroneParkController::startSweepButtonSlot()
 	rc |= sweepController->initializeDrone();
 	DP_ASSERT(rc, "sweepController->initializeDrone");
 
+	//Check that we have a lot to sweep
 	if (currentConfig->getCurrentLot() == NULL)
 	{
 		//TODO: startSweep: Handle when there's no lot loaded!!!
@@ -263,13 +258,13 @@ SweepController::SweepController()
 	droneComms = new FlightCommsController();
 
 	//A controller object which handles the actual flight of the drone.
-	//dronePilot = new FlightController();
+	dronePilot = new FlightController();
 
 	//A controller object which handles all communications with the physical camera.
 	imageComms = new ImageCommsController();
 
 	//A controller object which handles all the image analysis.
-	imageProcessor = new ImageProcessController;
+	imageProcessor = new ImageProcessController();
 
 	//A controller object which handles the decision of validity of the spot.
 	stubDecider = new DecideSpotController();
