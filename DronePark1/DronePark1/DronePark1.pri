@@ -7,16 +7,38 @@
 message("You are running qmake on a generated .pro file. This may not work!")
 
 
-HEADERS += ./dronepark1.h \
-    ./ParkingLot.h \
-    ./SubjectObserver.h \
+HEADERS += ./otlv4.h \
     ./ReturnCodes.h \
+    ./Tests_Misc.h \
+    ./DBObject.h \
+    ./dronepark1.h \
+    ./Config.h \
     ./Model.h \
     ./ParkingStub.h \
-    ./Config.h \
     ./Schedule.h \
-    ./DatabaseController.h
+    ./DatabaseController.h \
+    ./ParkingLot.h \
+    ./Controllers.h \
+    ./DecideController.h \
+    ./DronePilot.h \
+    ./ImageController.h \
+    ./MainController.h \
+    ./ParkingLotLayout.h \
+    ./SpotButton.h \
+    ./StartSweepButton.h
 SOURCES += ./dronepark1.cpp \
-    ./main.cpp
+    ./main.cpp \
+    ./Config.cpp \
+    ./DatabaseController.cpp \
+    ./ParkingLot.cpp \
+    ./ParkingStub.cpp \
+    ./Schedule.cpp \
+    ./DecideController.cpp \
+    ./DronePilot.cpp \
+    ./ImageController.cpp \
+    ./MainController.cpp \
+    ./ParkingLotLayout.cpp \
+    ./SpotButton.cpp \
+    ./StartSweepButton.cpp
 FORMS += ./dronepark1.ui
 RESOURCES += dronepark1.qrc

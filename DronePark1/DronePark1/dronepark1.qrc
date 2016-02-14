@@ -1,5 +1,7 @@
 <RCC>
   <qresource prefix="DronePark1">
+    <file>parkingSpot_illegal.png</file>
+    <file>parkingSpot_occupied.png</file>
     <file>parkingSpot.png</file>
   </qresource>
 </RCC>

@@ -1,59 +1,41 @@
 #pragma once
-#include "SubjectObserver.h"
+#include "DBObject.h"
 #include "ReturnCodes.h"
 #include "ParkingLot.h"
 #include "Schedule.h"
 
-class Config : DbObject
+class Config : public DbObject
 {
 private:
 	// Holds the currently associated lot
-	Lot currentLot;
+	Lot* currentLot;
 
 	// Holds the currently associated schedule;
-	Schedule currentSchedule;
+	Schedule* currentSchedule;
 
 	// Flag indicating if Drone will automatically fly according to associated schedule
 	bool useSchedule;
 
 public:
+
+	Config();
+
 	// Returns currentLot
-	Lot getCurrentLot()
-	{
-		return currentLot;
-	}
+	Lot* getCurrentLot();
 
 	// Returns currentSchedule
-	Schedule getCurrentSchedule()
-	{
-		return currentSchedule;
-	}
+	Schedule* getCurrentSchedule();
 
 	// Returns useSchedule
-	bool getUseSchedule()
-	{
-		return useSchedule;
-	}
+	bool getUseSchedule();
 
 	// Sets currentLot and returns RC
-	int setCurrentLot(Lot _currentLot)
-	{
-		currentLot = _currentLot;
-		return RC_OK;
-	}
+	int setCurrentLot(Lot* _currentLot);
 
 	// Sets currentSchedule and returns RC
-	int setCurrentSchedule(Schedule _currentSchedule)
-	{
-		currentSchedule = _currentSchedule;
-		return RC_OK;
-	}
+	int setCurrentSchedule(Schedule* _currentSchedule);
 
 	// Sets useSchedule and returns RC
-	int setUseSchedule(bool _useSchedule)
-	{
-		useSchedule = _useSchedule;
-		return RC_OK;
-	}
+	int setUseSchedule(bool _useSchedule);
 	
 };
