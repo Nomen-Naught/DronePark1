@@ -7,10 +7,18 @@ TARGET = DronePark1
 DESTDIR = ../Win32/Debug
 QT += core widgets gui
 CONFIG += debug
-DEFINES += WIN64 QT_DLL QT_WIDGETS_LIB
-INCLUDEPATH += ./GeneratedFiles \
-    . \
-    ./GeneratedFiles/Debug
+DEFINES += _WINDOWS WIN64 QT_DLL QT_WIDGETS_LIB QT_OPENGL_ES_2 QT_OPENGL_ES_2_ANGLE CPPCONN_PUBLIC_FUNC=
+INCLUDEPATH += . \
+    ./GeneratedFiles \
+    ./GeneratedFiles/Debug \
+    ./GeneratedFiles/debug \
+    $(QTDIR)/mkspecs/win32-msvc2015 \
+    ./GeneratedFiles
+LIBS += -lshell32 \
+    -llibEGLd \
+    -llibGLESv2d \
+    -lgdi32 \
+    -luser32
 DEPENDPATH += .
 MOC_DIR += ./GeneratedFiles/debug
 OBJECTS_DIR += debug
