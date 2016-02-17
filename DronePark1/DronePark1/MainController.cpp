@@ -1,5 +1,6 @@
 #include "MainController.h"
 #include "dronepark1.h"
+#include "QMessageBox.h"
 
 #define DEFAULT_CONFIG 1
 
@@ -180,9 +181,12 @@ void DroneParkController::startSweepButtonSlot()
 		sweepController = new SweepController();
 	}
 
+	// NICK: Getting rid of this for now, current plan is to allow python to do everything related to drone stuff and C++ only
+	// hosts the python. C++ will handle threading as well, hopefully this works out!
+	//------------------------------------------------------------------------------------------------------------------------
 	// Call initialize drone, should handle everything, if already initialzed, should be a no-op
-	rc |= sweepController->initializeDrone();
-	DP_ASSERT(rc, "sweepController->initializeDrone");
+	//rc |= sweepController->initializeDrone();
+	//DP_ASSERT(rc, "sweepController->initializeDrone");
 
 	//Check that we have a lot to sweep
 	if (currentConfig->getCurrentLot() == NULL)
@@ -191,7 +195,7 @@ void DroneParkController::startSweepButtonSlot()
 		goto exit;
 	}
 
-	//Start the sweep
+	//Start the sweep, (2/16) this is gonna do everything!!!
 	rc |= sweepController->initiateSweep(currentConfig->getCurrentLot());
 
 exit:
@@ -223,19 +227,56 @@ int SweepController::initiateSchedule(Schedule schedule, Lot lot)
 	return RC_ERR;
 }
 
-//TODO: Nick: implement initiateSweep
 //Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
 int SweepController::initiateSweep(Lot* lot)
 {
-	return RC_ERR;
+
+	//A controller object which handles the actual flight of the drone.
+	if (dronePilot != NULL)
+	{
+		dronePilot = new FlightController();
+	}
+
+	//Not sure what we should do if a thread is already running, for now just goto exit
+	if (pilotWorkerThread.isRunning())
+	{
+		//Below is for debugging
+		emit fireSweep();
+
+		goto exit;
+	}
+
+	//Throw the drone pilot worker on a new thread
+	dronePilot->moveToThread(&pilotWorkerThread);
+
+	//Connect all signals and slots for the drone to operate-----------------------------------
+
+	//Not sure what this does, looks important though
+	connect(&pilotWorkerThread, &QThread::finished, dronePilot, &QObject::deleteLater);
+
+	//Connect the fireSweep signal of this controller to the workers start flight
+	connect(this, &SweepController::fireSweep, dronePilot, &FlightController::asyncStartFlight);
+
+	//Connect done signal THIS IS A DUMMY FOR DEBUGGING PURPOSES
+	connect(dronePilot, &FlightController::resultReady, this, &SweepController::handleResults);
+
+	//End drone signals------------------------------------------------------------------------
+
+	//Start the new thread
+	pilotWorkerThread.start();
+
+	//Emit the fireSweep to start the async flight task
+	emit fireSweep();
+
+exit:
+	return RC_OK;
 }
 
 //TODO: Nick: implement initializeDrone
 //Initializes the controllers and the connection to the camera and the drone
 int SweepController::initializeDrone()
 {
-	//CURRENTLY A STUB, NEEDS TO BE FINISHED
-	return RC_OK;
+	return RC_ERR;
 }
 
 //TODO: Nick: implement advanceSpot
@@ -252,13 +293,21 @@ int SweepController::updateSpot(bool decision)
 	return RC_ERR;
 }
 
+void SweepController::handleResults()
+{
+	//THIS IS A DUMMY FUNCTION
+	QMessageBox msgBox;
+	msgBox.setText("Back from the thread!");
+	msgBox.exec();
+	return;
+}
+
 SweepController::SweepController()
 {
 	//A controller object which handles all communications with the physical drone
 	droneComms = new FlightCommsController();
 
-	//A controller object which handles the actual flight of the drone.
-	dronePilot = new FlightController();
+
 
 	//A controller object which handles all communications with the physical camera.
 	imageComms = new ImageCommsController();
@@ -272,6 +321,7 @@ SweepController::SweepController()
 
 SweepController::~SweepController()
 {
+
 	if (droneComms != NULL)
 	{
 		delete droneComms;
@@ -279,6 +329,8 @@ SweepController::~SweepController()
 
 	if (dronePilot != NULL)
 	{
+		pilotWorkerThread.quit();
+		pilotWorkerThread.wait();
 		delete dronePilot;
 	}
 

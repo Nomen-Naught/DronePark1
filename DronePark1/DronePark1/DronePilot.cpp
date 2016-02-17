@@ -1,5 +1,12 @@
 #include "DronePilot.h"
 #include "ReturnCodes.h"
+#include <QThread>
+
+#undef _DEBUG
+#include "PythonQt.h"
+#define _DEBUG 1
+
+
 
 //FlightController constructor
 FlightController::FlightController()
@@ -14,9 +21,17 @@ FlightController::~FlightController()
 }
 
 //Initiates the drone flightpath
-int FlightController::asyncStartFlight()
+void FlightController::asyncStartFlight()
 {
-	return RC_ERR;
+
+	PythonQt::init();
+	PythonQtObjectPtr mainModule =
+		PythonQt::self()->getMainModule();
+//	QVariant result = mainModule.evalScript(mainModule, "19*2+4", Py_eval_input);
+
+	QThread::msleep(5000);
+	emit resultReady();
+	return;
 }
 
 //Creates a flightpath based on the current configuration

@@ -1,9 +1,13 @@
 #pragma once
 #include "Config.h"
 #include "ParkingLot.h"
+#include <QObject>
 
-class FlightController
+
+class FlightController : public QObject
 {
+	Q_OBJECT
+
 private:
 
 	//Placeholder representing connection object
@@ -26,9 +30,6 @@ public:
 	FlightController();
 	~FlightController();
 
-	//Initiates the drone flightpath
-	int asyncStartFlight();
-
 	//Creates a flightpath based on the current configuration
 	int setFlightPath(Config config);
 
@@ -40,6 +41,13 @@ public:
 
 	//Sets flight values to safely land the Drone
 	int emergencyStop();
+
+public slots:
+	//Initiates the drone flightpath
+	void asyncStartFlight();
+
+signals:
+	void resultReady();
 
 };
 

@@ -7,9 +7,13 @@
 #include "DronePilot.h"
 #include "dronepark1.h"
 #include <QObject>
+#include <QThread>
 
-class SweepController
+class SweepController : public QObject
 {
+	Q_OBJECT
+	QThread pilotWorkerThread;
+
 private:
 	//The current spot under review
 	Spot* currentSpot;
@@ -55,6 +59,13 @@ public:
 
 	//Initializes the controllers and the connection to the camera and the drone
 	int initializeDrone();
+
+public slots:
+	void handleResults();
+
+signals:
+	//Should initiate a sweep
+	void fireSweep();
 
 };
 
@@ -122,7 +133,7 @@ public:
 	//sweepControl’s scheduled mode
 	int updateConfig_DisableSchedule();
 
-	public slots:
+public slots:
 	// Slot for startSweepButton slot
 	void startSweepButtonSlot();
 
