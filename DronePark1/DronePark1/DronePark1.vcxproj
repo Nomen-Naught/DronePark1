@@ -56,7 +56,7 @@
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Debug;QZXing;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative;$(QTDIR)\include;$(QTDIR)\include\QtDeclarative;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript;$(QTDIR)\include\QtScript;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;GeneratedFiles\debug;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2015;.\GeneratedFiles;%(AdditionalIncludeDirectories);$(ProjectDir)ImageMagick\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;GeneratedFiles;.;GeneratedFiles\Debug;QZXing;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative;$(QTDIR)\include;$(QTDIR)\include\QtDeclarative;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include;C:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript;$(QTDIR)\include\QtScript;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;GeneratedFiles\debug;GeneratedFiles;$(QTDIR)\mkspecs\win32-msvc2015;.\GeneratedFiles;%(AdditionalIncludeDirectories);$(ProjectDir)ImageMagick\include;$(OPENCV_DIR)\build\include;</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -75,7 +75,7 @@
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;shell32.lib;$(QTDIR)\lib\Qt5Declaratived.lib;$(QTDIR)\lib\Qt5Scriptd.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;libEGLd.lib;libGLESv2d.lib;gdi32.lib;user32.lib;%(AdditionalDependencies);$(ProjectDir)ImageMagick\lib\*</AdditionalDependencies>
+      <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;shell32.lib;$(QTDIR)\lib\Qt5Declaratived.lib;$(QTDIR)\lib\Qt5Scriptd.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;libEGLd.lib;libGLESv2d.lib;gdi32.lib;user32.lib;%(AdditionalDependencies);$(ProjectDir)ImageMagick\lib\*;$(OPENCV_DIR)\build\x64\vc14\lib\*.lib</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(QTDIR)\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
@@ -94,6 +94,9 @@
     <ResourceCompile>
       <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;WIN64;QT_DLL;QT_WIDGETS_LIB;QZXING_LIBRARY;ZXING_ICONV_CONST;NO_ICONV;QT_DECLARATIVE_LIB;QT_SCRIPT_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_OPENGL_ES_2;QT_OPENGL_ES_2_ANGLE;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -162,6 +165,7 @@
     <ClCompile Include="GeneratedFiles\Release\moc_qzxing.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="ImageCapture.cpp" />
     <ClCompile Include="ImageProcessor.cpp" />
     <ClCompile Include="QZXing\zxing\common\Array.cpp" />
     <ClCompile Include="QZXing\zxing\aztec\decoder\AztecDecoder.cpp" />
@@ -255,9 +259,11 @@
     <ClCompile Include="QZXing\imagehandler.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="QZXing\qzxing.cpp" />
+    <ClCompile Include="VideoInput\videoInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_dronepark1.h" />
+    <ClInclude Include="ImageCapture.h" />
     <ClInclude Include="ImageProcessor.h" />
     <ClInclude Include="QZXing\zxing\qrcode\detector\AlignmentPattern.h" />
     <ClInclude Include="QZXing\zxing\qrcode\detector\AlignmentPatternFinder.h" />
@@ -357,12 +363,13 @@
     <ClInclude Include="QZXing\zxing\datamatrix\Version.h" />
     <ClInclude Include="QZXing\zxing\qrcode\Version.h" />
     <ClInclude Include="QZXing\zxing\common\detector\WhiteRectangleDetector.h" />
+    <ClInclude Include="VideoInput\videoInput.h" />
     <CustomBuild Include="dronepark1.h">
       <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
 if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
 endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I\$(INHERIT)\." "-I$(ProjectDir)ImageMagick\include"</Command>
+"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I\$(INHERIT)\." "-I$(ProjectDir)ImageMagick\include" "-I$(OPENCV_DIR)\build\include"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing dronepark1.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 if errorlevel 1 goto VCEnd
@@ -380,7 +387,7 @@ endlocal
 if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
 endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I\$(INHERIT)\." "-I$(ProjectDir)ImageMagick\include"</Command>
+"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I\$(INHERIT)\." "-I$(ProjectDir)ImageMagick\include" "-I$(OPENCV_DIR)\build\include"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing imagehandler.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 if errorlevel 1 goto VCEnd
@@ -398,7 +405,7 @@ endlocal
 if errorlevel 1 goto VCEnd
 if errorlevel 1 goto VCEnd
 endlocal
-"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I\$(INHERIT)\." "-I$(ProjectDir)ImageMagick\include"</Command>
+"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_SCRIPT_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE  "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I.\QZXing" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtquick1\include\QtDeclarative" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtDeclarative" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include" "-IC:\Qt\qt-everywhere-opensource-src-5.5.1\qtscript\include\QtScript" "-I$(QTDIR)\include\QtScript" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I\$(INHERIT)\." "-I$(ProjectDir)ImageMagick\include" "-I$(OPENCV_DIR)\build\include"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qzxing.h...</Message>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
 if errorlevel 1 goto VCEnd
