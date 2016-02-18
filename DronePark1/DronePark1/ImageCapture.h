@@ -14,11 +14,10 @@ class ImageCapture
 {
 public:
 	ImageCapture();
-	CvCapture* getCapture();
+	
+private:
 	CvCapture *capture;
 	IplImage *frame;
-private:
-	
 
 };
 

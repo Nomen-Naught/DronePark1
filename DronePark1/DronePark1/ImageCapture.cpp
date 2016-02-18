@@ -13,10 +13,9 @@ ImageCapture::ImageCapture()
 	int height = vi->getHeight(device);
 	int size = vi->getSize(device);
 
-	qDebug() << "Buffer size is" << size;
-
 	unsigned char * buffer = new unsigned char[size];
 
+	// TODO: remove this stuff from the constructor
 	// grab a few frames, otherwise this won't work
 	for (int i = 0; i < 5; i++)
 	{
@@ -27,15 +26,10 @@ ImageCapture::ImageCapture()
 		Sleep(500);
 	}
 
-	for (int i = 500000; i < 501000; i++)
-	{
-		qDebug() << buffer[i];
-	}
-
 	// The buffer is reversed, so image must go from bottom
-	//    to top and the byte order is now BGR
+	//  to top and the byte order is now BGR.
 	// Could reverse the whole array and proceed normally, but
-	//    that would take twice as long
+	//  that would take twice as long.
 	QImage frame(width, height, QImage::Format_RGB888);
 	for (int y = 0; y < height; y++)
 	{
@@ -48,14 +42,9 @@ ImageCapture::ImageCapture()
 	}
 	
 	bool rc = frame.save("C:/Users/Ben/Documents/frame.png");
+
 	if (!rc)
 		qDebug() << "Error saving file";
 
 	vi->stopDevice(device);
-}
-
-
-CvCapture* ImageCapture::getCapture()
-{
-	return capture;
 }
