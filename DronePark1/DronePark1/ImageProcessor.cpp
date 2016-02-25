@@ -1,11 +1,13 @@
 #include "ImageProcessor.h"
 
-ImageProcessor::ImageProcessor()
+ImageProcessor::ImageProcessor(QMutex* mutex)
 {
+	imageBufferMutex = mutex;
+
 	decoder.setDecoder(decoder.DecoderFormat_QR_CODE);
 }
 
-QString ImageProcessor::getQRCode(QImage *image)
+QString ImageProcessor::getQRCode(QImage* image)
 {
 	QString code = decoder.decodeImage(*image);
 
@@ -76,6 +78,15 @@ Magick::Image* ImageProcessor::toImage(QImage *qImage)
 	}
 
 	return mImage;
+}
+
+void ImageProcessor::handleImage(QImage* capturedImage)
+{
+	QString code = getQRCode(capturedImage);
+
+	emit qrCodeReady(code);
+
+	delete capturedImage;
 }
 
 ImageProcessor::~ImageProcessor()

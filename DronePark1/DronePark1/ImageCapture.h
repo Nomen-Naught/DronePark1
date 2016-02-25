@@ -8,17 +8,29 @@
 #include "qdebug.h"
 #include <fstream>
 #include <iostream>
+#include <qmutex.h>
+
 using std::ofstream;
 
-class ImageCapture
+class ImageCapture : public QObject
 {
-public:
-	ImageCapture();
-	
-private:
-	CvCapture *capture;
-	IplImage *frame;
+	Q_OBJECT
 
+public:
+	ImageCapture(QMutex* mutex);
+	void captureStart();
+
+public slots:
+
+signals:
+	void imageReady(QImage* capturedImage);
+
+private:
+	QMutex* imageBufferMutex;
+	CvCapture* capture;
+	IplImage* frame;
+
+	QImage* convertToQImage(int width, int height, unsigned char* buffer);
 };
 
 #endif // IMAGECAPTURE_H

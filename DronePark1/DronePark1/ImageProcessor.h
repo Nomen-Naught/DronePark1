@@ -3,18 +3,28 @@
 
 #include "QZXing.h"
 #include "Magick++.h"
+#include <qmutex.h>
 
-class ImageProcessor
+class ImageProcessor : public QObject
 {
+	Q_OBJECT
+
 public:
-	ImageProcessor();
+	ImageProcessor(QMutex* mutex);
 
 	QString getQRCode(QImage *image);
 
 	~ImageProcessor();
 
+public slots:
+	void handleImage(QImage* capturedImage);
+
+signals:
+	void qrCodeReady(QString code);
+
 private:
 	QZXing decoder;
+	QMutex* imageBufferMutex;
 
 	QImage* enhanceImage(QImage* preImage);
 
