@@ -7,7 +7,10 @@
 #include "DronePilot.h"
 #include "dronepark1.h"
 #include <QObject>
+#include "QMessageBox.h"
 #include <QThread>
+#include "ControlInterface.h"
+
 
 class SweepController : public QObject
 {
@@ -15,31 +18,31 @@ class SweepController : public QObject
 	QThread pilotWorkerThread;
 
 private:
+	//Controller* controller;
 	//The current spot under review
-	Spot* currentSpot;
+	//Spot* currentSpot;
 
 	//A controller object which handles all communications with the physical drone
-	FlightCommsController* droneComms;
+	//FlightCommsController* droneComms;
 
-	//A controller object which handles the actual flight of the drone.
-	FlightController* dronePilot;
+
 
 	//A controller object which handles all communications with the physical camera.
-	ImageCommsController* imageComms;
+	//ImageCommsController* imageComms;
 
 	//A controller object which handles all the image analysis.
-	ImageProcessController* imageProcessor;
+	//ImageProcessController* imageProcessor;
 
 	//A controller object which handles the decision of validity of the spot.
-	DecideSpotController* stubDecider;
-
-	//Change currentSpot to the next spot to be examined.
-	int advanceSpot();
+	//DecideSpotController* stubDecider;
 
 	//Update spot based of the return value sent from the DecideSpotController
 	int updateSpot(bool decision);
 
 public:
+
+	//A controller object which handles the actual flight of the drone.
+	FlightController* dronePilot;
 
 	SweepController();
 	~SweepController();
@@ -63,9 +66,15 @@ public:
 public slots:
 	void handleResults();
 
+	//Move to the next spot and start camera taking pictures again
+	void advanceSpot();
+
+	//The connection to the drone has failed
+	void connectionFail();
+
 signals:
 	//Should initiate a sweep
-	void fireSweep();
+	void fireSweep(ControlInterface*);
 
 };
 
@@ -136,6 +145,9 @@ public:
 public slots:
 	// Slot for startSweepButton slot
 	void startSweepButtonSlot();
+
+signals:
+	void test();
 
 };
 

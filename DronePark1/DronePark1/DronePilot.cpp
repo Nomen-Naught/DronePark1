@@ -1,12 +1,9 @@
 #include "DronePilot.h"
 #include "ReturnCodes.h"
 #include <QThread>
-
-#undef _DEBUG
 #include "PythonQt.h"
-#define _DEBUG 1
 
-
+class SweepController;
 
 //FlightController constructor
 FlightController::FlightController()
@@ -21,16 +18,20 @@ FlightController::~FlightController()
 }
 
 //Initiates the drone flightpath
-void FlightController::asyncStartFlight()
+void FlightController::asyncStartFlight(ControlInterface* contInt)
 {
+	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
+	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
+	PythonQtScriptingConsole* console = new PythonQtScriptingConsole(NULL, mainModule);
+	QVariant result = mainModule.evalScript("19*2+4", Py_eval_input);
 
-	PythonQt::init();
-	PythonQtObjectPtr mainModule =
-		PythonQt::self()->getMainModule();
-//	QVariant result = mainModule.evalScript(mainModule, "19*2+4", Py_eval_input);
+	mainModule.addObject("contInt", contInt);
 
-	QThread::msleep(5000);
-	emit resultReady();
+	// evaluate the python script which is defined in the resources
+	mainModule.evalFile(":/DronePark1/GettingStarted.py");
+
+	//console->appendCommandPrompt();
+	//console->show();
 	return;
 }
 
@@ -58,45 +59,3 @@ int FlightController::emergencyStop()
 	return RC_ERR;
 }
 
-//Opens the link to the drone
-int FlightCommsController::openLink()
-{
-	return RC_ERR;
-}
-
-//Scans for drones to connect with
-int FlightCommsController::scanInterface()
-{
-	return RC_ERR;
-}
-
-
-//Calls the operations needed to find and connect to the drone
-int FlightCommsController::connectToDrone()
-{
-	return RC_ERR;
-}
-
-//Placeholder for startup operations
-int FlightCommsController::init_drivers()
-{
-	return RC_ERR;
-}
-
-//Operation used to identify drone for connection
-int FlightCommsController::crazyflie()
-{
-	return RC_ERR;
-}
-
-//Operation used for receiving data from drone
-int FlightCommsController::add_callback()
-{
-	return RC_ERR;
-}
-
-//Closes link to drone
-int FlightCommsController::closeLink()
-{
-	return RC_ERR;
-}

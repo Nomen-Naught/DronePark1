@@ -5,6 +5,8 @@ VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DronePark1", "DronePark1.vcxproj", "{EBD260C0-2232-3A51-930F-55FD7EE200DA}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PythonQt", "..\PythonQt3.0\src\PythonQt.vcxproj", "{C6B1BE89-C934-36FA-8D8F-05B940FC91C1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -15,6 +17,10 @@ Global
 		{EBD260C0-2232-3A51-930F-55FD7EE200DA}.Debug|x64.Build.0 = Debug|x64
 		{EBD260C0-2232-3A51-930F-55FD7EE200DA}.Release|x64.ActiveCfg = Release|x64
 		{EBD260C0-2232-3A51-930F-55FD7EE200DA}.Release|x64.Build.0 = Release|x64
+		{C6B1BE89-C934-36FA-8D8F-05B940FC91C1}.Debug|x64.ActiveCfg = Debug|x64
+		{C6B1BE89-C934-36FA-8D8F-05B940FC91C1}.Debug|x64.Build.0 = Debug|x64
+		{C6B1BE89-C934-36FA-8D8F-05B940FC91C1}.Release|x64.ActiveCfg = Release|x64
+		{C6B1BE89-C934-36FA-8D8F-05B940FC91C1}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

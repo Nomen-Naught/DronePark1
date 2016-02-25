@@ -27,7 +27,7 @@
      <item>
       <layout class="QVBoxLayout" name="verticalLayout">
        <item>
-        <layout class="QVBoxLayout" name="parkingLotLayout" stretch="">
+        <layout class="QVBoxLayout" name="parkingLotLayout">
          <property name="rightMargin">
           <number>2</number>
          </property>

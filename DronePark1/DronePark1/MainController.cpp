@@ -1,8 +1,11 @@
 #include "MainController.h"
 #include "dronepark1.h"
 #include "QMessageBox.h"
+#include "Python.h"
+#include "PythonQt.h"
 
 #define DEFAULT_CONFIG 1
+
 
 //TODO: Nick: implement beginDroneOperations
 //Begins automated drone operations based on currentConfig.
@@ -86,6 +89,12 @@ int DroneParkController::initialize(DronePark1* gui)
 	//For whatever reason, I have to do it like this, can't pass a 'this' pointer to the gui
 	QObject::connect(gui->returnUI().startSweepButton, SIGNAL(startSweep()),
 					 this, SLOT(startSweepButtonSlot()));
+
+	//Instantiating the sweepController and FlightConttoller now... it caused weird bugs in release mode to do it later
+	sweepController = new SweepController();
+	sweepController->dronePilot = new FlightController();
+
+
 
 	return rc;
 }
@@ -232,41 +241,54 @@ int SweepController::initiateSweep(Lot* lot)
 {
 
 	//A controller object which handles the actual flight of the drone.
-	if (dronePilot != NULL)
-	{
-		dronePilot = new FlightController();
-	}
+	dronePilot = new FlightController();
+
+	//Interface for communicating between python and this sweepController
+	ControlInterface* contInt = new ControlInterface();
+
+	//Used this for debugging
+	QMetaObject::Connection con;
 
 	//Not sure what we should do if a thread is already running, for now just goto exit
+	
 	if (pilotWorkerThread.isRunning())
 	{
 		//Below is for debugging
-		emit fireSweep();
+		//emit fireSweep(this);
 
 		goto exit;
 	}
+	
 
 	//Throw the drone pilot worker on a new thread
 	dronePilot->moveToThread(&pilotWorkerThread);
 
 	//Connect all signals and slots for the drone to operate-----------------------------------
 
-	//Not sure what this does, looks important though
-	connect(&pilotWorkerThread, &QThread::finished, dronePilot, &QObject::deleteLater);
-
 	//Connect the fireSweep signal of this controller to the workers start flight
-	connect(this, &SweepController::fireSweep, dronePilot, &FlightController::asyncStartFlight);
+	con = QObject::connect(this, &SweepController::fireSweep, dronePilot, &FlightController::asyncStartFlight);
 
 	//Connect done signal THIS IS A DUMMY FOR DEBUGGING PURPOSES
-	connect(dronePilot, &FlightController::resultReady, this, &SweepController::handleResults);
+	con = QObject::connect(dronePilot, SIGNAL(resultReady()), this, SLOT(handleResults()));
+
+	//Connect interface to sweepController slots so python can communicate with us
+	con = QObject::connect(contInt, SIGNAL(sigTest()), this, SLOT(handleResults()));
+
+	con = QObject::connect(contInt, SIGNAL(atNextSpot()), this, SLOT(advanceSpot()));
+
+	con = QObject::connect(contInt, SIGNAL(connFail()), this, SLOT(connectionFail()));
 
 	//End drone signals------------------------------------------------------------------------
 
 	//Start the new thread
 	pilotWorkerThread.start();
 
+	//I think we need these, idk
+	Py_Initialize();
+	PyEval_InitThreads();
+
 	//Emit the fireSweep to start the async flight task
-	emit fireSweep();
+	emit fireSweep(contInt);
 
 exit:
 	return RC_OK;
@@ -281,9 +303,24 @@ int SweepController::initializeDrone()
 
 //TODO: Nick: implement advanceSpot
 //Change currentSpot to the next spot to be examined.
-int SweepController::advanceSpot()
+void SweepController::advanceSpot()
 {
-	return RC_ERR;
+	//THIS IS A DUMMY FUNCTION
+	QMessageBox msgBox;
+	msgBox.setText("advanceSpot has been fired");
+	msgBox.exec();
+
+	return;
+}
+
+void SweepController::connectionFail()
+{
+	//THIS IS A DUMMY FUNCTION
+	QMessageBox msgBox;
+	msgBox.setText("connectionFail has been fired");
+	msgBox.exec();
+
+	return;
 }
 
 //TODO: Nick: implement updateSpot
@@ -305,38 +342,37 @@ void SweepController::handleResults()
 SweepController::SweepController()
 {
 	//A controller object which handles all communications with the physical drone
-	droneComms = new FlightCommsController();
+	//droneComms = new FlightCommsController();
 
 
 
 	//A controller object which handles all communications with the physical camera.
-	imageComms = new ImageCommsController();
+	//imageComms = new ImageCommsController();
 
 	//A controller object which handles all the image analysis.
-	imageProcessor = new ImageProcessController();
+	//imageProcessor = new ImageProcessController();
 
 	//A controller object which handles the decision of validity of the spot.
-	stubDecider = new DecideSpotController();
+	//stubDecider = new DecideSpotController();
 }
 
 SweepController::~SweepController()
 {
+	/*
 
-	if (droneComms != NULL)
+//	if (droneComms != NULL)
 	{
-		delete droneComms;
+	//	delete droneComms;
 	}
 
 	if (dronePilot != NULL)
 	{
-		pilotWorkerThread.quit();
-		pilotWorkerThread.wait();
-		delete dronePilot;
+
 	}
 
-	if (imageComms != NULL)
+	if (//imageComms != NULL)
 	{
-		delete imageComms;
+//		delete imageComms;
 	}
 
 	if (imageProcessor != NULL)
@@ -348,4 +384,6 @@ SweepController::~SweepController()
 	{
 		delete stubDecider;
 	}
+	*/
 }
+

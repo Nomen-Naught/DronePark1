@@ -2,11 +2,16 @@
 #include "Config.h"
 #include "ParkingLot.h"
 #include <QObject>
+#include <QThread>
+#include "gui/PythonQtScriptingConsole.h"
+#include "ControlInterface.h"
 
+class SweepController;
 
 class FlightController : public QObject
 {
 	Q_OBJECT
+		QThread pilotWorkerThread;
 
 private:
 
@@ -15,9 +20,6 @@ private:
 
 	//Current parking lot information
 	Config currentConfig;
-
-	//Placeholders representing drone flight attributes
-	int pitch, roll, thrust, yaw;
 
 	//Current spot
 	Spot currentSpot;
@@ -44,47 +46,10 @@ public:
 
 public slots:
 	//Initiates the drone flightpath
-	void asyncStartFlight();
+	void asyncStartFlight(ControlInterface*);
 
 signals:
 	void resultReady();
 
 };
 
-class FlightCommsController
-{
-private: 
-
-	//Flag indicating that the Drone is connected to the system
-	bool crazyflieConnected;
-
-	//Flag used for testing
-	bool enable_debug_driver;
-
-	//Generic connection object used to store connection information relating to the drone
-	int connection;
-	
-	//Opens the link to the drone
-	int openLink();
-
-	//Scans for drones to connect with
-	int scanInterface();
-
-public:
-
-	//Calls the operations needed to find and connect to the drone
-	int connectToDrone();
-
-	//Placeholder for startup operations
-	int init_drivers();
-
-	//Operation used to identify drone for connection
-	int crazyflie();
-
-	//Operation used for receiving data from drone
-	int add_callback();
-
-	//Closes link to drone
-	int closeLink();
-
-};
