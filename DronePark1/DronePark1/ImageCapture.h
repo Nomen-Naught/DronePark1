@@ -18,9 +18,10 @@ class ImageCapture : public QObject
 
 public:
 	ImageCapture(QMutex* mutex);
-	void captureStart();
+	
 
 public slots:
+	void asyncCaptureStart();
 
 signals:
 	void imageReady(QImage* capturedImage);

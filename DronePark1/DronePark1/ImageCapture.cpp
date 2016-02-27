@@ -8,7 +8,7 @@ ImageCapture::ImageCapture(QMutex* mutex)
 
 }
 
-void ImageCapture::captureStart()
+void ImageCapture::asyncCaptureStart()
 {
 	videoInput* vi = new videoInput();
 
@@ -33,7 +33,7 @@ void ImageCapture::captureStart()
 		Sleep(500);
 	}
 
-	// TODO: provide an exit condition
+	// TODO: Ben: provide an exit condition
 	while (1)
 	{
 		while (!vi->isFrameNew(device))
