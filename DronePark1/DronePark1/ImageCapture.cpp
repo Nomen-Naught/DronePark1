@@ -1,11 +1,11 @@
 #include "ImageCapture.h"
 #include <Windows.h>
 #include "qimage.h"
+#include "qdebug.h"
 
-ImageCapture::ImageCapture(QMutex* mutex)
+ImageCapture::ImageCapture()
 {
-	imageBufferMutex = mutex;
-
+	
 }
 
 void ImageCapture::asyncCaptureStart()
@@ -33,7 +33,7 @@ void ImageCapture::asyncCaptureStart()
 
 		Sleep(500);
 	}
-
+	
 	// This will stay true until set false by the slot stopCapture()
 	captureLoop = true;
 

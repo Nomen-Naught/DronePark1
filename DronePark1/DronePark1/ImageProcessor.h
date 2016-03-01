@@ -23,7 +23,8 @@ signals:
 	void qrCodeReady(QString code);
 
 private:
-	const bool TRY_ENHANCE = false;
+	const bool TRY_ENHANCE = true;
+	const bool TRY_BEFORE_ENHANCE = false;
 	bool processing = false;
 
 	QZXing decoder;

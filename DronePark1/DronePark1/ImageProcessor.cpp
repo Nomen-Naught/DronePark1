@@ -1,5 +1,6 @@
 #include "ImageProcessor.h"
-#include "zxing\ReaderException.h"
+#include "zxing\Exception.h"
+#include <exception>
 
 ImageProcessor::ImageProcessor()
 {
@@ -8,14 +9,33 @@ ImageProcessor::ImageProcessor()
 
 QString ImageProcessor::getQRCode(QImage* image)
 {
-	QString code = decoder.decodeImage(*image);
+	QString code = "";
 
-	// Try sharpening if the first try doesn't find a QR code
+	if (TRY_BEFORE_ENHANCE)
+	{
+		try
+		{
+			code = decoder.decodeImage(*image);
+		}
+		catch (zxing::Exception e)
+		{
+			code = "";
+		}
+	}
+
 	if (code.length() <= 1 && TRY_ENHANCE)
 	{
-		qDebug() << "No QR code found. Attempting to improve image...";
+		//qDebug() << "No QR code found. Attempting to improve image...";
 		QImage* newImage = enhanceImage(image);
-		code = decoder.decodeImage(*newImage);
+		
+		try
+		{
+			code = decoder.decodeImage(*image);
+		}
+		catch (zxing::Exception e)
+		{
+			code = "";
+		}
 
 		delete newImage;
 	}
@@ -27,8 +47,19 @@ QImage* ImageProcessor::enhanceImage(QImage* preImage)
 {
 	Magick::Image* mImage = toImage(preImage);
 
-	// For now we're choosing to sharpen. Enhancements could change in the future.
-	mImage->sharpen(2.0, 1.0);
+
+	// -- De-interlace / Downsample -- 
+	//
+	// The raw frames are badly interlaced when there is motion
+	// At full res there isn't much detail so little to no detail is lost
+	// Test performance is WAY better after downsampling
+	mImage->sample(Magick::Geometry("50%x50%"));
+
+
+	// -- Threshold --
+	//
+	// Binarize the image so that each pixel is either black or white
+	mImage->threshold(160.0);
 	QImage* newImage = toQImage(mImage);
 
 	return newImage;
@@ -102,6 +133,8 @@ void ImageProcessor::handleImage(QImage* capturedImage)
 	processing = true;
 
 	QString code = getQRCode(capturedImage);
+
+	qDebug() << "Code:" << code;
 
 	emit qrCodeReady(code);
 
