@@ -1,9 +1,8 @@
 #include "ImageProcessor.h"
+#include "zxing\ReaderException.h"
 
-ImageProcessor::ImageProcessor(QMutex* mutex)
+ImageProcessor::ImageProcessor()
 {
-	imageBufferMutex = mutex;
-
 	decoder.setDecoder(decoder.DecoderFormat_QR_CODE);
 }
 
@@ -12,10 +11,10 @@ QString ImageProcessor::getQRCode(QImage* image)
 	QString code = decoder.decodeImage(*image);
 
 	// Try sharpening if the first try doesn't find a QR code
-	if (code.length() <= 1)
+	if (code.length() <= 1 && TRY_ENHANCE)
 	{
 		qDebug() << "No QR code found. Attempting to improve image...";
-		QImage *newImage = enhanceImage(image);
+		QImage* newImage = enhanceImage(image);
 		code = decoder.decodeImage(*newImage);
 
 		delete newImage;
@@ -26,67 +25,88 @@ QString ImageProcessor::getQRCode(QImage* image)
 
 QImage* ImageProcessor::enhanceImage(QImage* preImage)
 {
-	Magick::Image *mImage = toImage(preImage);
+	Magick::Image* mImage = toImage(preImage);
 
+	// For now we're choosing to sharpen. Enhancements could change in the future.
 	mImage->sharpen(2.0, 1.0);
-	QImage *newImage = toQImage(mImage);
+	QImage* newImage = toQImage(mImage);
 
 	return newImage;
 }
 
+/* Convert from Magick::Image to QImage */
 QImage* ImageProcessor::toQImage(Magick::Image *mImage)
 {
-	QImage *newQImage = new QImage(mImage->columns(), mImage->rows(), QImage::Format_RGB32);
-	const Magick::PixelPacket *pixels;
+	QImage* newQImage = new QImage(mImage->columns(), mImage->rows(), QImage::Format_RGB32);
+	const Magick::PixelPacket* pixels;
 	Magick::ColorRGB rgb;
+
 	for (int y = 0; y < newQImage->height(); y++) {
 		pixels = mImage->getConstPixels(0, y, newQImage->width(), 1);
+
 		for (int x = 0; x < newQImage->width(); x++) {
 			rgb = (*(pixels + x));
+
 			newQImage->setPixel(x, y, QColor((int)(255 * rgb.red())
 				, (int)(255 * rgb.green())
 				, (int)(255 * rgb.blue())).rgb());
 		}
 	}
+
 	return newQImage;
 }
 
+/* Convert from QImage to Magick::Image */
 Magick::Image* ImageProcessor::toImage(QImage *qImage)
 {
-	Magick::Image *mImage = new Magick::Image(Magick::Geometry(qImage->width(),
+	Magick::Image* mImage = new Magick::Image(Magick::Geometry(qImage->width(),
 				qImage->height()), Magick::ColorRGB(0.0, 0.0, 0.0));
 
 	double scale = 1 / 256.0;
+
+	// Not sure why this is necessary but it seems important
 	mImage->modifyImage();
 
 	Magick::PixelPacket *pixels;
 	Magick::ColorRGB mgc;
+
+	// Taking the values pixel by pixel... sounds slow but it works
 	for (int y = 0; y < qImage->height(); y++)
 	{
 		pixels = mImage->setPixels(0, y, mImage->columns(), 1);
+
 		for (int x = 0; x < qImage->width(); x++)
 		{
 			QColor pix(qImage->pixel(x, y));
 
 			mgc.red(scale * pix.red());
-			mgc.green(scale *pix.green());
-			mgc.blue(scale *pix.blue());
+			mgc.green(scale * pix.green());
+			mgc.blue(scale * pix.blue());
 
 			*pixels++ = mgc;
 		}
+
 		mImage->syncPixels();
 	}
 
 	return mImage;
 }
 
+/* Take a pointer to a QImage potentially containing a QR code *
+ * and extract it.                                             */
 void ImageProcessor::handleImage(QImage* capturedImage)
 {
+	// This should prevent a processing queue from forming
+	// A queue would be bad because we can only process in real time
+	if (processing) return;
+	processing = true;
+
 	QString code = getQRCode(capturedImage);
 
 	emit qrCodeReady(code);
 
 	delete capturedImage;
+	processing = false;
 }
 
 ImageProcessor::~ImageProcessor()

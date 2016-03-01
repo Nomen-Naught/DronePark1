@@ -17,17 +17,17 @@ class ImageCapture : public QObject
 	Q_OBJECT
 
 public:
-	ImageCapture(QMutex* mutex);
-	
+	ImageCapture();
 
 public slots:
 	void asyncCaptureStart();
+	void stopCapture();
 
 signals:
 	void imageReady(QImage* capturedImage);
 
 private:
-	QMutex* imageBufferMutex;
+	bool captureLoop = false;
 	CvCapture* capture;
 	IplImage* frame;
 

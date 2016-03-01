@@ -26,6 +26,7 @@ void ImageCapture::asyncCaptureStart()
 	// grab a few frames, otherwise this won't work
 	for (int i = 0; i < 5; i++)
 	{
+
 		if (vi->isFrameNew(device)) {
 			vi->getPixels(device, buffer, false, false);
 		}
@@ -33,9 +34,12 @@ void ImageCapture::asyncCaptureStart()
 		Sleep(500);
 	}
 
-	// TODO: Ben: provide an exit condition
-	while (1)
+	// This will stay true until set false by the slot stopCapture()
+	captureLoop = true;
+
+	while (captureLoop)
 	{
+		
 		while (!vi->isFrameNew(device))
 		{
 			Sleep(10); // spin until new frame
@@ -50,6 +54,11 @@ void ImageCapture::asyncCaptureStart()
 	}
 
 	vi->stopDevice(device);
+}
+
+void ImageCapture::stopCapture()
+{
+	captureLoop = false;
 }
 
 QImage* ImageCapture::convertToQImage(int width, int height, unsigned char* buffer)
