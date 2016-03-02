@@ -251,7 +251,7 @@ int DatabaseController::queryStub(int id, Stub** stub)
 	catch (otl_exception& p) // intercept OTL exceptions
 	{
 		rc = RC_ERR;
-		goto exit;
+		goto error_exit;
 	}
 
 	// Construct the struct object with the data we got from the query
@@ -267,6 +267,10 @@ int DatabaseController::queryStub(int id, Stub** stub)
 
 exit:
 	return rc;
+
+error_exit:
+	*stub = NULL;
+	goto exit;
 }
 
 // Queries db for spots list from lot_id
@@ -302,7 +306,7 @@ int DatabaseController::querySpots(int _lot_id, std::list<Spot*>** spots)
 		//Loop through results
 		for (auto& it : k) {
 			otl_read_row(it, spot_id, lot_id, stub_id, is_empty, is_illegal, is_ticketed, state);
-			newSpots->push_front(new Spot(spot_id, is_empty, is_ticketed, is_illegal));
+			newSpots->push_front(new Spot(spot_id, is_empty, is_ticketed, is_illegal, stub_id));
 		}
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
@@ -416,7 +420,7 @@ exit:
 //Slot for updating a spot object
 void DatabaseController::updateSpotIllegal(int id, bool illegal)
 {
-
+	//Leaving this empty for now intentionally, easier to develop when database isn't constantly changing
 }
 
 //TODO: Implement updateSpotEmpty

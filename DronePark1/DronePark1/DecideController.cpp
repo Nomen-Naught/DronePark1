@@ -14,7 +14,7 @@ being examined.The parameter passed in is the id
 recovered from the image processing, to be matched to
 its corresponding Stub object.Returns a Boolean which
 is the value of the validity of the stub*/
-bool DecideSpotController::asyncDecideStubValidity(int id)
+void DecideSpotController::decideStubValidity(int id)
 {
-	return RC_ERR;
+	return;
 }

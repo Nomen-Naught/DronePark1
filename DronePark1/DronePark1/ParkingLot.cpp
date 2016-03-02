@@ -7,12 +7,13 @@ Spot::Spot() : DbObject()
 	ticketed = false;
 }
 
-Spot::Spot(int _spot_id, int _empty, int _is_ticketed, int _illegal ) : DbObject()
+Spot::Spot(int _spot_id, int _empty, int _is_ticketed, int _illegal, int _stub_id ) : DbObject()
 {
 	id = _spot_id;
 	empty = _empty;
 	ticketed = _is_ticketed;
 	illegal = _illegal;
+	stub_id = _stub_id;
 }
 
 // Returns the ticketed flag
@@ -31,6 +32,12 @@ bool Spot::getEmpty()
 bool Spot::getIllegal()
 {
 	return illegal;
+}
+
+// Returns the stub id
+int Spot::getStubId()
+{
+	return stub_id;
 }
 
 
@@ -68,6 +75,18 @@ int Spot::setIllegal(bool _illegal)
 		illegal = _illegal;
 		//Emit Qt signal to update listeners
 		emit spotIllegalChanged(id, _illegal);
+	}
+	return RC_OK;
+}
+
+// Sets the stub_id, returns RC
+int Spot::setStubId(int _stub_id)
+{
+	if (stub_id != _stub_id)
+	{
+		stub_id = _stub_id;
+		//Emit Qt signal to update listeners
+		emit spotStubChanged(id, _stub_id);
 	}
 	return RC_OK;
 }

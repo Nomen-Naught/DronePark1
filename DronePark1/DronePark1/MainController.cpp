@@ -91,10 +91,11 @@ int DroneParkController::initialize(DronePark1* gui)
 					 this, SLOT(startSweepButtonSlot()));
 
 	//Instantiating the sweepController and FlightConttoller now... it caused weird bugs in release mode to do it later
-	sweepController = new SweepController();
+	sweepController = new SweepController(currentConfig->getCurrentLot());
+	QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
+
+
 	sweepController->dronePilot = new FlightController();
-
-
 
 	return rc;
 }
@@ -187,7 +188,8 @@ void DroneParkController::startSweepButtonSlot()
 	if (sweepController == NULL)
 	{
 		// Create sweep controller, should create all other controllers
-		sweepController = new SweepController();
+		sweepController = new SweepController(currentConfig->getCurrentLot());
+		QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
 	}
 
 	// NICK: Getting rid of this for now, current plan is to allow python to do everything related to drone stuff and C++ only
@@ -211,6 +213,36 @@ exit:
 
 	DP_ASSERT(rc, "sweepController->initializeDrone exit");
 
+	return;
+}
+
+//Decide the spot passed in by checking the stub that was read
+void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
+{
+	Stub* stub;
+
+	//If the read was not successful, bail out
+	if (!success)
+	{
+		goto exit;
+	}
+
+	//Query the stub from the database
+	databaseController->queryStub(stub_id, &stub);
+
+	//If we couldn't find the stub, just bail
+	if (stub == NULL)
+	{
+		goto exit;
+	}
+
+	// If stub is passed expiry!!
+	if (*(stub->getExpireTime()) < QDateTime::currentDateTime())
+	{
+		spot->setIllegal(true);
+	}
+
+exit:
 	return;
 }
 
@@ -305,6 +337,13 @@ int SweepController::initializeDrone()
 //Change currentSpot to the next spot to be examined.
 void SweepController::advanceSpot()
 {
+
+	//Move spot iterator to next spot
+	if (spot_iterator != lot->getSpots()->end())
+	{
+		spot_iterator++;
+	}
+
 	//THIS IS A DUMMY FUNCTION
 	QMessageBox msgBox;
 	msgBox.setText("advanceSpot has been fired");
@@ -316,9 +355,11 @@ void SweepController::advanceSpot()
 void SweepController::connectionFail()
 {
 	//THIS IS A DUMMY FUNCTION
-	QMessageBox msgBox;
-	msgBox.setText("connectionFail has been fired");
-	msgBox.exec();
+	//QMessageBox msgBox;
+	//msgBox.setText("connectionFail has been fired");
+	//msgBox.exec();
+
+	receiveCode("1");
 
 	return;
 }
@@ -339,8 +380,19 @@ void SweepController::handleResults()
 	return;
 }
 
-SweepController::SweepController()
+//Slot to recieve the QR code, and construct a new signal to pass through to DroneParkController
+void SweepController::receiveCode(QString _stub_id)
 {
+	emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
+	return;
+}
+
+SweepController::SweepController(Lot* _lot)
+{
+	lot = _lot;
+
+	spot_iterator = lot->getSpots()->begin();
+
 	//A controller object which handles all communications with the physical drone
 	//droneComms = new FlightCommsController();
 

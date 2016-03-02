@@ -1,17 +1,18 @@
 #pragma once
 #include <QDateTime>
+#include <QObject>
 
-class DecideSpotController
+class DecideSpotController : public QObject
 {
 private:
 	//A helper method which returns the current time.
 	QDateTime getCurrentTime();
 
-public:
-	/*Dispatch a new thread to decide the validity of the stub
-		being examined.The parameter passed in is the id
-		recovered from the image processing, to be matched to
-		its corresponding Stub object.Returns a Boolean which
-		is the value of the validity of the stub*/
-	bool asyncDecideStubValidity(int id);
+public slots:
+	void decideStubValidity(int id);
+
+signals:
+	void spotValid(int spot_id, int stub_id);
+	void spotInvalid(int spot_id, int stub_id);
+	void spotUnknown(int spot_id);
 };

@@ -18,9 +18,12 @@ class SweepController : public QObject
 	QThread pilotWorkerThread;
 
 private:
-	//Controller* controller;
 	//The current spot under review
 	//Spot* currentSpot;
+
+	Lot* lot;
+
+	std::list<Spot*>::const_iterator spot_iterator;
 
 	//A controller object which handles all communications with the physical drone
 	//FlightCommsController* droneComms;
@@ -44,7 +47,7 @@ public:
 	//A controller object which handles the actual flight of the drone.
 	FlightController* dronePilot;
 
-	SweepController();
+	SweepController(Lot*);
 	~SweepController();
 
 	//Stops all current operations and shuts down the physical drone.
@@ -72,9 +75,17 @@ public slots:
 	//The connection to the drone has failed
 	void connectionFail();
 
+	//Receive QR code reading
+	void receiveCode(QString stub_id);
+
+
+
 signals:
 	//Should initiate a sweep
 	void fireSweep(ControlInterface*);
+
+	//A pass through signal that should alert DroneParkController who can do database queries
+	void decideSpotPass(Spot* spot, bool success, int stub_id);
 
 };
 
@@ -145,6 +156,10 @@ public:
 public slots:
 	// Slot for startSweepButton slot
 	void startSweepButtonSlot();
+
+	//Decide the spot by looking up the stub_id and comparing it to the current time.
+	//Only do this if read was a success
+	void decideSpot(Spot* spot, bool success, int stub_id);
 
 signals:
 	void test();

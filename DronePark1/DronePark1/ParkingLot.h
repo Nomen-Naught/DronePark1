@@ -17,10 +17,13 @@ private:
 	// Boolean flag set if vehicle is parked illegaly
 	bool illegal;
 
+	// The stub id associated with the spot
+	int stub_id;
+
 public:
 	// Constructor, should call DbObject constructor
 	Spot();
-	Spot(int, int, int, int);
+	Spot(int, int, int, int, int);
 
 	// Returns the ticketed flag
 	bool getTicketed();
@@ -31,6 +34,9 @@ public:
 	// Returns the illegal flag
 	bool getIllegal();
 
+	// Returns the stub id
+	int getStubId();
+
 	// Sets the Ticketed flag, returns RC
 	int setTicketed(bool _ticketed);
 
@@ -40,10 +46,14 @@ public:
 	// Sets the illegal flag
 	int setIllegal(bool _illegal);
 
+	// Sets the stub id
+	int setStubId(int _stubid);
+
 signals:
 	void spotTicketedChanged(int id, bool newValue);
 	void spotEmptyChanged(int id, bool newValue);
 	void spotIllegalChanged(int id, bool newValue);
+	void spotStubChanged(int id, int newValue);
 
 };
 
