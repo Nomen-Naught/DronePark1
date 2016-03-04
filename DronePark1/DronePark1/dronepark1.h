@@ -3,11 +3,13 @@
 
 #include <QtWidgets/QMainWindow>
 #include "ui_dronepark1.h"
+#include "loadconfig.h"
 #include "ParkingLot.h"
 #include "ParkingLotLayout.h"
 #include <QPixmap>
 #include <QIcon>
 #include <QImage>
+#include <QTimer>
 
 class DronePark1 : public QMainWindow
 {
@@ -16,6 +18,14 @@ class DronePark1 : public QMainWindow
 public:
 	DronePark1(QWidget *parent = 0);
 	~DronePark1();
+
+	QTimer* timer;
+
+	QLabel* currentDateTime;
+	QLabel* statusLabel;
+
+	//Other Windows
+	LoadConfig* loadConfigWin;
 
 
 	int buildLotGui(Lot* lot);
@@ -31,6 +41,11 @@ private:
 
 	// Custom grid layout for drawing parking spots
 	ParkingLotLayout* lotGridLayout;
+
+public slots:
+	void showcurrentTime();
+	void loadConfigSlot();
+	void loadConfigClose();
 
 };
 
