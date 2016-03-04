@@ -44,6 +44,9 @@ public:
 	// Queries db for config from id
 	int queryConfig(int id, Config** config);
 
+	// Produces a list of configs and associated lots, but does not populate them
+	int queryConfigs();
+
 	//TODO: Nick: Implement queryLot
 	// Queries db for Lot from id
 	int queryLot(int id, Lot** lot);

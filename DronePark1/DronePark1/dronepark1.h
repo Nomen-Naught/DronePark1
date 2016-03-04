@@ -24,6 +24,9 @@ public:
 	QLabel* currentDateTime;
 	QLabel* statusLabel;
 
+	//Actions
+	QAction* loadConfigAct;
+
 	//Other Windows
 	LoadConfig* loadConfigWin;
 

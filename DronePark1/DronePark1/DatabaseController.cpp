@@ -94,6 +94,11 @@ int DatabaseController::insertStub(Stub newStub)
 	return RC_ERR;
 }
 
+int queryConfigs()
+{
+	return RC_ERR;
+}
+
 // Queries db for config from id
 int DatabaseController::queryConfig(int id, Config** config)
 {

@@ -8,9 +8,7 @@ DronePark1::DronePark1(QWidget *parent)
 {
 	ui.setupUi(this);
 
-	//connect(actionLoad_Config, SIGNAL(triggered()), this, SLOT(loadConfigSlot()));
-
-	QAction* loadConfigAct = new QAction(tr("&Open Config"), this);
+	loadConfigAct = new QAction(tr("&Open Config"), this);
 	loadConfigAct->setShortcuts(QKeySequence::Open);
 	loadConfigAct->setStatusTip(tr("Load a New Configuration"));
 	connect(loadConfigAct, SIGNAL(triggered()), this, SLOT(loadConfigSlot()));
