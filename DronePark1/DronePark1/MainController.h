@@ -10,7 +10,8 @@
 #include "QMessageBox.h"
 #include <QThread>
 #include "ControlInterface.h"
-
+#include "ImageCapture.h"
+#include "ImageProcessor.h"
 
 class SweepController : public QObject
 {

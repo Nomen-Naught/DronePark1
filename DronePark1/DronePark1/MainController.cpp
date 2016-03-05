@@ -3,6 +3,7 @@
 #include "QMessageBox.h"
 #include "Python.h"
 #include "PythonQt.h"
+#include "qdebug.h"
 
 #define DEFAULT_CONFIG 1
 
@@ -319,6 +320,26 @@ int SweepController::initiateSweep(Lot* lot)
 	Py_Initialize();
 	PyEval_InitThreads();
 
+	// IMAGE STUFF---------------------------------------------------------------
+	
+	QThread* captureThread = new QThread();
+	QThread* processorThread = new QThread();
+
+	ImageCapture* cap = new ImageCapture();
+	ImageProcessor* proc = new ImageProcessor();
+
+	connect(this, SIGNAL(fireSweep(ControlInterface*)), cap, SLOT(asyncCaptureStart()), Qt::QueuedConnection);
+	connect(proc, SIGNAL(qrCodeReady(QString)), this, SLOT(receiveCode(QString)), Qt::QueuedConnection);
+	connect(cap, SIGNAL(imageReady(QImage*)), proc, SLOT(handleImage(QImage*)), Qt::QueuedConnection);
+
+	cap->moveToThread(captureThread);
+	proc->moveToThread(processorThread);
+
+	captureThread->start();
+	processorThread->start();
+
+	//IMAGE STUFF END------------------------------------------------------------
+
 	//Emit the fireSweep to start the async flight task
 	emit fireSweep(contInt);
 
@@ -359,8 +380,6 @@ void SweepController::connectionFail()
 	//msgBox.setText("connectionFail has been fired");
 	//msgBox.exec();
 
-	receiveCode("1");
-
 	return;
 }
 
@@ -383,7 +402,14 @@ void SweepController::handleResults()
 //Slot to recieve the QR code, and construct a new signal to pass through to DroneParkController
 void SweepController::receiveCode(QString _stub_id)
 {
-	emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
+	//THIS IS A DUMMY FUNCTION
+
+	if (_stub_id.length() < 1)
+		return;
+
+	qDebug() << "I read:" << _stub_id;
+
+	//emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
 	return;
 }
 

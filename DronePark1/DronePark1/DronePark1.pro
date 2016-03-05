@@ -25,3 +25,4 @@ OBJECTS_DIR += debug
 UI_DIR += ./GeneratedFiles
 RCC_DIR += ./GeneratedFiles
 include(DronePark1.pri)
+include(QZXing/QZXing.pri)

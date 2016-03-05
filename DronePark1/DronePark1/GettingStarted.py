@@ -29,9 +29,9 @@ _atNextSpot()
 
 _connFail()
 
-while 1:
-	test = test + 1
-	_print(str(test))
+#while 1:
+#	test = test + 1
+#	_print(str(test))
 
 _connFail()
 
