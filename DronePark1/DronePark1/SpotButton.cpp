@@ -65,7 +65,7 @@ void SpotButton::updateTicketed(int id, bool value)
 	updateText();
 }
 
-//Update the empty field and call updateText
+//Update the illegal field and call updateText
 //Should only be called if there's a change in state
 void SpotButton::updateIllegal(int id, bool value)
 {
@@ -84,8 +84,7 @@ void SpotButton::updateIllegal(int id, bool value)
 			setIcon(*illegal);
 		}
 	}
-	/* Not sure if this is needed, I would imagine we would from illegal state -> empty state
-
+	// Not sure if this is needed, I would imagine we would from illegal state -> empty state
 	else
 	{
 		if (mirror)
@@ -97,7 +96,6 @@ void SpotButton::updateIllegal(int id, bool value)
 			setIcon(*occupied);
 		}
 	}
-	*/
 }
 
 //Update the empty field and call updateText

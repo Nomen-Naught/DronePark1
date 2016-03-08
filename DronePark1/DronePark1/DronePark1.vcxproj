@@ -192,6 +192,9 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_StartSweepButton.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_StatusLabel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_dronepark1.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
       </PrecompiledHeader>
@@ -241,6 +244,9 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_StartSweepButton.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_StatusLabel.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="ImageCapture.cpp" />
@@ -345,10 +351,21 @@
     <ClCompile Include="Schedule.cpp" />
     <ClCompile Include="SpotButton.cpp" />
     <ClCompile Include="StartSweepButton.cpp" />
+    <ClCompile Include="StatusLabel.cpp" />
     <ClCompile Include="VideoInput\videoInput.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Config.h" />
+    <CustomBuild Include="StatusLabel.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing StatusLabel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DCPPCONN_PUBLIC_FUNC= "-IC:\Python34\include" "-IC:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\PythonQt3.0\src" "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing StatusLabel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG "-IC:\Qt\Qt5.5\qtscript\include\QtScript" "-IC:\Qt\Qt5.5\qtscript\include" "-IC:\Qt\Qt5.5\qtquick1\include\QtDeclarative" "-IC:\Qt\Qt5.5\qtquick1\include" "-IC:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\DronePark1\QZXing" "-IC:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\DronePark1\ImageMagick\include" "-IC:\Python34\include" "-IC:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\PythonQt3.0\src" "-IC:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include" "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+    </CustomBuild>
     <ClInclude Include="VideoInput\videoInput.h" />
     <CustomBuild Include="ControlInterface.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>

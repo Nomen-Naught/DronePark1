@@ -23,18 +23,18 @@ _print("Python Started")
 
 test = 1
 
-_connFail()
+#_connFail()
 
-_atNextSpot()
+#_atNextSpot()
 
-_connFail()
+#_connFail()
 
 #while 1:
 #	test = test + 1
 #	_print(str(test))
 
-_connFail()
+#_connFail()
 
-_atNextSpot()
+#_atNextSpot()
     
 

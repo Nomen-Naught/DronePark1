@@ -170,15 +170,16 @@ public:
 				") ENGINE=InnoDB DEFAULT CHARSET=latin1;"
 				);  // create table
 
-		otl_cursor::direct_exec
-			(
-				*db,
-				"INSERT INTO `DRONEPARK`.`Stub`"
-				"(`spot_id`,"
-				"`purchase_date`,"
-				"`expire_date`)"
-				"VALUES"
-				"(1, '1000-01-01 00:00:00', '1000-01-01 00:00:01'), (2, '1000-01-01 00:00:00', '9999-12-31 23:59:59'), (6, '1000-01-01 00:00:00','9999-12-31 23:59:59');"
-				);  // insert some rows
+			otl_cursor::direct_exec
+				(
+					*db,
+					"INSERT INTO `DRONEPARK`.`Stub`"
+					"(stub_id,"
+					"`spot_id`,"
+					"`purchase_date`,"
+					"`expire_date`)"
+					"VALUES"
+					"(1234, 1, '1000-01-01 00:00:00', '1000-01-01 00:00:01'), (1235, 2, '1000-01-01 00:00:00', '9999-12-31 23:59:59'), (1, 6, '1000-01-01 00:00:00','9999-12-31 23:59:59');"
+					);  // insert some rows
 	}
 };

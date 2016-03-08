@@ -66,9 +66,7 @@ public:
 	//Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
 	int initiateSweep(Lot* lot);
 
-	//Initializes the controllers and the connection to the camera and the drone
-	int initializeDrone();
-
+	//Checks if we're currently flyin
 	bool getFLYING();
 
 	void setFLYING(bool _flying);
@@ -93,6 +91,9 @@ signals:
 
 	//A pass through signal that should alert DroneParkController who can do database queries
 	void decideSpotPass(Spot* spot, bool success, int stub_id);
+
+	//Flying status has changed
+	void flyingChanged(bool);
 
 };
 
@@ -167,6 +168,8 @@ public slots:
 	//Decide the spot by looking up the stub_id and comparing it to the current time.
 	//Only do this if read was a success
 	void decideSpot(Spot* spot, bool success, int stub_id);
+
+	void enterPressed();
 
 signals:
 	void test();

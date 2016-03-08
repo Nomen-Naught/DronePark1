@@ -130,3 +130,12 @@ void DronePark1::connectNewSpot(Spot* spot)
 	spotButton->updateTicketed(spot->getId(), spot->getTicketed());
 	spotButton->updateIllegal(spot->getId(), spot->getIllegal());
 }
+
+void DronePark1::keyPressEvent(QKeyEvent* event)
+{
+	//qDebug() << event->text();
+	if (event->key() == Qt::Key_N)
+	{
+		emit enterPressed();
+	}
+}

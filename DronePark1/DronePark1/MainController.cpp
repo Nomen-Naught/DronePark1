@@ -94,6 +94,9 @@ int DroneParkController::initialize(DronePark1* gui)
 	//Instantiating the sweepController and FlightConttoller now... it caused weird bugs in release mode to do it later
 	sweepController = new SweepController(currentConfig->getCurrentLot());
 	QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
+	QObject::connect(sweepController, SIGNAL(flyingChanged(bool)), gui->returnUI().flightStatus, SLOT(updateStatus(bool)));
+
+	connect(gui, SIGNAL(enterPressed()), this, SLOT(enterPressed()));
 
 
 	sweepController->dronePilot = new FlightController();
@@ -222,6 +225,9 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 {
 	Stub* stub;
 
+	QString time1;
+	QString time2;
+
 	//If the read was not successful, bail out
 	if (!success)
 	{
@@ -237,14 +243,32 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 		goto exit;
 	}
 
+	qDebug() << *(stub->getExpireTime());
+	qDebug() << QDateTime::currentDateTime();
+	//qDebug << QDateTime::QDateTime::currentDateTime().toString("hh:mm:ss");;
+
 	// If stub is passed expiry!!
 	if (*(stub->getExpireTime()) < QDateTime::currentDateTime())
 	{
 		spot->setIllegal(true);
 	}
+	else
+	{
+		spot->setIllegal(false);
+	}
 
 exit:
 	return;
+}
+
+void DroneParkController::enterPressed()
+{
+	qDebug() << "next spot button pressed";
+
+	if (sweepController != NULL && sweepController->getFLYING())
+	{
+		sweepController->advanceSpot();
+	}
 }
 
 //TODO: Nick: implement emergencyShutDown
@@ -352,17 +376,10 @@ int SweepController::initiateSweep(Lot* lot)
 	emit fireSweep(contInt);
 
 	//Assuming all is well, we should be flying!
-	FLYING = true;
+	setFLYING(true);
 
 exit:
 	return RC_OK;
-}
-
-//TODO: Nick: implement initializeDrone
-//Initializes the controllers and the connection to the camera and the drone
-int SweepController::initializeDrone()
-{
-	return RC_ERR;
 }
 
 //TODO: Nick: implement advanceSpot
@@ -418,7 +435,11 @@ bool SweepController::getFLYING()
 //This should probably not exist
 void SweepController::setFLYING(bool _flying)
 {
-	FLYING = _flying;
+	if (FLYING != _flying)
+	{
+		emit flyingChanged(_flying);
+		FLYING = _flying;
+	}
 }
 
 //Slot to recieve the QR code, and construct a new signal to pass through to DroneParkController
@@ -431,7 +452,7 @@ void SweepController::receiveCode(QString _stub_id)
 
 	qDebug() << QTime::currentTime() << " :I read:" << _stub_id;
 
-	//emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
+	emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
 	return;
 }
 
@@ -440,6 +461,8 @@ SweepController::SweepController(Lot* _lot)
 	lot = _lot;
 
 	spot_iterator = lot->getSpots()->begin();
+
+	FLYING = false;
 
 	//A controller object which handles all communications with the physical drone
 	//droneComms = new FlightCommsController();

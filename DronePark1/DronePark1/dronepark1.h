@@ -39,6 +39,11 @@ public:
 	//Return the ui object. This is probably bad practice...
 	Ui::DronePark1Class returnUI();
 
+protected:
+
+	void keyPressEvent(QKeyEvent* event);
+
+
 private:
 	Ui::DronePark1Class ui;
 
@@ -49,6 +54,9 @@ public slots:
 	void showcurrentTime();
 	void loadConfigSlot();
 	void loadConfigClose();
+
+signals:
+	void enterPressed();
 
 };
 
