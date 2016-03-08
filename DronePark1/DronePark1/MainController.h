@@ -24,6 +24,8 @@ private:
 
 	Lot* lot;
 
+	bool FLYING;
+
 	std::list<Spot*>::const_iterator spot_iterator;
 
 	//A controller object which handles all communications with the physical drone
@@ -66,6 +68,10 @@ public:
 
 	//Initializes the controllers and the connection to the camera and the drone
 	int initializeDrone();
+
+	bool getFLYING();
+
+	void setFLYING(bool _flying);
 
 public slots:
 	void handleResults();

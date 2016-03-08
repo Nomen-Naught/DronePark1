@@ -3,6 +3,8 @@
 #include "qimage.h"
 #include "qdebug.h"
 
+#define DEVICE 1
+
 ImageCapture::ImageCapture()
 {
 	
@@ -10,16 +12,18 @@ ImageCapture::ImageCapture()
 
 void ImageCapture::asyncCaptureStart()
 {
+
+
 	videoInput* vi = new videoInput();
 
-	// Device index -- should be 0 if the digitizer is the only device
-	int device = 0;
 
-	vi->setupDevice(device, 640, 480, 0);
+	int numDevices = vi->listDevices();
 
-	int width = vi->getWidth(device);
-	int height = vi->getHeight(device);
-	int size = vi->getSize(device);
+	vi->setupDevice(DEVICE, 720, 480, 0);
+
+	int width = vi->getWidth(DEVICE);
+	int height = vi->getHeight(DEVICE);
+	int size = vi->getSize(DEVICE);
 
 	unsigned char* buffer = new unsigned char[size];
 
@@ -27,8 +31,8 @@ void ImageCapture::asyncCaptureStart()
 	for (int i = 0; i < 5; i++)
 	{
 
-		if (vi->isFrameNew(device)) {
-			vi->getPixels(device, buffer, false, false);
+		if (vi->isFrameNew(DEVICE)) {
+			vi->getPixels(DEVICE, buffer, false, false);
 		}
 
 		Sleep(500);
@@ -40,12 +44,12 @@ void ImageCapture::asyncCaptureStart()
 	while (captureLoop)
 	{
 		
-		while (!vi->isFrameNew(device))
+		while (!vi->isFrameNew(DEVICE))
 		{
 			Sleep(10); // spin until new frame
 		}
 
-		vi->getPixels(device, buffer, false, false);
+		vi->getPixels(DEVICE, buffer, false, false);
 
 		QImage* frame = convertToQImage(width, height, buffer);
 
@@ -53,7 +57,7 @@ void ImageCapture::asyncCaptureStart()
 
 	}
 
-	vi->stopDevice(device);
+	vi->stopDevice(DEVICE);
 }
 
 void ImageCapture::stopCapture()

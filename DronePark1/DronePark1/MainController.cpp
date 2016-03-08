@@ -272,15 +272,23 @@ int SweepController::initiateSchedule(Schedule schedule, Lot lot)
 //Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
 int SweepController::initiateSweep(Lot* lot)
 {
+	//Interface for communicating between python and this sweepController
+	ControlInterface* contInt;
+
+	//Used this for debugging
+	QMetaObject::Connection con;
+
+	//If we're already flying, we should get out and let it keep flying (NOOP)
+	if (FLYING)
+	{
+		//No error, user is just clicking like a mad man
+		goto exit;
+	}
 
 	//A controller object which handles the actual flight of the drone.
 	dronePilot = new FlightController();
 
-	//Interface for communicating between python and this sweepController
-	ControlInterface* contInt = new ControlInterface();
-
-	//Used this for debugging
-	QMetaObject::Connection con;
+	contInt = new ControlInterface();
 
 	//Not sure what we should do if a thread is already running, for now just goto exit
 	
@@ -343,6 +351,9 @@ int SweepController::initiateSweep(Lot* lot)
 	//Emit the fireSweep to start the async flight task
 	emit fireSweep(contInt);
 
+	//Assuming all is well, we should be flying!
+	FLYING = true;
+
 exit:
 	return RC_OK;
 }
@@ -399,6 +410,17 @@ void SweepController::handleResults()
 	return;
 }
 
+bool SweepController::getFLYING()
+{
+	return FLYING;
+}
+
+//This should probably not exist
+void SweepController::setFLYING(bool _flying)
+{
+	FLYING = _flying;
+}
+
 //Slot to recieve the QR code, and construct a new signal to pass through to DroneParkController
 void SweepController::receiveCode(QString _stub_id)
 {
@@ -407,7 +429,7 @@ void SweepController::receiveCode(QString _stub_id)
 	if (_stub_id.length() < 1)
 		return;
 
-	qDebug() << "I read:" << _stub_id;
+	qDebug() << QTime::currentTime() << " :I read:" << _stub_id;
 
 	//emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
 	return;

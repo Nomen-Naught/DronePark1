@@ -845,9 +845,13 @@ int videoInput::listDevices(bool silent){
 	if (SUCCEEDED(hr))
 	{
 	    // Create an enumerator for the video capture category.
-	    hr = pDevEnum->CreateClassEnumerator(
-	    	CLSID_VideoInputDeviceCategory,
-	        &pEnum, 0);
+	    //hr = pDevEnum->CreateClassEnumerator(
+	    //	CLSID_VideoInputDeviceCategory,
+	    //    &pEnum, 0);
+
+		hr = pDevEnum->CreateClassEnumerator(
+			CLSID_VideoInputDeviceCategory,
+			&pEnum, 0);
 
 	   if(hr == S_OK){
 

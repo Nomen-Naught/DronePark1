@@ -3,8 +3,8 @@
 #include <QMessageBox>
 #include <string>
 
-#define UID "nicholas"
-#define PWD "nicholas"
+#define UID "root"
+#define PWD "123456"
 #define DSN "DronePark_MySQL"
 
 
