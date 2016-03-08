@@ -1,7 +1,7 @@
 #include "DronePilot.h"
 #include "ReturnCodes.h"
 #include <QThread>
-#include "PythonQt.h"
+//#include "PythonQt.h"
 
 class SweepController;
 
@@ -20,6 +20,7 @@ FlightController::~FlightController()
 //Initiates the drone flightpath
 void FlightController::asyncStartFlight(ControlInterface* contInt)
 {
+	/*
 	PythonQt::init(PythonQt::IgnoreSiteModule | PythonQt::RedirectStdOut);
 	PythonQtObjectPtr mainModule = PythonQt::self()->getMainModule();
 	PythonQtScriptingConsole* console = new PythonQtScriptingConsole(NULL, mainModule);
@@ -32,6 +33,7 @@ void FlightController::asyncStartFlight(ControlInterface* contInt)
 
 	//console->appendCommandPrompt();
 	//console->show();
+	*/
 	return;
 }
 

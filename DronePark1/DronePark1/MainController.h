@@ -78,6 +78,8 @@ public slots:
 	//Receive QR code reading
 	void receiveCode(QString stub_id);
 
+	
+
 
 
 signals:
@@ -160,6 +162,11 @@ public slots:
 	//Decide the spot by looking up the stub_id and comparing it to the current time.
 	//Only do this if read was a success
 	void decideSpot(Spot* spot, bool success, int stub_id);
+
+	//Slot to receiver new lot 
+	void createLot(int numspot, int rows, int col);
+
+	void newLotDialogOpen(NewLot* LotDialog);
 
 signals:
 	void test();

@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_dronepark1.h"
 #include "loadconfig.h"
+#include "newlot.h"
 #include "ParkingLot.h"
 #include "ParkingLotLayout.h"
 #include <QPixmap>
@@ -26,9 +27,11 @@ public:
 
 	//Actions
 	QAction* loadConfigAct;
+	QAction* newLotAct;
 
 	//Other Windows
 	LoadConfig* loadConfigWin;
+	NewLot* newLotWin;
 
 
 	int buildLotGui(Lot* lot);
@@ -49,6 +52,10 @@ public slots:
 	void showcurrentTime();
 	void loadConfigSlot();
 	void loadConfigClose();
+	void newLotSlot();
+
+signals:
+	void newLotOpen(NewLot* LotDialog);
 
 };
 

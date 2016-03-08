@@ -1,8 +1,8 @@
 #include "MainController.h"
 #include "dronepark1.h"
 #include "QMessageBox.h"
-#include "Python.h"
-#include "PythonQt.h"
+//#include "Python.h"
+//#include "PythonQt.h"
 
 #define DEFAULT_CONFIG 1
 
@@ -56,7 +56,7 @@ int DroneParkController::initialize(DronePark1* gui)
 	rc |= databaseController->connectToDb("Test");
 	DP_ASSERT(rc, "databaseController->connectToDb");
 
-	//Load the default config
+	////Load the default config
 	rc |= loadConfig(DEFAULT_CONFIG);
 	DP_ASSERT(rc, "loadConfig");
 
@@ -93,6 +93,8 @@ int DroneParkController::initialize(DronePark1* gui)
 	//Instantiating the sweepController and FlightConttoller now... it caused weird bugs in release mode to do it later
 	sweepController = new SweepController(currentConfig->getCurrentLot());
 	QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
+
+	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
 
 
 	sweepController->dronePilot = new FlightController();
@@ -246,6 +248,19 @@ exit:
 	return;
 }
 
+void DroneParkController::createLot(int numspot, int rows, int col)
+{
+	//THIS IS A DUMMY FUNCTION
+	QMessageBox msgBox;
+	msgBox.setText("createLot has been fired");
+	msgBox.exec();
+}
+
+void DroneParkController::newLotDialogOpen(NewLot* LotDialog)
+{
+	connect(LotDialog, SIGNAL(newLotOkSig(int numSpots, int rows, int col)), this, SLOT(createLot(int numspot, int rows, int col)));
+}
+
 //TODO: Nick: implement emergencyShutDown
 //Stops all current operations and shuts down the physical drone.
 int SweepController::emergencyShutDown()
@@ -315,9 +330,11 @@ int SweepController::initiateSweep(Lot* lot)
 	//Start the new thread
 	pilotWorkerThread.start();
 
+	/*
 	//I think we need these, idk
 	Py_Initialize();
 	PyEval_InitThreads();
+	*/
 
 	//Emit the fireSweep to start the async flight task
 	emit fireSweep(contInt);
