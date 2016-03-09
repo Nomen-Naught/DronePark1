@@ -58,7 +58,7 @@ int DatabaseController::connectToDb(QString connectionString)
 		db->rlogon(logon); // connect to ODBC
 
 		//TEST Generate a completely new schema and tables
-		tester.generateDB(db);
+		//tester.generateDB(db);
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	

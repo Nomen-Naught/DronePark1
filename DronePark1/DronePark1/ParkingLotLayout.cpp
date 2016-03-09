@@ -83,6 +83,19 @@ ParkingLotLayout::ParkingLotLayout(int _row, int _col, QWidget *parent)
 	//Grab our icon size
 	iconSize = new QSize(emptyPixMap.rect().size());
 
+	//Figure out how big we wanna draw rectablges in buttons, for denoting which spot the copter should be over
+	int thickness = 5;
+
+	int b_width = iconSize->width() * (1.2) - 1;
+	int b_height = iconSize->height() * (1.4) - 1;
+
+	QRect rect1(0, 0, thickness, b_height);
+	QRect rect2(0, 0, b_width, thickness);
+	QRect rect3(b_width - thickness, 0, thickness, b_height);
+	QRect rect4(0, b_height - thickness, b_width, thickness);
+
+	SpotButton::setRect(rect1, rect2, rect3, rect4);
+
 }
 
 ParkingLotLayout::~ParkingLotLayout()
@@ -99,6 +112,16 @@ void ParkingLotLayout::add_spot(SpotButton* spotButton)
 	// Constructs the spot matrix based on the rows and columns
 	while (itemAtPosition(current_row, current_column) != 0)
 	{
+		if (current_row == (row - 1))
+		{
+			current_row = 0;
+			++current_column;
+		}
+		else
+		{
+			++current_row;
+		}
+		/*
 		if (current_column == (col - 1))
 		{
 			current_column = 0;
@@ -108,6 +131,7 @@ void ParkingLotLayout::add_spot(SpotButton* spotButton)
 		{
 			++current_column;
 		}
+		*/
 	}
 
 

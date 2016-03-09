@@ -243,8 +243,8 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 		goto exit;
 	}
 
-	qDebug() << *(stub->getExpireTime());
-	qDebug() << QDateTime::currentDateTime();
+	//qDebug() << *(stub->getExpireTime());
+	//qDebug() << QDateTime::currentDateTime();
 	//qDebug << QDateTime::QDateTime::currentDateTime().toString("hh:mm:ss");;
 
 	// If stub is passed expiry!!
@@ -263,7 +263,7 @@ exit:
 
 void DroneParkController::enterPressed()
 {
-	qDebug() << "next spot button pressed";
+	//qDebug() << "next spot button pressed";
 
 	if (sweepController != NULL && sweepController->getFLYING())
 	{
@@ -378,6 +378,9 @@ int SweepController::initiateSweep(Lot* lot)
 	//Assuming all is well, we should be flying!
 	setFLYING(true);
 
+	//Set first spot as overhead
+	(*spot_iterator)->setOverhead(true);
+
 exit:
 	return RC_OK;
 }
@@ -388,15 +391,27 @@ void SweepController::advanceSpot()
 {
 
 	//Move spot iterator to next spot
-	if (spot_iterator != lot->getSpots()->end())
+	if (spot_iterator != --(lot->getSpots()->end()))
 	{
-		spot_iterator++;
+		if (*spot_iterator != NULL)
+		{
+			(*spot_iterator)->setOverhead(false);
+			spot_iterator++;
+			(*spot_iterator)->setOverhead(true);
+		}
+	}
+	else // We've hit all the spots!
+	{
+		//Set last spot overhead to false, we done
+		(*spot_iterator)->setOverhead(false);
+
+		//Definitely should not be doing this, but not much of a choice right now!!
+		setFLYING(false);
 	}
 
-	//THIS IS A DUMMY FUNCTION
-	QMessageBox msgBox;
-	msgBox.setText("advanceSpot has been fired");
-	msgBox.exec();
+	//QMessageBox msgBox;
+	//msgBox.setText("advanceSpot has been fired");
+	//msgBox.exec();
 
 	return;
 }

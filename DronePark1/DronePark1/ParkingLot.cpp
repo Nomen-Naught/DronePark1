@@ -5,6 +5,8 @@ Spot::Spot() : DbObject()
 {
 	empty = false;
 	ticketed = false;
+
+	overhead = false;
 }
 
 Spot::Spot(int _spot_id, int _empty, int _is_ticketed, int _illegal, int _stub_id ) : DbObject()
@@ -14,6 +16,9 @@ Spot::Spot(int _spot_id, int _empty, int _is_ticketed, int _illegal, int _stub_i
 	ticketed = _is_ticketed;
 	illegal = _illegal;
 	stub_id = _stub_id;
+
+	overhead = false;
+
 }
 
 // Returns the ticketed flag
@@ -87,6 +92,16 @@ int Spot::setStubId(int _stub_id)
 		stub_id = _stub_id;
 		//Emit Qt signal to update listeners
 		emit spotStubChanged(id, _stub_id);
+	}
+	return RC_OK;
+}
+
+int Spot::setOverhead(bool _overhead)
+{
+	if (overhead != _overhead)
+	{
+		overhead = _overhead;
+		emit overheadChanged(_overhead);
 	}
 	return RC_OK;
 }

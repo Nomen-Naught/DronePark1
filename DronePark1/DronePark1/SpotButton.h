@@ -29,6 +29,15 @@ public:
 	static QIcon* illegal;
 	static QIcon* illegal_mirror;
 
+	//set our rectangles
+	static void setRect(QRect, QRect, QRect, QRect);
+
+	//Rectangles
+	static QRect rect1;
+	static QRect rect2;
+	static QRect rect3;
+	static QRect rect4;
+
 public slots:
 	//Update the ticketed field and call updateText
 	void updateTicketed(int id, bool value);
@@ -39,6 +48,8 @@ public slots:
 	//Update the illegal field
 	void updateIllegal(int id, bool value);
 
+	void setOverhead(bool _overhead);
+
 	//Click handler, currently sets ticketed to true
 	void handleClick();
 
@@ -47,11 +58,14 @@ private:
 	bool currentEmpty;
 	bool currentIllegal;
 	bool mirror = false;
+	bool overhead = false;
 
 	Spot* associatedSpot;
 
 	//Update the text on the widget
 	void updateText();
 
+protected:
+	void paintEvent(QPaintEvent *Event);
 
 };

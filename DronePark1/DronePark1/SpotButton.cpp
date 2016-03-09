@@ -1,5 +1,6 @@
 #include "SpotButton.h"
 #include <QMessageBox>
+#include <QPainter>
 
 
 QIcon* SpotButton::empty;
@@ -8,6 +9,11 @@ QIcon* SpotButton::occupied;
 QIcon* SpotButton::occupied_mirror;
 QIcon* SpotButton::illegal;
 QIcon* SpotButton::illegal_mirror;
+
+QRect SpotButton::rect1;
+QRect SpotButton::rect2;
+QRect SpotButton::rect3;
+QRect SpotButton::rect4;
 
 
 SpotButton::SpotButton(QWidget *parent)
@@ -38,6 +44,14 @@ void SpotButton::setIcons(QIcon* _empty, QIcon* _empty_mirror, QIcon* _occupied,
 	illegal_mirror = _illegal_mirror;
 }
 
+void SpotButton::setRect(QRect _rect1, QRect _rect2, QRect _rect3, QRect _rect4)
+{
+	rect1 = _rect1;
+	rect2 = _rect2;
+	rect3 = _rect3;
+	rect4 = _rect4;
+}
+
 //Sets the spot member to associate the widget with an actual spot object
 void SpotButton::setSpot(Spot* _spot)
 {
@@ -48,6 +62,12 @@ void SpotButton::setSpot(Spot* _spot)
 void SpotButton::setMirrored()
 {
 	mirror = true;
+}
+
+void SpotButton::setOverhead(bool _overhead)
+{
+	overhead = _overhead;
+	this->repaint();
 }
 
 //Sets the spot member to associate the widget with an actual spot object
@@ -85,7 +105,7 @@ void SpotButton::updateIllegal(int id, bool value)
 		}
 	}
 	// Not sure if this is needed, I would imagine we would from illegal state -> empty state
-	else
+	else if(currentEmpty == true)
 	{
 		if (mirror)
 		{
@@ -161,4 +181,23 @@ void SpotButton::handleClick()
 		DP_ASSERT2(false, "handleClick", "no associated spot");
 		return;
 	}
+}
+
+void SpotButton::paintEvent(QPaintEvent *Event)
+{
+	QToolButton::paintEvent(Event);
+
+
+	if (overhead)
+	{
+		QPainter painter(this);
+
+		painter.setBrush(QBrush(Qt::red, Qt::SolidPattern));
+
+		painter.drawRect(rect1);
+		painter.drawRect(rect2);
+		painter.drawRect(rect3);
+		painter.drawRect(rect4);
+	}
+
 }

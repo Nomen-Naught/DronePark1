@@ -20,6 +20,9 @@ private:
 	// The stub id associated with the spot
 	int stub_id;
 
+	// Represents if the quad is overhead
+	bool overhead;
+
 public:
 	// Constructor, should call DbObject constructor
 	Spot();
@@ -49,11 +52,15 @@ public:
 	// Sets the stub id
 	int setStubId(int _stubid);
 
+	// Sets overhead
+	int setOverhead(bool _overhead);
+
 signals:
 	void spotTicketedChanged(int id, bool newValue);
 	void spotEmptyChanged(int id, bool newValue);
 	void spotIllegalChanged(int id, bool newValue);
 	void spotStubChanged(int id, int newValue);
+	void overheadChanged(bool newValue);
 
 };
 

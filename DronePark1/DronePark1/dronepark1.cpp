@@ -125,6 +125,10 @@ void DronePark1::connectNewSpot(Spot* spot)
 	QObject::connect(spot, SIGNAL(spotIllegalChanged(int, bool)),
 					 spotButton, SLOT(updateIllegal(int, bool)));
 
+	// So we can set if the drone is overhead right now
+	QObject::connect(spot, SIGNAL(overheadChanged(bool)),
+		spotButton, SLOT(setOverhead(bool)));
+
 	//Do a one time explicit update of the widget
 	spotButton->updateEmpty(spot->getId(), spot->getEmpty());
 	spotButton->updateTicketed(spot->getId(), spot->getTicketed());
