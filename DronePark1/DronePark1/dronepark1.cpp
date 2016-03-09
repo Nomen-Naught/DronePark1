@@ -155,18 +155,31 @@ void DronePark1::keyPressEvent(QKeyEvent* event)
 	}
 }
 
-void DronePark1::flightSuccessSlot()
+void DronePark1::flightSuccessSlot(int empty, int occupied, int illegal)
 {
 	//Grab the current time and format it
 	QDateTime now = QDateTime::currentDateTime();
-	QString time = now.toString("mm/dd/yyyy hh:mm");
+	QString time = now.toString("MM/dd/yyyy hh:mm");
 
 	ui.lastSweep->setText(now.toString());
 
-	ui.historyTable->setRowCount(ui.historyTable->rowCount() + 1);
+	ui.historyTable->insertRow(0);
 
-	QTableWidgetItem *newItem = new QTableWidgetItem(time);
+	QTableWidgetItem *newDate = new QTableWidgetItem(time);
+	newDate->setFlags(newDate->flags() ^ Qt::ItemIsEditable);
 
-	ui.historyTable->setItem(ui.historyTable->rowCount() - 1, 0, newItem);
+	QTableWidgetItem *newEmpty = new QTableWidgetItem(QString::number(empty));
+	newEmpty->setFlags(newEmpty->flags() ^ Qt::ItemIsEditable);
+
+	QTableWidgetItem *newOccupied = new QTableWidgetItem(QString::number(occupied));
+	newOccupied->setFlags(newOccupied->flags() ^ Qt::ItemIsEditable);
+
+	QTableWidgetItem *newIllegal = new QTableWidgetItem(QString::number(illegal));
+	newIllegal->setFlags(newIllegal->flags() ^ Qt::ItemIsEditable);
+
+	ui.historyTable->setItem(0, 0, newDate);
+	ui.historyTable->setItem(0, 1, newEmpty);
+	ui.historyTable->setItem(0, 2, newOccupied);
+	ui.historyTable->setItem(0, 3, newIllegal);
 
 }

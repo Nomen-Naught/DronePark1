@@ -4,10 +4,14 @@
 #include <list>
 #include <QObject>
 
+
+
 class Spot : public DbObject 
 {
 	Q_OBJECT
 private:
+
+
 	// Boolean flag set if spot is empty
 	bool empty;
 
@@ -54,6 +58,7 @@ public:
 
 	// Sets overhead
 	int setOverhead(bool _overhead);
+
 
 signals:
 	void spotTicketedChanged(int id, bool newValue);

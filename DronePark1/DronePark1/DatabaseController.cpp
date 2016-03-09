@@ -221,7 +221,6 @@ Schedule* DatabaseController::querySchedule(int id)
 	return new Schedule();
 }
 
-//TODO: Nick: idk if this actually works, the QDateTime is being screwy!!
 // Queries db for Stub from id
 int DatabaseController::queryStub(int id, Stub** stub)
 {

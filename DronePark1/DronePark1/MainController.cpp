@@ -91,7 +91,7 @@ int DroneParkController::initialize(DronePark1* gui)
 	QObject::connect(sweepController, SIGNAL(flyingChanged(bool)), gui->returnUI().flightStatus, SLOT(updateStatus(bool)));
 
 	//This appears to do nothing?
-	QObject::connect(sweepController, SIGNAL(flightSuccess()), gui, SLOT(flightSuccessSlot()));
+	QObject::connect(sweepController, SIGNAL(flightSuccess(int,int,int)), gui, SLOT(flightSuccessSlot(int,int,int)));
 
 	connect(gui, SIGNAL(enterPressed()), this, SLOT(enterPressed()));
 
@@ -329,6 +329,9 @@ int SweepController::initiateSweep(Lot* lot)
 	}
 
 	spot_iterator = lot->getSpots()->begin();
+	empty = 0;
+	occupied = 0;
+	illegal = 0;
 
 
 	/*
@@ -424,6 +427,20 @@ void SweepController::advanceSpot()
 	{
 		if (*spot_iterator != NULL)
 		{
+
+			if ((*spot_iterator)->getEmpty() == 0)
+			{
+				empty++;
+			}
+			else if((*spot_iterator)->getIllegal() == 1)
+			{
+				illegal++;
+			}
+			else
+			{
+				occupied++;
+			}
+
 			(*spot_iterator)->setOverhead(false);
 			spot_iterator++;
 			(*spot_iterator)->setOverhead(true);
@@ -431,6 +448,20 @@ void SweepController::advanceSpot()
 	}
 	else // We've hit all the spots!
 	{
+		//Count the last spot!!
+		if ((*spot_iterator)->getEmpty() == 0)
+		{
+			empty++;
+		}
+		else if ((*spot_iterator)->getIllegal() == 1)
+		{
+			illegal++;
+		}
+		else
+		{
+			occupied++;
+		}
+
 		//Set last spot overhead to false, we done
 		(*spot_iterator)->setOverhead(false);
 
@@ -441,7 +472,7 @@ void SweepController::advanceSpot()
 		//Definitely should not be doing this, but not much of a choice right now!!
 		setFLYING(false);
 
-		emit flightSuccess();
+		emit flightSuccess(empty, occupied, illegal);
 	}
 
 	//QMessageBox msgBox;

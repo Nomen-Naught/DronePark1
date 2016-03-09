@@ -68,6 +68,7 @@ int Spot::setEmpty(bool _empty)
 		empty = _empty;
 		//Emit Qt signal to update listeners
 		emit spotEmptyChanged(id, _empty);
+
 	}
 	return RC_OK;
 }
@@ -80,6 +81,7 @@ int Spot::setIllegal(bool _illegal)
 		illegal = _illegal;
 		//Emit Qt signal to update listeners
 		emit spotIllegalChanged(id, _illegal);
+
 	}
 	return RC_OK;
 }
@@ -170,3 +172,4 @@ QString Lot::getCity()
 {
 	return city;
 }
+

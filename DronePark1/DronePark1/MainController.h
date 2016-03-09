@@ -23,7 +23,13 @@ private:
 
 	Lot* lot;
 
+	//Indicates if we're flying or not!
 	bool FLYING;
+
+	//count of last sweeps stats
+	int empty;
+	int occupied;
+	int illegal;
 
 	std::list<Spot*>::const_iterator spot_iterator;
 
@@ -101,7 +107,7 @@ signals:
 	void stopImage();
 
 	//We managed to successfully iterate the entire lot, tell everybody! Celebrate!
-	void flightSuccess();
+	void flightSuccess(int empty, int occupied, int illegal);
 
 };
 

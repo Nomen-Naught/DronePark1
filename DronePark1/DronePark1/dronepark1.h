@@ -45,7 +45,7 @@ public slots:
 	void showcurrentTime();
 	void loadConfigSlot();
 	void loadConfigClose();
-	void flightSuccessSlot();
+	void flightSuccessSlot(int empty, int occupied, int illegal);
 
 signals:
 	void enterPressed();

@@ -570,9 +570,9 @@
                 <property name="currentIndex">
                  <number>0</number>
                 </property>
-                <widget class="QWidget" name="lotInfoTab">
+                <widget class="QWidget" name="lotHistoryTab">
                  <attribute name="title">
-                  <string>Lot Info</string>
+                  <string>Lot History</string>
                  </attribute>
                  <layout class="QVBoxLayout" name="verticalLayout_4">
                   <item>
@@ -622,28 +622,33 @@
                    </layout>
                   </item>
                   <item>
+                   <widget class="QLabel" name="label">
+                    <property name="font">
+                     <font>
+                      <pointsize>12</pointsize>
+                     </font>
+                    </property>
+                    <property name="text">
+                     <string>History</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item>
                    <widget class="QTableWidget" name="historyTable">
                     <property name="columnCount">
                      <number>4</number>
                     </property>
+                    <attribute name="horizontalHeaderDefaultSectionSize">
+                     <number>100</number>
+                    </attribute>
+                    <attribute name="horizontalHeaderStretchLastSection">
+                     <bool>false</bool>
+                    </attribute>
                     <column/>
                     <column/>
                     <column/>
                     <column/>
                    </widget>
-                  </item>
-                  <item>
-                   <spacer name="verticalSpacer">
-                    <property name="orientation">
-                     <enum>Qt::Vertical</enum>
-                    </property>
-                    <property name="sizeHint" stdset="0">
-                     <size>
-                      <width>20</width>
-                      <height>40</height>
-                     </size>
-                    </property>
-                   </spacer>
                   </item>
                  </layout>
                 </widget>
