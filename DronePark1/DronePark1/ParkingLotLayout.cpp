@@ -110,28 +110,33 @@ void ParkingLotLayout::add_spot(SpotButton* spotButton)
 	int current_column = 0;
 
 	// Constructs the spot matrix based on the rows and columns
+	// This constructs a rectangular lot with indexes incrementing in an S shape.
+	// The S shape makes iterating over them more like how a flight path would actually be
 	while (itemAtPosition(current_row, current_column) != 0)
 	{
-		if (current_row == (row - 1))
+		if (current_column % 2 == 0)
 		{
-			current_row = 0;
-			++current_column;
+			if (current_row == (row - 1))
+			{
+				++current_column;
+			}
+			else
+			{
+				++current_row;
+			}
 		}
 		else
 		{
-			++current_row;
+			if (current_row == 0)
+			{
+				++current_column;
+
+			}
+			else
+			{
+				--current_row;
+			}
 		}
-		/*
-		if (current_column == (col - 1))
-		{
-			current_column = 0;
-			++current_row;
-		}
-		else
-		{
-			++current_column;
-		}
-		*/
 	}
 
 

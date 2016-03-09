@@ -56,6 +56,19 @@
            <property name="rightMargin">
             <number>2</number>
            </property>
+           <item>
+            <spacer name="horizontalSpacer_2">
+             <property name="orientation">
+              <enum>Qt::Horizontal</enum>
+             </property>
+             <property name="sizeHint" stdset="0">
+              <size>
+               <width>40</width>
+               <height>20</height>
+              </size>
+             </property>
+            </spacer>
+           </item>
           </layout>
          </item>
         </layout>
@@ -68,10 +81,10 @@
         </property>
         <layout class="QVBoxLayout" name="verticalLayout_2">
          <item>
-          <layout class="QVBoxLayout" name="statusLayout" stretch="0,8,0">
+          <layout class="QVBoxLayout" name="statusLayout" stretch="0,0,0">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout">
-             <item>
+             <item alignment="Qt::AlignLeft">
               <widget class="QLabel" name="flightStatusIdent">
                <property name="font">
                 <font>
@@ -83,8 +96,14 @@
                </property>
               </widget>
              </item>
-             <item>
+             <item alignment="Qt::AlignRight">
               <widget class="StatusLabel" name="flightStatus">
+               <property name="minimumSize">
+                <size>
+                 <width>250</width>
+                 <height>0</height>
+                </size>
+               </property>
                <property name="palette">
                 <palette>
                  <active>
@@ -536,16 +555,106 @@
             </layout>
            </item>
            <item>
-            <widget class="QLabel" name="flightScheduleInfo">
-             <property name="enabled">
-              <bool>true</bool>
+            <widget class="QFrame" name="DataLayout">
+             <property name="frameShape">
+              <enum>QFrame::NoFrame</enum>
              </property>
-             <property name="text">
-              <string>Flight Schedule Info</string>
-             </property>
-             <property name="alignment">
-              <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignTop</set>
-             </property>
+             <layout class="QVBoxLayout" name="StatsScheduleLayout">
+              <item>
+               <widget class="QTabWidget" name="tabWidget">
+                <property name="font">
+                 <font>
+                  <pointsize>12</pointsize>
+                 </font>
+                </property>
+                <property name="currentIndex">
+                 <number>0</number>
+                </property>
+                <widget class="QWidget" name="lotInfoTab">
+                 <attribute name="title">
+                  <string>Lot Info</string>
+                 </attribute>
+                 <layout class="QVBoxLayout" name="verticalLayout_4">
+                  <item>
+                   <layout class="QHBoxLayout" name="lastSweepLayout">
+                    <property name="spacing">
+                     <number>0</number>
+                    </property>
+                    <item>
+                     <widget class="QLabel" name="lastSweepIdentifier">
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Last Sweep:   </string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="lastSweep">
+                      <property name="font">
+                       <font>
+                        <pointsize>12</pointsize>
+                        <weight>75</weight>
+                        <bold>true</bold>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Never</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QTableWidget" name="historyTable">
+                    <property name="columnCount">
+                     <number>4</number>
+                    </property>
+                    <column/>
+                    <column/>
+                    <column/>
+                    <column/>
+                   </widget>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="schedulingTab">
+                 <attribute name="title">
+                  <string>Scheduling</string>
+                 </attribute>
+                </widget>
+               </widget>
+              </item>
+             </layout>
             </widget>
            </item>
            <item>
@@ -554,7 +663,7 @@
               <enum>QLayout::SetMinimumSize</enum>
              </property>
              <item alignment="Qt::AlignRight">
-              <widget class="QPushButton" name="pushButton">
+              <widget class="QPushButton" name="emergencyStopButton">
                <property name="minimumSize">
                 <size>
                  <width>200</width>

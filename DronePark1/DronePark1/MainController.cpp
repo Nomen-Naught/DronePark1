@@ -23,14 +23,6 @@ int DroneParkController::endDroneOperations()
 	return RC_ERR;
 }
 
-//TODO: Nick: implement emergencyShutDown
-//Ends automated drone operations immediately.Disregards and destroys
-//any currently happening processing.
-int DroneParkController::emergencyShutDown() 
-{
-	return RC_ERR;
-}
-
 //TODO: Nick: implement initiateDrone
 //Instantiates and initializes all objects to do with operating the drone.Queries
 //the database to construct Lot and Spot data, creates controllers, and initializes
@@ -91,12 +83,20 @@ int DroneParkController::initialize(DronePark1* gui)
 	QObject::connect(gui->returnUI().startSweepButton, SIGNAL(startSweep()),
 					 this, SLOT(startSweepButtonSlot()));
 
+
+
 	//Instantiating the sweepController and FlightConttoller now... it caused weird bugs in release mode to do it later
 	sweepController = new SweepController(currentConfig->getCurrentLot());
 	QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
 	QObject::connect(sweepController, SIGNAL(flyingChanged(bool)), gui->returnUI().flightStatus, SLOT(updateStatus(bool)));
 
+	//This appears to do nothing?
+	QObject::connect(sweepController, SIGNAL(flightSuccess()), gui, SLOT(flightSuccessSlot()));
+
 	connect(gui, SIGNAL(enterPressed()), this, SLOT(enterPressed()));
+
+	QObject::connect(gui->returnUI().emergencyStopButton, SIGNAL(clicked()),
+		sweepController, SLOT(emergencyShutDown()));
 
 
 	sweepController->dronePilot = new FlightController();
@@ -271,11 +271,23 @@ void DroneParkController::enterPressed()
 	}
 }
 
-//TODO: Nick: implement emergencyShutDown
 //Stops all current operations and shuts down the physical drone.
-int SweepController::emergencyShutDown()
+void SweepController::emergencyShutDown()
 {
-	return RC_ERR;
+	//Set last spot overhead to false, we done
+	(*spot_iterator)->setOverhead(false);
+
+	if (getFLYING())
+	{
+		emit stopImage();
+		captureThread->exit();
+		processorThread->exit();
+	}
+
+	//Definitely should not be doing this, but not much of a choice right now!!
+	setFLYING(false);
+
+	return;
 }
 
 //TODO: Nick: implement endScheudle
@@ -296,11 +308,18 @@ int SweepController::initiateSchedule(Schedule schedule, Lot lot)
 //Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
 int SweepController::initiateSweep(Lot* lot)
 {
-	//Interface for communicating between python and this sweepController
-	ControlInterface* contInt;
+
+	//As of now, this is totally useless. Drone cannot fly autonomously.
+	/*
+
 
 	//Used this for debugging
 	QMetaObject::Connection con;
+	*/
+
+	//Interface for communicating between python and this sweepController
+	ControlInterface* contInt;
+	contInt = new ControlInterface();
 
 	//If we're already flying, we should get out and let it keep flying (NOOP)
 	if (FLYING)
@@ -309,6 +328,10 @@ int SweepController::initiateSweep(Lot* lot)
 		goto exit;
 	}
 
+	spot_iterator = lot->getSpots()->begin();
+
+
+	/*
 	//A controller object which handles the actual flight of the drone.
 	dronePilot = new FlightController();
 
@@ -353,9 +376,11 @@ int SweepController::initiateSweep(Lot* lot)
 	PyEval_InitThreads();
 
 	// IMAGE STUFF---------------------------------------------------------------
+
+	*/
 	
-	QThread* captureThread = new QThread();
-	QThread* processorThread = new QThread();
+	captureThread = new QThread();
+	processorThread = new QThread();
 
 	ImageCapture* cap = new ImageCapture();
 	ImageProcessor* proc = new ImageProcessor();
@@ -363,6 +388,10 @@ int SweepController::initiateSweep(Lot* lot)
 	connect(this, SIGNAL(fireSweep(ControlInterface*)), cap, SLOT(asyncCaptureStart()), Qt::QueuedConnection);
 	connect(proc, SIGNAL(qrCodeReady(QString)), this, SLOT(receiveCode(QString)), Qt::QueuedConnection);
 	connect(cap, SIGNAL(imageReady(QImage*)), proc, SLOT(handleImage(QImage*)), Qt::QueuedConnection);
+
+	//Kill switches
+	connect(this, SIGNAL(stopImage()), cap, SLOT(stopCapture()));
+	connect(this, SIGNAL(stopImage()), proc, SLOT(stopProcess()));
 
 	cap->moveToThread(captureThread);
 	proc->moveToThread(processorThread);
@@ -405,8 +434,14 @@ void SweepController::advanceSpot()
 		//Set last spot overhead to false, we done
 		(*spot_iterator)->setOverhead(false);
 
+		emit stopImage();
+		captureThread->exit();
+		processorThread->exit();
+
 		//Definitely should not be doing this, but not much of a choice right now!!
 		setFLYING(false);
+
+		emit flightSuccess();
 	}
 
 	//QMessageBox msgBox;

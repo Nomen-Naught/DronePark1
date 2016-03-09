@@ -10,6 +10,8 @@
 #include <QIcon>
 #include <QImage>
 #include <QTimer>
+#include <QDateTime>
+#include <QKeyEvent>
 
 class DronePark1 : public QMainWindow
 {
@@ -39,6 +41,15 @@ public:
 	//Return the ui object. This is probably bad practice...
 	Ui::DronePark1Class returnUI();
 
+public slots:
+	void showcurrentTime();
+	void loadConfigSlot();
+	void loadConfigClose();
+	void flightSuccessSlot();
+
+signals:
+	void enterPressed();
+
 protected:
 
 	void keyPressEvent(QKeyEvent* event);
@@ -49,15 +60,6 @@ private:
 
 	// Custom grid layout for drawing parking spots
 	ParkingLotLayout* lotGridLayout;
-
-public slots:
-	void showcurrentTime();
-	void loadConfigSlot();
-	void loadConfigClose();
-
-signals:
-	void enterPressed();
-
 };
 
 #endif // DRONEPARK1_H

@@ -3,7 +3,6 @@
 #include "Config.h"
 #include "DecideController.h"
 #include "DatabaseController.h"
-#include "ImageController.h"
 #include "DronePilot.h"
 #include "dronepark1.h"
 #include <QObject>
@@ -27,6 +26,9 @@ private:
 	bool FLYING;
 
 	std::list<Spot*>::const_iterator spot_iterator;
+
+	QThread* captureThread;
+	QThread* processorThread;
 
 	//A controller object which handles all communications with the physical drone
 	//FlightCommsController* droneComms;
@@ -52,9 +54,6 @@ public:
 
 	SweepController(Lot*);
 	~SweepController();
-
-	//Stops all current operations and shuts down the physical drone.
-	int emergencyShutDown();
 
 	//If the drone operation is currently engaged in scheduled mode, this method ends the scheduled
 	//mode.If the drone isn’t in scheduled mode, this is a no - op.
@@ -83,6 +82,9 @@ public slots:
 	//Receive QR code reading
 	void receiveCode(QString stub_id);
 
+	//Stops all current operations and shuts down the physical drone.
+	void emergencyShutDown();
+
 
 
 signals:
@@ -94,6 +96,12 @@ signals:
 
 	//Flying status has changed
 	void flyingChanged(bool);
+
+	//Tell image processing to stop and exit
+	void stopImage();
+
+	//We managed to successfully iterate the entire lot, tell everybody! Celebrate!
+	void flightSuccess();
 
 };
 
@@ -124,10 +132,6 @@ public:
 	//Ends automated drone operations. Completes any current processing
 	//before shutting down hardware and communications.
 	int endDroneOperations();
-
-	//Ends automated drone operations immediately.Disregards and destroys
-	//any currently happening processing.
-	int emergencyShutDown();
 
 	//Instantiates and initializes all objects to do with operating the drone.Queries
 	//the database to construct Lot and Spot data, creates controllers, and initializes
@@ -169,6 +173,7 @@ public slots:
 	//Only do this if read was a success
 	void decideSpot(Spot* spot, bool success, int stub_id);
 
+	//Button has been rpessed
 	void enterPressed();
 
 signals:

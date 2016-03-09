@@ -18,6 +18,7 @@ public:
 
 public slots:
 	void handleImage(QImage* capturedImage);
+	void stopProcess();
 
 signals:
 	void qrCodeReady(QString code);

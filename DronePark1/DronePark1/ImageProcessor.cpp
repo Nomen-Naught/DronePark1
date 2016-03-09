@@ -144,6 +144,11 @@ void ImageProcessor::handleImage(QImage* capturedImage)
 	processing = false;
 }
 
+void ImageProcessor::stopProcess()
+{
+
+}
+
 ImageProcessor::~ImageProcessor()
 {
 

@@ -1,19 +1,30 @@
 #include "dronepark1.h"
 #include "SpotButton.h"
-#include "MainController.h"
 #include "ParkingLot.h"
+#include <QTableWidgetItem>
 
 DronePark1::DronePark1(QWidget *parent)
 	: QMainWindow(parent)
 {
 	ui.setupUi(this);
 
+	//Create menu bar
 	loadConfigAct = new QAction(tr("&Open Config"), this);
 	loadConfigAct->setShortcuts(QKeySequence::Open);
 	loadConfigAct->setStatusTip(tr("Load a New Configuration"));
 	connect(loadConfigAct, SIGNAL(triggered()), this, SLOT(loadConfigSlot()));
 
 	ui.menuFile->addAction(loadConfigAct);
+
+	//Create lot info history table
+	QStringList headers;
+	headers << "Time" << "Empty" << "Occupied" << "Illegal";
+
+	ui.historyTable->setHorizontalHeaderLabels(headers);
+
+	//Style tweaks
+	ui.tabWidget->setStyleSheet("QTabBar::tab { height: 35px; width: 100px; }");
+
 
 }
 
@@ -142,4 +153,20 @@ void DronePark1::keyPressEvent(QKeyEvent* event)
 	{
 		emit enterPressed();
 	}
+}
+
+void DronePark1::flightSuccessSlot()
+{
+	//Grab the current time and format it
+	QDateTime now = QDateTime::currentDateTime();
+	QString time = now.toString("mm/dd/yyyy hh:mm");
+
+	ui.lastSweep->setText(now.toString());
+
+	ui.historyTable->setRowCount(ui.historyTable->rowCount() + 1);
+
+	QTableWidgetItem *newItem = new QTableWidgetItem(time);
+
+	ui.historyTable->setItem(ui.historyTable->rowCount() - 1, 0, newItem);
+
 }
