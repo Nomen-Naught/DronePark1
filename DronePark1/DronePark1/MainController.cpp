@@ -233,6 +233,7 @@ void DroneParkController::enterPressed()
 	}
 }
 
+// Queries db for configs and associated lots and emits them to loadConfig gui
 void DroneParkController::getConfigs()
 {
 	std::list<Config*>* configs;
@@ -244,7 +245,56 @@ void DroneParkController::getConfigs()
 
 void DroneParkController::loadNewConfig(int id)
 {
-	qDebug() << "new config:" + id;
+	int rc = RC_OK;
+
+	qDebug() << "new config:" + QString::number(id);
+
+	if (currentConfig->getId() == id)
+	{
+		//We already have this config loaded, just bail
+		return;
+	}
+
+	//Load the default config
+	rc |= loadConfig(id);
+	DP_ASSERT(rc, "loadConfig");
+
+	//Start populating the gui with the lot
+	gui->replaceLotGui(currentConfig->getCurrentLot());
+
+	//We need to hook up our Spots with our database observers and the gui
+	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
+		end = currentConfig->getCurrentLot()->getSpots()->end();
+		iterator != end;
+		++iterator)
+	{
+		//Hook up ticketed field to database writer
+		QObject::connect(*iterator, SIGNAL(spotTicketedChanged(int, bool)),
+			databaseController, SLOT(updateSpotTicketed(int, bool)));
+
+		//Hook up empty field to database writer
+		QObject::connect(*iterator, SIGNAL(spotEmptyChanged(int, bool)),
+			databaseController, SLOT(updateSpotEmpty(int, bool)));
+
+		//Hook up illegal field to database writer
+		QObject::connect(*iterator, SIGNAL(spotIllegalChanged(int, bool)),
+			databaseController, SLOT(updateSpotIllegal(int, bool)));
+
+		//Connect fields with gui
+		gui->connectNewSpot(*iterator);
+	}
+
+	//Connect sweepController
+	if (sweepController == NULL)
+	{
+		sweepController = new SweepController(currentConfig->getCurrentLot());
+	}
+	else
+	{
+		sweepController->setNewLot(currentConfig->getCurrentLot());
+	}
+
+	return;
 }
 
 //Stops all current operations and shuts down the physical drone.
@@ -528,6 +578,16 @@ SweepController::SweepController(Lot* _lot)
 
 	//A controller object which handles the decision of validity of the spot.
 	//stubDecider = new DecideSpotController();
+}
+
+void SweepController::setNewLot(Lot* _lot)
+{
+	lot = _lot;
+
+	spot_iterator = lot->getSpots()->begin();
+
+	FLYING = false;
+
 }
 
 SweepController::~SweepController()

@@ -37,12 +37,43 @@ Ui::DronePark1Class DronePark1::returnUI()
 	return ui;
 }
 
+int DronePark1::replaceLotGui(Lot* lot)
+{
+	if (lotGridLayout != NULL)
+	{
+		QLayoutItem* item;
+		while ((item = lotGridLayout->takeAt(0)) != NULL)
+		{
+			delete item->widget();
+			delete item;
+		}
+		delete lotGridLayout;
+	}
+
+	lotGridLayout = new ParkingLotLayout(lot->getRow(), lot->getCol());
+
+	ui.parkingLotLayout->addLayout(lotGridLayout);
+
+	ui.parkingLotLayout->setAlignment(Qt::AlignLeft);
+	ui.buttonLayout->setAlignment(Qt::AlignRight);
+
+	// Set Lot title
+	ui.lotInfo->setText(lot->getCity() + ": " + lot->getName());
+
+	return RC_OK;
+}
+
 //Build and add the layout that will hold the spot graphics
 int DronePark1::buildLotGui(Lot* lot)
 {
+	
+	QWidget * widget;
+	QGridLayout * layout;
 
-	QWidget * widget = new QWidget();
-	QGridLayout * layout = new QGridLayout(widget);
+	widget = new QWidget();
+
+	layout = new QGridLayout(widget);
+
 
 	lotGridLayout = new ParkingLotLayout(lot->getRow(), lot->getCol());
 

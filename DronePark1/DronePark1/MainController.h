@@ -48,6 +48,9 @@ public:
 	SweepController(Lot*);
 	~SweepController();
 
+	//Points the sweepController to a new lot to examine
+	void setNewLot(Lot*);
+
 	//If the drone operation is currently engaged in scheduled mode, this method ends the scheduled
 	//mode.If the drone isn’t in scheduled mode, this is a no - op.
 	int endScheudle();

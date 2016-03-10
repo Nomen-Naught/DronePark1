@@ -35,6 +35,8 @@ public:
 
 	int buildLotGui(Lot* lot);
 
+	int replaceLotGui(Lot* lot);
+
 	//Connect a new spot object to the gui and add a widget for it
 	void connectNewSpot(Spot* spot);
 
