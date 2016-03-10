@@ -5,9 +5,9 @@
 
 #define DEVICE 1
 
-ImageCapture::ImageCapture()
+ImageCapture::ImageCapture(QMutex* _mutex)
 {
-	
+	mutex = _mutex;
 }
 
 void ImageCapture::asyncCaptureStart()
@@ -43,7 +43,7 @@ void ImageCapture::asyncCaptureStart()
 
 	while (captureLoop)
 	{
-		
+
 		while (!vi->isFrameNew(DEVICE))
 		{
 			Sleep(10); // spin until new frame
@@ -53,7 +53,9 @@ void ImageCapture::asyncCaptureStart()
 
 		QImage* frame = convertToQImage(width, height, buffer);
 
+		mutex->lock();
 		emit imageReady(frame);
+		mutex->unlock();
 
 	}
 

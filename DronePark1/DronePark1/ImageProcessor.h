@@ -10,7 +10,7 @@ class ImageProcessor : public QObject
 	Q_OBJECT
 
 public:
-	ImageProcessor();
+	ImageProcessor(QMutex* _mutex);
 
 	QString getQRCode(QImage *image);
 
@@ -29,6 +29,7 @@ private:
 	bool processing = false;
 
 	QZXing decoder;
+	QMutex* mutex;
 
 	QImage* enhanceImage(QImage* preImage);
 

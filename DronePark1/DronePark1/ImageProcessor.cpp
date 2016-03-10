@@ -1,9 +1,9 @@
 #include "ImageProcessor.h"
 #include "zxing\Exception.h"
-#include <exception>
 
-ImageProcessor::ImageProcessor()
+ImageProcessor::ImageProcessor(QMutex* _mutex)
 {
+	mutex = _mutex;
 	decoder.setDecoder(decoder.DecoderFormat_QR_CODE);
 }
 
@@ -21,16 +21,16 @@ QString ImageProcessor::getQRCode(QImage* image)
 		{
 			code = "";
 		}
+
 	}
 
 	if (code.length() <= 1 && TRY_ENHANCE)
 	{
-		//qDebug() << "No QR code found. Attempting to improve image...";
 		QImage* newImage = enhanceImage(image);
 		
 		try
 		{
-			code = decoder.decodeImage(*image);
+			code = decoder.decodeImage(*newImage);
 		}
 		catch (zxing::Exception e)
 		{
@@ -47,19 +47,33 @@ QImage* ImageProcessor::enhanceImage(QImage* preImage)
 {
 	Magick::Image* mImage = toImage(preImage);
 
+	/////////////////////  De-interlace / Downsample  ///////////////////////
+	//                                                                     //
+	// The raw frames are badly interlaced when there is motion.           //
+	// At full res there isn't much detail so little to no detail is lost. //
+	// Test performance is WAY better after downsampling.                  //
+	/////////////////////////////////////////////////////////////////////////
 
-	// -- De-interlace / Downsample -- 
-	//
-	// The raw frames are badly interlaced when there is motion
-	// At full res there isn't much detail so little to no detail is lost
-	// Test performance is WAY better after downsampling
-	mImage->sample(Magick::Geometry("50%x50%"));
+	//mImage->sample(Magick::Geometry("50%x50%"));
 
+	//////////////////////////////  Sharpen  ////////////////////////////////
+	//                                                                     //
+	// Sharpens soft edges in the image into harder edges.                 //
+	// This is particularly important for QR codes, especially since       //
+	// QZXing does not remotely like soft edges.                           //
+	/////////////////////////////////////////////////////////////////////////
 
-	// -- Threshold --
-	//
-	// Binarize the image so that each pixel is either black or white
-	mImage->threshold(160.0);
+	mImage->sharpen(2.0, 2.0);
+
+	/////////////////////////////  Threshold  ///////////////////////////////
+	//                                                                     //
+	// Binarize the image so that each pixel is either black or white.     //
+	// Some testing shows that this might not actually be beneficial,      //
+	// since it can make the QR edges jagged.                              //
+	/////////////////////////////////////////////////////////////////////////
+
+	//mImage->threshold(160.0);
+
 	QImage* newImage = toQImage(mImage);
 
 	delete mImage;
@@ -131,17 +145,22 @@ void ImageProcessor::handleImage(QImage* capturedImage)
 {
 	// This should prevent a processing queue from forming
 	// A queue would be bad because we can only process in real time
-	if (processing) return;
+	if (processing)
+	{
+		return;
+	}
 	processing = true;
 
-	QString code = getQRCode(capturedImage);
+	mutex->lock();
 
-	//qDebug() << "Code:" << code;
+	QString code = getQRCode(capturedImage);
 
 	emit qrCodeReady(code);
 
 	delete capturedImage;
 	processing = false;
+
+	mutex->unlock();
 }
 
 void ImageProcessor::stopProcess()

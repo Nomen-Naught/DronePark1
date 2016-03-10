@@ -1,9 +1,10 @@
 #include "MainController.h"
 #include "dronepark1.h"
 #include "QMessageBox.h"
-#include "Python.h"
-#include "PythonQt.h"
+//#include "Python.h"
+//#include "PythonQt.h"
 #include "qdebug.h"
+#include "qmutex.h"
 
 #define DEFAULT_CONFIG 1
 
@@ -350,18 +351,20 @@ int SweepController::initiateSweep(Lot* lot)
 	pilotWorkerThread.start();
 
 	//I think we need these, idk
-	Py_Initialize();
-	PyEval_InitThreads();
+//	Py_Initialize();
+//	PyEval_InitThreads();
 
 	// IMAGE STUFF---------------------------------------------------------------
 
 	*/
+
+	QMutex* mutex = new QMutex();
 	
 	captureThread = new QThread();
 	processorThread = new QThread();
 
-	ImageCapture* cap = new ImageCapture();
-	ImageProcessor* proc = new ImageProcessor();
+	ImageCapture* cap = new ImageCapture(mutex);
+	ImageProcessor* proc = new ImageProcessor(mutex);
 
 	connect(this, SIGNAL(fireSweep(ControlInterface*)), cap, SLOT(asyncCaptureStart()), Qt::QueuedConnection);
 	connect(proc, SIGNAL(qrCodeReady(QString)), this, SLOT(receiveCode(QString)), Qt::QueuedConnection);
@@ -498,7 +501,7 @@ void SweepController::receiveCode(QString _stub_id)
 	if (_stub_id.length() < 1)
 		return;
 
-	qDebug() << QTime::currentTime() << " :I read:" << _stub_id;
+	qDebug() << QDateTime::currentDateTime().toString() << "I read:" << _stub_id;
 
 	emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
 	return;

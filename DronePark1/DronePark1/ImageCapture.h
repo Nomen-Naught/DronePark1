@@ -17,7 +17,7 @@ class ImageCapture : public QObject
 	Q_OBJECT
 
 public:
-	ImageCapture();
+	ImageCapture(QMutex* _mutex);
 
 public slots:
 	void asyncCaptureStart();
@@ -30,6 +30,7 @@ private:
 	bool captureLoop = false;
 	//CvCapture* capture;
 	//IplImage* frame;
+	QMutex* mutex;
 
 	QImage* convertToQImage(int width, int height, unsigned char* buffer);
 };
