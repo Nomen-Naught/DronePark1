@@ -4,7 +4,8 @@
 NewLot::NewLot(QWidget *parent) : QDialog(parent)
 {
 	ui.setupUi(this);
-
+	connect(ui.numCol, SIGNAL(valueChanged(int)), this, SLOT(setColSlideValue(int)));
+	connect(ui.numRow, SIGNAL(valueChanged(int)), this, SLOT(setColSlideValue(int)));
 }
 
 void NewLot::accept()
@@ -20,6 +21,16 @@ void NewLot::accept()
 	QDialog::accept();
 
 	return;
+}
+
+void NewLot::setColSlideValue(int value)
+{
+	ui.numColLabel->setText(QString::number(value));
+}
+
+void NewLot::setRowSlideValue(int value)
+{
+	ui.numRowLabel->setText(QString::number(value));
 }
 
 NewLot::~NewLot()

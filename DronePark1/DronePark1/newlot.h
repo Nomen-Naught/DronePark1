@@ -16,6 +16,10 @@ public:
 	//Gets called when you accept the form
 	void accept();
 
+public slots:
+	void setColSlideValue(int value);
+	void setRowSlideValue(int value);
+
 signals:
 	void newLotOkSig(int numSpots, int rows, int col, QString lotName, QString _city);
 
