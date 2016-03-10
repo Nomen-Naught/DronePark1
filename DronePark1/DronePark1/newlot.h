@@ -13,14 +13,16 @@ public:
 	NewLot(QWidget *parent = 0);
 	~NewLot();
 
+	//Gets called when you accept the form
+	void accept();
+
+signals:
+	void newLotOkSig(int numSpots, int rows, int col, QString lotName, QString _city);
+
 private:
 	Ui::NewLot ui;
 
-public slots:
-	void newLotOk();
 
-signals:
-	void newLotOkSig(int numSpots, int rows, int col);
 };
 
 #endif // !NEWLOT_H

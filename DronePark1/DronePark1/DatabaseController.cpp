@@ -2,6 +2,7 @@
 #include "Tests_Misc.h"
 #include <QMessageBox>
 #include <string>
+#include <string.h>
 
 #define UID "nicholas"
 #define PWD "nicholas"
@@ -59,6 +60,8 @@ int DatabaseController::connectToDb(QString connectionString)
 
 		//TEST Generate a completely new schema and tables
 		//tester.generateDB(db);
+		//insertLot(25, 3, 3, "aaaaaaaaaaaaaaaaa", "Calgary");
+		
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	
@@ -75,9 +78,52 @@ exit:
 
 //TODO: Nick: Implement insertLot
 // Inserts lot into db, returns rc
-int DatabaseController::insertLot(Lot newLot)
+int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotname,QString _city)
 {
-	return RC_ERR;
+	int rc = RC_OK;
+
+	_lotname.remove(QRegExp("[\\n\\t\\r]"));
+	_city.remove(QRegExp("[\\n\\t\\r]"));
+
+	//Lot temp variables
+	int lot_id;
+	char create_date[50];
+	int num_spots = _numspot;
+	int row = _row;
+	int col = _col;
+	char *lot_name; 
+	QByteArray bl = _lotname.toLatin1();
+	lot_name = bl.data();
+	char *city; 
+	QByteArray bc = _city.toLatin1();
+	city = bc.data();
+
+	Lot* newLot;
+
+	try {
+
+		//Create the stream object for Lot query
+		otl_stream j(1, // buffer size
+			"insert INTO Lot (num_spots, row, col, lot_name, city) VALUES (:num_spots<int>, :row<int>, :col<int>, :lot_name<char[20]>, :city<char[20]>)",
+			// insert statement
+			*db // connect object
+			);
+
+		j << num_spots << row << col << lot_name << city;
+		
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	// We have enough data to construct the Lot object
+	newLot = new Lot(row, col, lot_name, city);
+	//newLot->setId(lot_id);
+
+exit:
+	return rc;
 }
 
 //TODO: Nick: Implemet insertSchedule

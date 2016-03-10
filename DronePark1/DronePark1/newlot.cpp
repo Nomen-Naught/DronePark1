@@ -1,16 +1,25 @@
 #include "newlot.h"
+#include "DatabaseController.h"
 
 NewLot::NewLot(QWidget *parent) : QDialog(parent)
 {
 	ui.setupUi(this);
 
-	connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(newLotOk()));
-
 }
 
-void NewLot::newLotOk()
+void NewLot::accept()
 {
-	emit newLotOkSig(1, 1, 1);
+	
+	int row = ui.numRow->value();
+	int col = ui.numCol->value();
+	int numSpot = row * col;
+	QString lotName = ui.lotText->text();
+	QString city = ui.cityText->text();
+	emit newLotOkSig(numSpot, row, col,lotName, city);
+
+	QDialog::accept();
+
+	return;
 }
 
 NewLot::~NewLot()

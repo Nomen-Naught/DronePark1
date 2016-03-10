@@ -33,7 +33,7 @@ public:
 	int connectToDb(QString connectionString);
 
 	// Inserts lot into db, returns rc
-	int insertLot(Lot newLot);
+	int insertLot(int _numspot, int _row, int _col, QString _lotname, QString _city);
 
 	// Inserts schedule into db, returns rc
 	int insertSchedule(Schedule newSchedule);

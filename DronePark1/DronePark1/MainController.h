@@ -164,7 +164,7 @@ public slots:
 	void decideSpot(Spot* spot, bool success, int stub_id);
 
 	//Slot to receiver new lot 
-	void createLot(int numspot, int rows, int col);
+	void createLot(int numspot, int rows, int col, QString lotName, QString _city);
 
 	void newLotDialogOpen(NewLot* LotDialog);
 

@@ -1,6 +1,7 @@
 #include "MainController.h"
 #include "dronepark1.h"
 #include "QMessageBox.h"
+#include "newlot.h"
 //#include "Python.h"
 //#include "PythonQt.h"
 
@@ -248,8 +249,16 @@ exit:
 	return;
 }
 
-void DroneParkController::createLot(int numspot, int rows, int col)
+void DroneParkController::createLot(int _numspot, int _rows, int _col, QString _lotName, QString _city)
 {
+	int numspot = _numspot;
+	int rows = _rows;
+	int col = _col;
+	QString lotName = _lotName;
+	QString city = _city;
+	//insert lot into db
+	databaseController->insertLot(numspot, rows, col, lotName, city);
+
 	//THIS IS A DUMMY FUNCTION
 	QMessageBox msgBox;
 	msgBox.setText("createLot has been fired");
@@ -258,7 +267,7 @@ void DroneParkController::createLot(int numspot, int rows, int col)
 
 void DroneParkController::newLotDialogOpen(NewLot* LotDialog)
 {
-	connect(LotDialog, SIGNAL(newLotOkSig(int numSpots, int rows, int col)), this, SLOT(createLot(int numspot, int rows, int col)));
+	 connect(LotDialog, SIGNAL(newLotOkSig(int, int, int, QString, QString )), this, SLOT(createLot(int , int , int, QString, QString )));
 }
 
 //TODO: Nick: implement emergencyShutDown
