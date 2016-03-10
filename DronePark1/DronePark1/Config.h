@@ -20,6 +20,8 @@ public:
 
 	Config();
 
+	Config(int config_id);
+
 	// Returns currentLot
 	Lot* getCurrentLot();
 

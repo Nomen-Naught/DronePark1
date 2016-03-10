@@ -43,12 +43,13 @@ public:
 
 public slots:
 	void showcurrentTime();
-	void loadConfigSlot();
+	void loadConfigSlot(std::list<Config*>*);
 	void loadConfigClose();
 	void flightSuccessSlot(int empty, int occupied, int illegal);
 
 signals:
 	void enterPressed();
+	void accepteConfigPass(int);
 
 protected:
 

@@ -18,9 +18,8 @@ class SweepController : public QObject
 	QThread pilotWorkerThread;
 
 private:
-	//The current spot under review
-	//Spot* currentSpot;
 
+	//Current lot we're examining
 	Lot* lot;
 
 	//Indicates if we're flying or not!
@@ -31,24 +30,12 @@ private:
 	int occupied;
 	int illegal;
 
+	//Iterator that points to the current spot
 	std::list<Spot*>::const_iterator spot_iterator;
 
+	//Thread objects
 	QThread* captureThread;
 	QThread* processorThread;
-
-	//A controller object which handles all communications with the physical drone
-	//FlightCommsController* droneComms;
-
-
-
-	//A controller object which handles all communications with the physical camera.
-	//ImageCommsController* imageComms;
-
-	//A controller object which handles all the image analysis.
-	//ImageProcessController* imageProcessor;
-
-	//A controller object which handles the decision of validity of the spot.
-	//DecideSpotController* stubDecider;
 
 	//Update spot based of the return value sent from the DecideSpotController
 	int updateSpot(bool decision);
@@ -74,10 +61,10 @@ public:
 	//Checks if we're currently flyin
 	bool getFLYING();
 
+	//Sets if we're flyin
 	void setFLYING(bool _flying);
 
 public slots:
-	void handleResults();
 
 	//Move to the next spot and start camera taking pictures again
 	void advanceSpot();
@@ -127,6 +114,9 @@ private:
 	//Deviation from design, adding DatabaseController
 	DatabaseController* databaseController;
 
+	//Is keeping a reference to the gui a good idea? not sure lol
+	DronePark1* gui;
+
 public:
 
 	DroneParkController();
@@ -151,26 +141,6 @@ public:
 	//Queries the database with an id and loads a new configuration.
 	int loadConfig(int id);
 
-	//Sets the currentConfig’s currentLot to the Lot passed in.
-	int updateConfig_Lot(Lot newlot);
-
-	//Sets the currentConfig’s currentSchedule
-	int updateConfig_Schedule(Schedule newSchedule);
-
-	//Adds the passed in DateTime to the currentConfig’s currentSchedule.
-	int updateConfig_AddScheduleTime(QDateTime newTime);
-	
-	//Removes the passed in DateTime from the currentConfig’s currentSchedule
-	int updateConfig_RemoveScheduleTime(QDateTime remTime);
-
-	//Sets the currentConfig’s useSchedule member to true.Start the sweepControl
-	//in scheduled mode
-	int updateConfig_EnableSchedule();
-
-	//Sets the currentConfig’s useSchedule member to false.End the
-	//sweepControl’s scheduled mode
-	int updateConfig_DisableSchedule();
-
 public slots:
 	// Slot for startSweepButton slot
 	void startSweepButtonSlot();
@@ -182,8 +152,16 @@ public slots:
 	//Button has been rpessed
 	void enterPressed();
 
+	//Gets a list of configs for loadConfig and will fires them with loadConfigWindow at gui
+	void getConfigs();
+
+	//Load a new config with the id passed in
+	void loadNewConfig(int id);
+
 signals:
-	void test();
+
+	//For loading an open config window
+	void loadConfigWindow(std::list<Config*>*);
 
 };
 

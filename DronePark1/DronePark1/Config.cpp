@@ -3,7 +3,12 @@
 //Config Constructor
 Config::Config() : DbObject()
 {
-	id = 5;
+	id = -1;
+}
+
+Config::Config(int _config_id)
+{
+	id = _config_id;
 }
 
 // Returns currentLot

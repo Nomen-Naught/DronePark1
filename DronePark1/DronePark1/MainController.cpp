@@ -7,7 +7,6 @@
 
 #define DEFAULT_CONFIG 1
 
-
 //TODO: Nick: implement beginDroneOperations
 //Begins automated drone operations based on currentConfig.
 int DroneParkController::beginDroneOperations() 
@@ -34,7 +33,7 @@ int DroneParkController::initiateDrone()
 
 //Initialize all controllers and models needed to start and display the first
 //screen.
-int DroneParkController::initialize(DronePark1* gui)
+int DroneParkController::initialize(DronePark1* _gui)
 {
 	//Declarations--------------
 
@@ -42,10 +41,12 @@ int DroneParkController::initialize(DronePark1* gui)
 
 	//End Delcarations----------
 
+	gui = _gui;
+
 	// Allocate and set databaseController, deallocated in destructor hopefully
 	databaseController = new DatabaseController();
 
-	// Connect to the database (This doesn't really need an argument, it does nothing
+	// Connect to the database (This doesn't really need an argument, it does nothing)
 	rc |= databaseController->connectToDb("Test");
 	DP_ASSERT(rc, "databaseController->connectToDb");
 
@@ -83,20 +84,25 @@ int DroneParkController::initialize(DronePark1* gui)
 	QObject::connect(gui->returnUI().startSweepButton, SIGNAL(startSweep()),
 					 this, SLOT(startSweepButtonSlot()));
 
-
-
 	//Instantiating the sweepController and FlightConttoller now... it caused weird bugs in release mode to do it later
 	sweepController = new SweepController(currentConfig->getCurrentLot());
 	QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
 	QObject::connect(sweepController, SIGNAL(flyingChanged(bool)), gui->returnUI().flightStatus, SLOT(updateStatus(bool)));
 
-	//This appears to do nothing?
+	//Tell the gui that we've finished a sweep
 	QObject::connect(sweepController, SIGNAL(flightSuccess(int,int,int)), gui, SLOT(flightSuccessSlot(int,int,int)));
 
+	//Advances the spot with 'n' key, for testing
 	connect(gui, SIGNAL(enterPressed()), this, SLOT(enterPressed()));
 
+	//Emergency Stop button
 	QObject::connect(gui->returnUI().emergencyStopButton, SIGNAL(clicked()),
 		sweepController, SLOT(emergencyShutDown()));
+
+	//Set up slots for loading additional gui windows
+	connect(gui->loadConfigAct, SIGNAL(triggered()), this, SLOT(getConfigs()));
+	connect(gui, SIGNAL(accepteConfigPass(int)), this, SLOT(loadNewConfig(int)));
+	connect(this, SIGNAL(loadConfigWindow(std::list<Config*>*)), gui, SLOT(loadConfigSlot(std::list<Config*>*)));
 
 
 	sweepController->dronePilot = new FlightController();
@@ -113,51 +119,6 @@ int DroneParkController::loadConfig(int id)
 	rc = databaseController->queryConfig(id, &currentConfig);
 
 	return rc;
-}
-
-
-//TODO: Nick: implement updateConfig_Lot
-//Sets the currentConfig’s currentLot to the Lot passed in.
-int DroneParkController::updateConfig_Lot(Lot newlot)
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement updateConfig_Schedule
-//Sets the currentConfig’s currentSchedule
-int DroneParkController::updateConfig_Schedule(Schedule newSchedule)
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement updateConfig_AddScheduleTime
-//Adds the passed in DateTime to the currentConfig’s currentSchedule.
-int DroneParkController::updateConfig_AddScheduleTime(QDateTime newTime)
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement updateConfig_RemoveScheduleTime
-//Removes the passed in DateTime from the currentConfig’s currentSchedule
-int DroneParkController::updateConfig_RemoveScheduleTime(QDateTime remTime)
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement updateConfig_EnableSchedule
-//Sets the currentConfig’s useSchedule member to true.Start the sweepControl
-//in scheduled mode
-int DroneParkController::updateConfig_EnableSchedule()
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement updateConfig_DisableSchedule
-//Sets the currentConfig’s useSchedule member to false.End the
-//sweepControl’s scheduled mode
-int DroneParkController::updateConfig_DisableSchedule()
-{
-	return RC_ERR;
 }
 
 //DroneParkController constructor
@@ -269,6 +230,20 @@ void DroneParkController::enterPressed()
 	{
 		sweepController->advanceSpot();
 	}
+}
+
+void DroneParkController::getConfigs()
+{
+	std::list<Config*>* configs;
+	
+	databaseController->queryConfigs(&configs);
+
+	emit loadConfigWindow(configs);
+}
+
+void DroneParkController::loadNewConfig(int id)
+{
+	qDebug() << "new config:" + id;
 }
 
 //Stops all current operations and shuts down the physical drone.
@@ -499,14 +474,6 @@ int SweepController::updateSpot(bool decision)
 	return RC_ERR;
 }
 
-void SweepController::handleResults()
-{
-	//THIS IS A DUMMY FUNCTION
-	QMessageBox msgBox;
-	msgBox.setText("Back from the thread!");
-	msgBox.exec();
-	return;
-}
 
 bool SweepController::getFLYING()
 {

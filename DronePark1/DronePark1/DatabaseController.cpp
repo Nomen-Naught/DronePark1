@@ -2,6 +2,7 @@
 #include "Tests_Misc.h"
 #include <QMessageBox>
 #include <string>
+#include <QListWidgetItem>
 
 #define UID "root"
 #define PWD "123456"
@@ -94,9 +95,61 @@ int DatabaseController::insertStub(Stub newStub)
 	return RC_ERR;
 }
 
-int queryConfigs()
+//Query a list of configs and their lots (does not get spots!)
+//Used in load config/lot
+int DatabaseController::queryConfigs(std::list<Config*>** newConfigs)
 {
-	return RC_ERR;
+	int rc = RC_OK;
+
+	std::list<Config*>* configs;
+
+	Lot* tempLot;
+	Config* tempConfig;
+
+	int config_id;
+	int lot_id;
+	int current_schedule;
+
+	try
+	{
+		//Create the stream object for Config query
+		otl_stream k(50, // buffer size
+			"select * from config",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Write variables into query
+		//otl_write_row(k);
+
+		configs = new std::list<Config*>;
+
+		//Loop through results
+		for (auto& it : k) {
+
+			otl_read_row(it, config_id, lot_id, current_schedule);
+
+			// Query the Lot object next
+			rc = queryLot(lot_id, &tempLot);
+			DP_ASSERT(rc, "queryLot");
+
+			tempConfig = new Config(config_id);
+			tempConfig->setCurrentLot(tempLot);
+
+
+			configs->push_front(tempConfig);
+		}
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	*newConfigs = configs;
+
+exit:
+	return rc;
 }
 
 // Queries db for config from id

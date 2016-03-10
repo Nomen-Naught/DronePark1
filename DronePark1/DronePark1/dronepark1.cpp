@@ -12,7 +12,6 @@ DronePark1::DronePark1(QWidget *parent)
 	loadConfigAct = new QAction(tr("&Open Config"), this);
 	loadConfigAct->setShortcuts(QKeySequence::Open);
 	loadConfigAct->setStatusTip(tr("Load a New Configuration"));
-	connect(loadConfigAct, SIGNAL(triggered()), this, SLOT(loadConfigSlot()));
 
 	ui.menuFile->addAction(loadConfigAct);
 
@@ -24,8 +23,6 @@ DronePark1::DronePark1(QWidget *parent)
 
 	//Style tweaks
 	ui.tabWidget->setStyleSheet("QTabBar::tab { height: 35px; width: 100px; }");
-
-
 }
 
 DronePark1::~DronePark1()
@@ -97,10 +94,11 @@ void DronePark1::showcurrentTime()
 	currentDateTime->setText(QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm") + "   ");
 }
 
-void DronePark1::loadConfigSlot()
+void DronePark1::loadConfigSlot(std::list<Config*>* configs)
 {
-	loadConfigWin = new LoadConfig();
+	loadConfigWin = new LoadConfig(configs);
 	connect(loadConfigWin, SIGNAL(finished(int)), this, SLOT(loadConfigClose()));
+	connect(loadConfigWin, SIGNAL(acceptedConfig(int)), this, SIGNAL(accepteConfigPass(int)));
 
 	loadConfigWin->setModal(true);
 	loadConfigWin->show();

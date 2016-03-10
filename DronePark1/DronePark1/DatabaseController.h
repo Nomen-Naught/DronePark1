@@ -45,7 +45,7 @@ public:
 	int queryConfig(int id, Config** config);
 
 	// Produces a list of configs and associated lots, but does not populate them
-	int queryConfigs();
+	int queryConfigs(std::list<Config*>** newConfigs);
 
 	//TODO: Nick: Implement queryLot
 	// Queries db for Lot from id
