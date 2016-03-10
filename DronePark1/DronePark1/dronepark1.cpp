@@ -156,7 +156,7 @@ void DronePark1::loadConfigSlot(std::list<Config*>* configs)
 {
 	loadConfigWin = new LoadConfig(configs);
 	connect(loadConfigWin, SIGNAL(finished(int)), this, SLOT(loadConfigClose()));
-	connect(loadConfigWin, SIGNAL(acceptedConfig(int)), this, SIGNAL(accepteConfigPass(int)));
+	connect(loadConfigWin, SIGNAL(acceptedConfig(int)), this, SIGNAL(acceptConfigPass(int)));
 
 	loadConfigWin->setModal(true);
 	loadConfigWin->show();

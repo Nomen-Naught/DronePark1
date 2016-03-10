@@ -102,7 +102,7 @@ int DroneParkController::initialize(DronePark1* _gui)
 
 	//Set up slots for loading additional gui windows
 	connect(gui->loadConfigAct, SIGNAL(triggered()), this, SLOT(getConfigs()));
-	connect(gui, SIGNAL(accepteConfigPass(int)), this, SLOT(loadNewConfig(int)));
+	connect(gui, SIGNAL(acceptConfigPass(int)), this, SLOT(loadNewConfig(int)));
 	connect(this, SIGNAL(loadConfigWindow(std::list<Config*>*)), gui, SLOT(loadConfigSlot(std::list<Config*>*)));
 
 
@@ -587,7 +587,7 @@ void SweepController::receiveCode(QString _stub_id)
 	if (_stub_id.length() < 1)
 		return;
 
-	qDebug() << QDateTime::currentDateTime().toString() << "I read:" << _stub_id;
+	qDebug() << QTime::currentTime().toString() << "I read:" << _stub_id;
 
 	emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
 	return;

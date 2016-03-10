@@ -88,6 +88,9 @@ public:
 	// Updates Spot from db by id, returns rc
 	int updateSpot(Spot newSpot, int id);
 
+	//inserts num_spots empty new spots
+	int insertNewSpots(int lot_id, int num_spots);
+
 public slots:
 	void updateSpotTicketed(int id, bool ticketed);
 	void updateSpotEmpty(int id, bool empty);

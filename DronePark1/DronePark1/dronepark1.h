@@ -55,7 +55,7 @@ public slots:
 
 signals:
 	void enterPressed();
-	void accepteConfigPass(int);
+	void acceptConfigPass(int);
 
 protected:
 

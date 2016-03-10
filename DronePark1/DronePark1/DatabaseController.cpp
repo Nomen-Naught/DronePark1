@@ -60,6 +60,8 @@ int DatabaseController::connectToDb(QString connectionString)
 
 		//TEST Generate a completely new schema and tables
 		//tester.generateDB(db);
+
+		insertNewSpots(1, 10);
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	
@@ -439,6 +441,48 @@ int DatabaseController::updateStub(Stub newStub, int id)
 int DatabaseController::updateSpot(Spot newSpot, int id)
 {
 	return RC_ERR;
+}
+
+//Inserts num_spots new blank spots into lot with lot_id
+int DatabaseController::insertNewSpots(int lot_id, int num_spots)
+{
+	int rc = RC_OK;
+
+	int index = 0;
+
+	while (index < num_spots)
+	{
+		try
+		{
+			//Create the stream object for Spot query
+			otl_stream k(50, // buffer size
+				"INSERT INTO `DRONEPARK`.`Spot`"
+				"(`lot_id`,"
+				"`stub_id`,"
+				"`is_empty`,"
+				"`is_illegal`,"
+				"`is_ticketed`,"
+				"`state`)"
+				"VALUES"
+				"(:lot_id<int>, NULL, 0, 0, 0, NULL)",
+				// SELECT statement
+				*db // connect object
+				);
+
+			//Write variables into query
+			otl_write_row(k, lot_id);
+		}
+		catch (otl_exception& p) // intercept OTL exceptions
+		{
+			rc = RC_ERR;
+			goto exit;
+		}
+
+		index++;
+	}
+
+exit:
+	return rc;
 }
 
 //TODO: updateSpotTicketed has no error handling at all
