@@ -9,11 +9,32 @@ DronePark1::DronePark1(QWidget *parent)
 	ui.setupUi(this);
 
 	//Create menu bar
+
+	//Open Config
 	loadConfigAct = new QAction(tr("&Open Config"), this);
 	loadConfigAct->setShortcuts(QKeySequence::Open);
 	loadConfigAct->setStatusTip(tr("Load a New Configuration"));
 
+	//New Schedule
+	newScheduleAct = new QAction(tr("New Schedule"), this);
+	newScheduleAct->setStatusTip(tr("Create a New Schedule"));
+
+	//Exit
+	exitAction = new QAction(tr("Exit"), this);
+	exitAction->setShortcut(QKeySequence(tr("Alt+F4")));
+	exitAction->setStatusTip(tr("Exit DronePark"));
+
+
+	//File
 	ui.menuFile->addAction(loadConfigAct);
+
+
+	//Add new Actions above!
+	ui.menuFile->addSeparator();
+	ui.menuFile->addAction(exitAction);
+
+	//Schedule
+	ui.menuSchedule->addAction(newScheduleAct);
 
 	//Create lot info history table
 	QStringList headers;
@@ -23,6 +44,12 @@ DronePark1::DronePark1(QWidget *parent)
 
 	//Style tweaks
 	ui.tabWidget->setStyleSheet("QTabBar::tab { height: 35px; width: 100px; }");
+	ui.menuFile->setStyleSheet("QMenu::separator{ height: 1px; background: white;margin-left: 10px; margin-right: 5px; }");
+}
+
+void DronePark1::connectQuit(QApplication* qapp)
+{
+	connect(exitAction, SIGNAL(triggered()), qapp, SLOT(closeAllWindows()));
 }
 
 DronePark1::~DronePark1()

@@ -237,10 +237,23 @@ void DroneParkController::enterPressed()
 void DroneParkController::getConfigs()
 {
 	std::list<Config*>* configs;
+
+	//Bail if we're flying right now
+	if (sweepController && sweepController->getFLYING())
+	{
+		int ret = QMessageBox::information(NULL, tr("DronePark"),
+			tr("Cannot open new configuration.\n"
+				"Please finish or cancel the current sweep first."));
+		return;
+	}
 	
+	//Grab the list of configs
 	databaseController->queryConfigs(&configs);
 
+	//Tells gui to load the new window
 	emit loadConfigWindow(configs);
+
+	return;
 }
 
 void DroneParkController::loadNewConfig(int id)
@@ -255,12 +268,35 @@ void DroneParkController::loadNewConfig(int id)
 		return;
 	}
 
+	//We have to nuke the old spots
+	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
+		end = currentConfig->getCurrentLot()->getSpots()->end();
+		iterator != end;
+		++iterator)
+	{
+		delete *iterator;
+	}
+
+	//Then detele the lot and config
+	delete currentConfig->getCurrentLot();
+	delete currentConfig;
+
 	//Load the default config
 	rc |= loadConfig(id);
 	DP_ASSERT(rc, "loadConfig");
 
 	//Start populating the gui with the lot
 	gui->replaceLotGui(currentConfig->getCurrentLot());
+
+	//Nuke the histroy table
+	gui->returnUI().historyTable->clearContents();
+	while (gui->returnUI().historyTable->rowCount() > 0)
+	{
+		gui->returnUI().historyTable->removeRow(0);
+	}
+
+	gui->returnUI().lastSweep->setText("Never");
+
 
 	//We need to hook up our Spots with our database observers and the gui
 	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),

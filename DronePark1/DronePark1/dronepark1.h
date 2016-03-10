@@ -28,6 +28,8 @@ public:
 
 	//Actions
 	QAction* loadConfigAct;
+	QAction* newScheduleAct;
+	QAction* exitAction;
 
 	//Other Windows
 	LoadConfig* loadConfigWin;
@@ -39,6 +41,8 @@ public:
 
 	//Connect a new spot object to the gui and add a widget for it
 	void connectNewSpot(Spot* spot);
+
+	void connectQuit(QApplication* qapp);
 
 	//Return the ui object. This is probably bad practice...
 	Ui::DronePark1Class returnUI();

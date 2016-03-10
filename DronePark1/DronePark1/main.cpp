@@ -50,5 +50,7 @@ int main(int argc, char *argv[])
 
 	// Program Start use-case END***
 
+	gui.connectQuit(&a);
+
 	return a.exec();
 }

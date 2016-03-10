@@ -2007,7 +2007,13 @@
      <string>File</string>
     </property>
    </widget>
+   <widget class="QMenu" name="menuSchedule">
+    <property name="title">
+     <string>Schedule</string>
+    </property>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuSchedule"/>
   </widget>
   <action name="actionParkingSpot">
    <property name="checkable">
