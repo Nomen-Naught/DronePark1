@@ -249,24 +249,39 @@ exit:
 	return;
 }
 
+//function is called when the newLotOkSig is emited from newlot
+//assignes the values from the ui to a new lot to be inserted into the db 
 void DroneParkController::createLot(int _numspot, int _rows, int _col, QString _lotName, QString _city)
 {
+	//instatiate a Lot object to load the config from 
+	Lot* newLot;
+
+	//assign parameters to temp values to pass to the db controller
 	int numspot = _numspot;
 	int rows = _rows;
 	int col = _col;
 	QString lotName = _lotName;
 	QString city = _city;
+	
 	//insert lot into db
 	databaseController->insertLot(numspot, rows, col, lotName, city);
 
-	//THIS IS A DUMMY FUNCTION
+	//now create a new Lot object to load the new config from
+	newLot = new Lot(rows, col, lotName, city);
+	//newLot->setId(lot_id);
+	//TODO: This is where you will want to get the id from the DB for the last lot added
+	//and then update the current config based on the DB ID and the newly created Lot object
+
+	//Notification that the Lot has been added to the db
 	QMessageBox msgBox;
-	msgBox.setText("createLot has been fired");
+	msgBox.setText("The new Lot has been added to the DataBase");
 	msgBox.exec();
 }
 
+//function to call the createLot slot when the newLotOkSig is emitted
 void DroneParkController::newLotDialogOpen(NewLot* LotDialog)
 {
+	//connects newLotOkSig to createLot
 	 connect(LotDialog, SIGNAL(newLotOkSig(int, int, int, QString, QString )), this, SLOT(createLot(int , int , int, QString, QString )));
 }
 

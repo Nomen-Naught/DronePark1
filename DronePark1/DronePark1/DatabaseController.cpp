@@ -60,7 +60,6 @@ int DatabaseController::connectToDb(QString connectionString)
 
 		//TEST Generate a completely new schema and tables
 		//tester.generateDB(db);
-		//insertLot(25, 3, 3, "aaaaaaaaaaaaaaaaa", "Calgary");
 		
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
@@ -76,21 +75,19 @@ exit:
 	return rc;
 }
 
-//TODO: Nick: Implement insertLot
 // Inserts lot into db, returns rc
 int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotname,QString _city)
 {
 	int rc = RC_OK;
 
-	_lotname.remove(QRegExp("[\\n\\t\\r]"));
-	_city.remove(QRegExp("[\\n\\t\\r]"));
-
-	//Lot temp variables
+	//store parameters into temp variables
 	int lot_id;
 	char create_date[50];
 	int num_spots = _numspot;
 	int row = _row;
 	int col = _col;
+
+	//for lot name and city QString must be converted to a char array
 	char *lot_name; 
 	QByteArray bl = _lotname.toLatin1();
 	lot_name = bl.data();
@@ -98,7 +95,7 @@ int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotnam
 	QByteArray bc = _city.toLatin1();
 	city = bc.data();
 
-	Lot* newLot;
+	
 
 	try {
 
@@ -109,6 +106,7 @@ int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotnam
 			*db // connect object
 			);
 
+		//execute insert statement
 		j << num_spots << row << col << lot_name << city;
 		
 	}
@@ -118,10 +116,7 @@ int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotnam
 		goto exit;
 	}
 
-	// We have enough data to construct the Lot object
-	newLot = new Lot(row, col, lot_name, city);
-	//newLot->setId(lot_id);
-
+	
 exit:
 	return rc;
 }
