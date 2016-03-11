@@ -3,7 +3,7 @@
 #include "ParkingLot.h"
 #include <QObject>
 #include <QThread>
-#include "gui/PythonQtScriptingConsole.h"
+//#include "gui/PythonQtScriptingConsole.h"
 #include "ControlInterface.h"
 
 class SweepController;

@@ -82,7 +82,6 @@ public slots:
 	void emergencyShutDown();
 
 
-
 signals:
 	//Should initiate a sweep
 	void fireSweep(ControlInterface*);
@@ -105,9 +104,6 @@ class DroneParkController : public QObject
 {
 	Q_OBJECT
 
-public :
-	//The currently loaded configuration for the session
-	Config* currentConfig;
 private:
 
 
@@ -124,6 +120,9 @@ public:
 
 	DroneParkController();
 	~DroneParkController();
+
+	//The currently loaded configuration for the session
+	Config* currentConfig;
 
 	//Begins automated drone operations based on currentConfig.
 	int beginDroneOperations();
@@ -160,6 +159,11 @@ public slots:
 
 	//Load a new config with the id passed in
 	void loadNewConfig(int id);
+
+	//Slot to receiver new lot 
+	void createLot(int numspot, int rows, int col, QString lotName, QString _city);
+
+	void newLotDialogOpen(NewLot* LotDialog);
 
 signals:
 

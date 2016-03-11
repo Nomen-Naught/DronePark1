@@ -26,6 +26,12 @@ DronePark1::DronePark1(QWidget *parent)
 
 
 	//File
+	newLotAct = new QAction(tr("&New Lot"), this);
+	newLotAct->setShortcuts(QKeySequence::New);
+	newLotAct->setStatusTip(tr("Create a New Lot Configuration"));
+	connect(newLotAct, SIGNAL(triggered()), this, SLOT(newLotSlot()));
+
+	ui.menuFile->addAction(newLotAct);
 	ui.menuFile->addAction(loadConfigAct);
 
 
@@ -150,6 +156,18 @@ void DronePark1::showcurrentTime()
 {
 	QDateTime dateTime = dateTime.currentDateTime();
 	currentDateTime->setText(QDateTime::currentDateTime().toString("dd/MM/yyyy hh:mm") + "   ");
+}
+
+void DronePark1::newLotSlot()
+{
+	newLotWin = new NewLot();
+
+	emit newLotOpen(newLotWin);
+
+	newLotWin->setModal(true);
+	newLotWin->show();
+
+
 }
 
 void DronePark1::loadConfigSlot(std::list<Config*>* configs)

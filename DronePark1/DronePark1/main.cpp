@@ -48,6 +48,7 @@ int main(int argc, char *argv[])
 	rc = droneParkController.initialize(&gui);
 	DP_ASSERT(rc, "droneParkController.initialize()");
 
+
 	// Program Start use-case END***
 
 	gui.connectQuit(&a);

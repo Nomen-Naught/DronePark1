@@ -33,7 +33,6 @@ void FlightController::asyncStartFlight(ControlInterface* contInt)
 
 	//console->appendCommandPrompt();
 	//console->show();
-
 	*/
 	return;
 }

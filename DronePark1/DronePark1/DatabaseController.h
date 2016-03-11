@@ -33,13 +33,16 @@ public:
 	int connectToDb(QString connectionString);
 
 	// Inserts lot into db, returns rc
-	int insertLot(Lot newLot);
+	int insertLot(int _numspot, int _row, int _col, QString _lotname, QString _city);
 
 	// Inserts schedule into db, returns rc
 	int insertSchedule(Schedule newSchedule);
 
 	// Inserts stub into db, returns rc
 	int insertStub(Stub newStub);
+
+	// Inserts a config
+	int insertConfig(int lot_id, int schedule_id);
 
 	// Queries db for config from id
 	int queryConfig(int id, Config** config);
@@ -59,6 +62,12 @@ public:
 
 	// Queries db for spot list from lot_id
 	int querySpots(int lot_id, std::list<Spot*>** spots);
+
+	//Grab the last id inserted into the table
+	int queryLastLotId(int* lot_id);
+
+	//Grab the last id inserted into the table
+	int queryLastConfigId(int* config_id);
 
 	// Removes Lot from db by id, returns rc
 	int removeLot(int id);

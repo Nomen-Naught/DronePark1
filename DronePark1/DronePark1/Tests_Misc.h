@@ -86,7 +86,7 @@ public:
 				"  `num_spots` int(11) DEFAULT NULL,"
 				"  `row` int(11) DEFAULT NULL,"
 				"  `col` int(11) DEFAULT NULL,"
-				"  `lot_name` varchar(20) DEFAULT NULL,"
+				"  `lot_name` varchar(30) DEFAULT NULL,"
 				"  `city` varchar(20) DEFAULT NULL,"
 				"  PRIMARY KEY (`lot_id`),"
 				"  UNIQUE KEY `lot_id_UNIQUE` (`lot_id`)"

@@ -5,6 +5,8 @@
 //#include "PythonQt.h"
 #include "qdebug.h"
 #include "qmutex.h"
+#include "newlot.h"
+
 
 #define DEFAULT_CONFIG 1
 
@@ -51,7 +53,7 @@ int DroneParkController::initialize(DronePark1* _gui)
 	rc |= databaseController->connectToDb("Test");
 	DP_ASSERT(rc, "databaseController->connectToDb");
 
-	//Load the default config
+	////Load the default config
 	rc |= loadConfig(DEFAULT_CONFIG);
 	DP_ASSERT(rc, "loadConfig");
 
@@ -104,6 +106,8 @@ int DroneParkController::initialize(DronePark1* _gui)
 	connect(gui->loadConfigAct, SIGNAL(triggered()), this, SLOT(getConfigs()));
 	connect(gui, SIGNAL(acceptConfigPass(int)), this, SLOT(loadNewConfig(int)));
 	connect(this, SIGNAL(loadConfigWindow(std::list<Config*>*)), gui, SLOT(loadConfigSlot(std::list<Config*>*)));
+
+	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
 
 
 	sweepController->dronePilot = new FlightController();
@@ -333,6 +337,48 @@ void DroneParkController::loadNewConfig(int id)
 	return;
 }
 
+//function is called when the newLotOkSig is emited from newlot
+//assignes the values from the ui to a new lot to be inserted into the db 
+void DroneParkController::createLot(int _numspot, int _rows, int _col, QString _lotName, QString _city)
+{
+	//instatiate a Lot object to load the config from 
+	Lot* newLot;
+
+	//assign parameters to temp values to pass to the db controller
+	int numspot = _numspot;
+	int rows = _rows;
+	int col = _col;
+	QString lotName = _lotName;
+	QString city = _city;
+
+	int lot_id = -1;
+	int config_id = -1;
+	
+	//insert lot into db
+	databaseController->insertLot(numspot, rows, col, lotName, city);
+	databaseController->queryLastLotId(&lot_id);
+	databaseController->insertNewSpots(lot_id, numspot);
+
+	//TODO: INSERT NEW LOT HAS A DUMMY SCHEDULE ID
+	//SCHEDULE ID HAS A DUMMY
+	databaseController->insertConfig(lot_id, 1);
+	databaseController->queryLastConfigId(&config_id);
+
+	loadNewConfig(config_id);
+
+	//Notification that the Lot has been added to the db
+	QMessageBox msgBox;
+	msgBox.setText("The new Lot has been added to the DataBase");
+	msgBox.exec();
+}
+
+//function to call the createLot slot when the newLotOkSig is emitted
+void DroneParkController::newLotDialogOpen(NewLot* LotDialog)
+{
+	//connects newLotOkSig to createLot
+	 connect(LotDialog, SIGNAL(newLotOkSig(int, int, int, QString, QString )), this, SLOT(createLot(int , int , int, QString, QString )));
+}
+
 //Stops all current operations and shuts down the physical drone.
 void SweepController::emergencyShutDown()
 {
@@ -436,6 +482,7 @@ int SweepController::initiateSweep(Lot* lot)
 	//Start the new thread
 	pilotWorkerThread.start();
 
+	/*
 	//I think we need these, idk
 //	Py_Initialize();
 //	PyEval_InitThreads();

@@ -4,6 +4,7 @@
 #include <string>
 #include <QListWidgetItem>
 
+
 #define UID "root"
 #define PWD "123456"
 #define DSN "DronePark_MySQL"
@@ -59,7 +60,8 @@ int DatabaseController::connectToDb(QString connectionString)
 		db->rlogon(logon); // connect to ODBC
 
 		//TEST Generate a completely new schema and tables
-		tester.generateDB(db);
+
+		//tester.generateDB(db);
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	
@@ -74,11 +76,78 @@ exit:
 	return rc;
 }
 
-//TODO: Nick: Implement insertLot
 // Inserts lot into db, returns rc
-int DatabaseController::insertLot(Lot newLot)
+int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotname,QString _city)
 {
-	return RC_ERR;
+	int rc = RC_OK;
+
+	//store parameters into temp variables
+	int lot_id;
+	char create_date[50];
+	int num_spots = _numspot;
+	int row = _row;
+	int col = _col;
+
+	//for lot name and city QString must be converted to a char array
+	char *lot_name; 
+	QByteArray bl = _lotname.toLatin1();
+	lot_name = bl.data();
+	char *city; 
+	QByteArray bc = _city.toLatin1();
+	city = bc.data();
+
+	
+
+	try {
+
+		//Create the stream object for Lot query
+		otl_stream j(1, // buffer size
+			"insert INTO Lot (num_spots, row, col, lot_name, city) VALUES (:num_spots<int>, :row<int>, :col<int>, :lot_name<char[20]>, :city<char[20]>)",
+			// insert statement
+			*db // connect object
+			);
+
+		//execute insert statement
+		j << num_spots << row << col << lot_name << city;
+		
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	
+exit:
+	return rc;
+}
+
+int DatabaseController::insertConfig(int lot_id, int schedule_id)
+{
+
+	int rc = RC_OK;
+
+	try {
+
+		//Create the stream object for Lot query
+		otl_stream j(1, // buffer size
+			"insert INTO config (current_lot, current_schedule) VALUES (:lot_id<int>, :schedule_id<int>)",
+			// insert statement
+			*db // connect object
+			);
+
+		//execute insert statement
+		j << lot_id << schedule_id;
+
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+exit:
+	return rc;
 }
 
 //TODO: Nick: Implemet insertSchedule
@@ -439,6 +508,78 @@ int DatabaseController::updateStub(Stub newStub, int id)
 int DatabaseController::updateSpot(Spot newSpot, int id)
 {
 	return RC_ERR;
+}
+
+int DatabaseController::queryLastLotId(int* lot_id)
+{
+
+	int rc = RC_OK;
+
+	int newLotLocal = -1;
+
+	try
+	{
+		//Create the stream object for Config query
+		otl_stream k(50, // buffer size
+			"SELECT LAST_INSERT_ID() FROM lot",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Loop through results
+		for (auto& it : k) {
+
+			otl_read_row(it, newLotLocal);
+
+		}
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	*lot_id = newLotLocal;
+	
+exit:
+	return rc;
+
+}
+
+int DatabaseController::queryLastConfigId(int* config_id)
+{
+
+	int rc = RC_OK;
+
+	int newConfigLocal = -1;
+
+	try
+	{
+		//Create the stream object for Config query
+		otl_stream k(50, // buffer size
+			"SELECT LAST_INSERT_ID() FROM config",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Loop through results
+		for (auto& it : k) {
+
+			otl_read_row(it, newConfigLocal);
+
+		}
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	*config_id = newConfigLocal;
+
+exit:
+	return rc;
+
 }
 
 //Inserts num_spots new blank spots into lot with lot_id

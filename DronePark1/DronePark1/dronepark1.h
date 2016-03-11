@@ -4,6 +4,7 @@
 #include <QtWidgets/QMainWindow>
 #include "ui_dronepark1.h"
 #include "loadconfig.h"
+#include "newlot.h"
 #include "ParkingLot.h"
 #include "ParkingLotLayout.h"
 #include <QPixmap>
@@ -30,9 +31,11 @@ public:
 	QAction* loadConfigAct;
 	QAction* newScheduleAct;
 	QAction* exitAction;
+	QAction* newLotAct;
 
 	//Other Windows
 	LoadConfig* loadConfigWin;
+	NewLot* newLotWin;
 
 
 	int buildLotGui(Lot* lot);
@@ -52,10 +55,12 @@ public slots:
 	void loadConfigSlot(std::list<Config*>*);
 	void loadConfigClose();
 	void flightSuccessSlot(int empty, int occupied, int illegal);
+	void newLotSlot();
 
 signals:
 	void enterPressed();
 	void acceptConfigPass(int);
+	void newLotOpen(NewLot* LotDialog);
 
 protected:
 
@@ -67,6 +72,7 @@ private:
 
 	// Custom grid layout for drawing parking spots
 	ParkingLotLayout* lotGridLayout;
+
 };
 
 #endif // DRONEPARK1_H
