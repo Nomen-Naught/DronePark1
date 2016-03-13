@@ -88,7 +88,7 @@ int DronePark1::replaceLotGui(Lot* lot)
 	ui.parkingLotLayout->addLayout(lotGridLayout);
 
 	ui.parkingLotLayout->setAlignment(Qt::AlignLeft);
-	ui.buttonLayout->setAlignment(Qt::AlignRight);
+	ui.rightButtonLayout->setAlignment(Qt::AlignRight);
 
 	// Set Lot title
 	ui.lotInfo->setText(lot->getCity() + ": " + lot->getName());
@@ -113,7 +113,7 @@ int DronePark1::buildLotGui(Lot* lot)
 	ui.parkingLotLayout->addLayout(lotGridLayout);
 
 	ui.parkingLotLayout->setAlignment(Qt::AlignLeft);
-	ui.buttonLayout->setAlignment(Qt::AlignRight);
+	ui.rightButtonLayout->setAlignment(Qt::AlignRight);
 
 	timer = new QTimer(this);
 

@@ -4,11 +4,13 @@
 Config::Config() : DbObject()
 {
 	id = -1;
+	useSchedule = false;
 }
 
 Config::Config(int _config_id)
 {
 	id = _config_id;
+	useSchedule = false;
 }
 
 // Returns currentLot

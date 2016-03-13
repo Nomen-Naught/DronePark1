@@ -55,7 +55,7 @@ public:
 	int queryLot(int id, Lot** lot);
 
 	// Queries db for Schedule from id
-	Schedule* querySchedule(int id);
+	int querySchedule(Schedule** schedule,int schedule_id);
 
 	// Queries db for Stub from id
 	int queryStub(int id, Stub** stub);
@@ -76,7 +76,7 @@ public:
 	int removeSpot(int id);
 
 	// Removes Schedule from db by id, returns rc
-	int removeSchedule(int id);
+	int removeSchedule(int lot_id);
 
 	//TODO: Nick: Implement removeStub
 	// Removes Stub from db by id, returns rc

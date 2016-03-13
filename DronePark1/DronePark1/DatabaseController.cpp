@@ -236,6 +236,7 @@ int DatabaseController::queryConfig(int id, Config** config)
 	Config* newConfig;
 	Lot* newLot;
 	std::list<Spot*>* newSpots;
+	Schedule* newSchedule;
 
 	// Query everything we need for the Config object
 	try {
@@ -272,6 +273,14 @@ int DatabaseController::queryConfig(int id, Config** config)
 		newConfig->setCurrentLot(newLot);
 
 		//TODO: Query stub info
+
+		//Load a schedule if it exists
+		rc = querySchedule( &newSchedule, config_schedule);
+
+		if (newSchedule != NULL)
+		{
+			newConfig->setCurrentSchedule(newSchedule);
+		}
 
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
@@ -338,9 +347,74 @@ exit:
 
 //TODO: Nick: Implement querySchedule
 // Queries db for Schedule from id
-Schedule* DatabaseController::querySchedule(int id)
+int DatabaseController::querySchedule(Schedule** schedule, int id)
 {
-	return new Schedule();
+
+	int rc = RC_OK;
+
+	Schedule* newSchedule;
+
+	QTime* startTime;
+	QTime* endTime;
+	int interval;
+
+	TIMESTAMP_STRUCT _startTime;
+	TIMESTAMP_STRUCT _endTime;
+
+	
+	try {
+
+		//Create the stream object for schedule query
+		otl_stream j(1, // buffer size
+			"select start_time, end_time from schedule where schedule_id=:schedule_id<int>",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Write variables into query
+		otl_write_row(j, id);
+
+		//Loop through results
+		for (auto& it : j) {
+			otl_read_row(it, _startTime, _endTime);
+		}
+
+		// I'm getting an END-OF-ROW check failed error if I query all three columns at once...
+		// Must be a bug in OTLV4, all I can do is query them seperately for now.
+		otl_stream k(1, // buffer size
+			"select interv from schedule where schedule_id=:schedule_id<int>",
+			// SELECT statement
+			*db // connect object
+			);
+
+		//Write variables into query
+		otl_write_row(k, id);
+
+		//Loop through results
+		for (auto& it : k) {
+			otl_read_row(it, interval);
+		}
+	}
+	catch (otl_exception& p) // intercept OTL exceptions
+	{
+		rc = RC_ERR;
+		goto exit;
+	}
+
+	startTime = new QTime(_startTime.hour, _startTime.minute, _startTime.second);
+	endTime = new QTime(_endTime.hour, _endTime.minute, _endTime.second);
+
+	newSchedule = new Schedule();
+
+	newSchedule->setStartTime(startTime);
+	newSchedule->setEndTime(endTime);
+	newSchedule->setInterval(interval);
+	newSchedule->setId(id);
+	
+	*schedule = newSchedule;
+
+exit:
+	return rc;
 }
 
 // Queries db for Stub from id

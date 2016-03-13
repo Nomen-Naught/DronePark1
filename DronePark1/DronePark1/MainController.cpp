@@ -10,29 +10,6 @@
 
 #define DEFAULT_CONFIG 1
 
-//TODO: Nick: implement beginDroneOperations
-//Begins automated drone operations based on currentConfig.
-int DroneParkController::beginDroneOperations() 
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement endDroneOperations
-//Ends automated drone operations. Completes any current processing
-//before shutting down hardware and communications.
-int DroneParkController::endDroneOperations()
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement initiateDrone
-//Instantiates and initializes all objects to do with operating the drone.Queries
-//the database to construct Lot and Spot data, creates controllers, and initializes
-//communications.
-int DroneParkController::initiateDrone()
-{
-	return RC_ERR;
-}
 
 //Initialize all controllers and models needed to start and display the first
 //screen.
@@ -101,6 +78,10 @@ int DroneParkController::initialize(DronePark1* _gui)
 	//Emergency Stop button
 	QObject::connect(gui->returnUI().emergencyStopButton, SIGNAL(clicked()),
 		sweepController, SLOT(emergencyShutDown()));
+
+	//toggle schedule button
+	QObject::connect(gui->returnUI().toggleScheduleButton, SIGNAL(clicked()),
+		this, SLOT(toggleUseScheduleButtonSlot()));
 
 	//Set up slots for loading additional gui windows
 	connect(gui->loadConfigAct, SIGNAL(triggered()), this, SLOT(getConfigs()));
@@ -395,6 +376,27 @@ void SweepController::emergencyShutDown()
 	//Definitely should not be doing this, but not much of a choice right now!!
 	setFLYING(false);
 
+	return;
+}
+
+void DroneParkController::toggleUseScheduleButtonSlot()
+{
+	//Turn off scheduler mode
+	if (currentConfig->getUseSchedule() == true)
+	{
+		currentConfig->setUseSchedule(false);
+		gui->returnUI().toggleScheduleButton->setText("Enable Schedule");
+		gui->returnUI().scheduleStatus->setText("DISABLED");
+		gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : rgb(53, 53, 53); color : white; }");
+		
+	}
+	else //Turn on scheduler mode
+	{
+		currentConfig->setUseSchedule(true);
+		gui->returnUI().toggleScheduleButton->setText("Disable Schedule");
+		gui->returnUI().scheduleStatus->setText("ENABLED");
+		gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+	}
 	return;
 }
 

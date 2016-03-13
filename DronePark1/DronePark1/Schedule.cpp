@@ -7,35 +7,41 @@ Schedule::Schedule() : DbObject()
 
 }
 
-//TODO: Nick: Implement addTime
-// Adds another time to the sweep list, returns RC
-int Schedule::addTime(QDateTime newTime)
+void Schedule::setStartTime(QTime* _newStartTime)
 {
-	return RC_ERR;
+	startTime = _newStartTime;
+
+	return;
 }
 
-//TODO: Nick: Implement advanceSchedule
-// Sets the nextTime to the next time in the sweeplist, returns RC
-int Schedule::advanceSchedule()
+void Schedule::setEndTime(QTime* _newEndTime)
 {
-	return RC_ERR;
+	endTime = _newEndTime;
+
+	return;
 }
 
-//TODO: Nick: Implement removeTime
-// Removes a time from the sweepTimes list, returns RC
-int Schedule::removeTime(QDateTime removeTime)
+void Schedule::setInterval(int _newInterval)
 {
-	return RC_ERR;
+	interval = _newInterval;
+	return;
 }
 
-// Returns sweepTimes
-std::list<QDateTime> Schedule::getSweepTimes()
+QTime* Schedule::getStartTime()
 {
-	return sweepTimes;
+	return startTime;
 }
 
-// Returns nextTime
-QDateTime Schedule::getNextTime()
+QTime* Schedule::getEndTime()
 {
-	return nextTime;
+	return endTime;
 }
+
+int Schedule::getInterval()
+{
+	return interval;
+	{
+
+	};
+}
+

@@ -124,18 +124,6 @@ public:
 	//The currently loaded configuration for the session
 	Config* currentConfig;
 
-	//Begins automated drone operations based on currentConfig.
-	int beginDroneOperations();
-
-	//Ends automated drone operations. Completes any current processing
-	//before shutting down hardware and communications.
-	int endDroneOperations();
-
-	//Instantiates and initializes all objects to do with operating the drone.Queries
-	//the database to construct Lot and Spot data, creates controllers, and initializes
-	//communications.
-	int initiateDrone();
-
 	//nitialize all controllers and models needed to start and display the first
 	//screen.
 	int initialize(DronePark1* gui);
@@ -163,7 +151,11 @@ public slots:
 	//Slot to receiver new lot 
 	void createLot(int numspot, int rows, int col, QString lotName, QString _city);
 
+	//Opens new lot dialog window
 	void newLotDialogOpen(NewLot* LotDialog);
+
+	//Slot for enable/disable schedule button
+	void toggleUseScheduleButtonSlot();
 
 signals:
 

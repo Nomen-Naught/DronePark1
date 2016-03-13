@@ -181,5 +181,39 @@ public:
 					"VALUES"
 					"(1234, 1, '1000-01-01 00:00:00', '1000-01-01 00:00:01'), (1235, 2, '1000-01-01 00:00:00', '9999-12-31 23:59:59'), (1, 6, '1000-01-01 00:00:00','9999-12-31 23:59:59');"
 					);  // insert some rows
+
+			//Schedule table
+			otl_cursor::direct_exec
+				(
+					*db,
+					"drop table schedule",
+					otl_exception::disabled // disable OTL exceptions
+					); // drop table
+
+			otl_cursor::direct_exec
+				(
+					*db,
+					"CREATE TABLE `schedule` ("
+					"  `schedule_id` int(11) NOT NULL AUTO_INCREMENT,"
+					"  `lot_id` int(11) NOT NULL,"
+					"  `start_time` datetime NOT NULL,"
+					"  `end_time` datetime NOT NULL,"
+					"  `interv` int(11) NOT NULL,"
+					"  UNIQUE KEY `schedule_id_UNIQUE` (`schedule_id`)"
+					") ENGINE=InnoDB DEFAULT CHARSET=utf8;"
+					);  // create table
+
+			otl_cursor::direct_exec
+				(
+					*db,
+					"INSERT INTO `dronepark`.`schedule`"
+					"(`lot_id`,"
+					"`start_time`,"
+					"`end_time`,"
+					"`interv`)"
+					"VALUES"
+					"(1, '1000-01-01 09:00:00', '1000-01-01 14:00:00', 60), (2, '1000-01-01 09:00:00', '1000-01-01 14:00:00', 60);"
+					);  // insert some rows
+
 	}
 };
