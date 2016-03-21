@@ -11,12 +11,12 @@ DronePark1::DronePark1(QWidget *parent)
 	//Create menu bar
 
 	//Open Config
-	loadConfigAct = new QAction(tr("&Open Config"), this);
+	loadConfigAct = new QAction(tr("&Open Config..."), this);
 	loadConfigAct->setShortcuts(QKeySequence::Open);
 	loadConfigAct->setStatusTip(tr("Load a New Configuration"));
 
 	//New Schedule
-	newScheduleAct = new QAction(tr("New Schedule"), this);
+	newScheduleAct = new QAction(tr("New Schedule..."), this);
 	newScheduleAct->setStatusTip(tr("Create a New Schedule"));
 
 	//Exit
@@ -26,7 +26,7 @@ DronePark1::DronePark1(QWidget *parent)
 
 
 	//File
-	newLotAct = new QAction(tr("&New Lot"), this);
+	newLotAct = new QAction(tr("&New Lot..."), this);
 	newLotAct->setShortcuts(QKeySequence::New);
 	newLotAct->setStatusTip(tr("Create a New Lot Configuration"));
 	connect(newLotAct, SIGNAL(triggered()), this, SLOT(newLotSlot()));
@@ -227,6 +227,38 @@ void DronePark1::keyPressEvent(QKeyEvent* event)
 	{
 		emit enterPressed();
 	}
+}
+
+void DronePark1::showSchedule(Schedule* _schedule)
+{
+	QLabel* newLabel;
+
+	QDateTime scheduledTime (QDate::currentDate(), *(_schedule->getStartTime()));
+
+	QDateTime endTime(QDate::currentDate(), *(_schedule->getEndTime()));
+
+	QFont f("Arial", 10, QFont::Bold);
+
+	int interval = _schedule->getInterval();
+
+	while (scheduledTime < endTime)
+	{
+
+		scheduledTime = scheduledTime.addSecs(interval * 60);
+
+		if (scheduledTime > QDateTime::currentDateTime())
+		{
+			newLabel = new QLabel();
+			newLabel->setText(scheduledTime.toString("hh:mm ddd MMMM d"));
+			newLabel->setFont(f);
+			ui.scheduleTimeLayout->addWidget(newLabel);
+		}
+	}
+}
+
+void DronePark1::clearSchedule()
+{
+
 }
 
 void DronePark1::flightSuccessSlot(int empty, int occupied, int illegal)

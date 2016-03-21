@@ -47,6 +47,12 @@ public:
 
 	void connectQuit(QApplication* qapp);
 
+	//Shows schedule
+	void showSchedule(Schedule* schedule);
+
+	//Clears scheudle
+	void clearSchedule();
+
 	//Return the ui object. This is probably bad practice...
 	Ui::DronePark1Class returnUI();
 
@@ -56,6 +62,7 @@ public slots:
 	void loadConfigClose();
 	void flightSuccessSlot(int empty, int occupied, int illegal);
 	void newLotSlot();
+
 
 signals:
 	void enterPressed();

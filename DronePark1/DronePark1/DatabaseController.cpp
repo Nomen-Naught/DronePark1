@@ -83,7 +83,6 @@ int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotnam
 
 	//store parameters into temp variables
 	int lot_id;
-	char create_date[50];
 	int num_spots = _numspot;
 	int row = _row;
 	int col = _col;
@@ -272,8 +271,6 @@ int DatabaseController::queryConfig(int id, Config** config)
 		newLot->setSpots(newSpots);
 		newConfig->setCurrentLot(newLot);
 
-		//TODO: Query stub info
-
 		//Load a schedule if it exists
 		rc = querySchedule( &newSchedule, config_schedule);
 
@@ -303,7 +300,6 @@ int DatabaseController::queryLot(int id, Lot** lot)
 
 	//Lot temp variables
 	int lot_id;
-	char create_date[50];
 	int num_spots;
 	int row;
 	int col;

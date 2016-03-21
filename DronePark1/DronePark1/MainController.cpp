@@ -92,6 +92,8 @@ int DroneParkController::initialize(DronePark1* _gui)
 
 	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
 
+	gui->showSchedule(currentConfig->getCurrentSchedule());
+
 
 	sweepController->dronePilot = new FlightController();
 

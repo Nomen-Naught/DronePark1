@@ -18,7 +18,6 @@ private:
 
 public:
 
-	//TODO: Nick: Schedule Constructor maybe should do something?
 	// Constructor, should call DbObject constructor
 	Schedule();
 
