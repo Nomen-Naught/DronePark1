@@ -396,6 +396,7 @@ void DroneParkController::toggleUseScheduleButtonSlot()
 		gui->returnUI().toggleScheduleButton->setText("Enable Schedule");
 		gui->returnUI().scheduleStatus->setText("DISABLED");
 		gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : rgb(53, 53, 53); color : white; }");
+		gui->clearSchedule();
 		
 	}
 	else //Turn on scheduler mode
@@ -404,6 +405,7 @@ void DroneParkController::toggleUseScheduleButtonSlot()
 		gui->returnUI().toggleScheduleButton->setText("Disable Schedule");
 		gui->returnUI().scheduleStatus->setText("ENABLED");
 		gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+		
 	}
 	return;
 }

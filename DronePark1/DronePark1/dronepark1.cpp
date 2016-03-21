@@ -258,7 +258,11 @@ void DronePark1::showSchedule(Schedule* _schedule)
 
 void DronePark1::clearSchedule()
 {
-
+	QList<QWidget *> widgets = ui.scheduleTimeLayout->findChildren<QWidget *>();
+	foreach(QWidget * widget, widgets)
+	{
+		delete widget;
+	}
 }
 
 void DronePark1::flightSuccessSlot(int empty, int occupied, int illegal)
