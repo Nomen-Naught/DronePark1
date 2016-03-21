@@ -18,6 +18,7 @@ FlightController::~FlightController()
 }
 
 //Initiates the drone flightpath
+
 void FlightController::asyncStartFlight(ControlInterface* contInt)
 {
 	/*
@@ -35,6 +36,7 @@ void FlightController::asyncStartFlight(ControlInterface* contInt)
 	//console->show();
 	*/
 	return;
+	
 }
 
 //Creates a flightpath based on the current configuration

@@ -11,6 +11,7 @@
 #include "ControlInterface.h"
 #include "ImageCapture.h"
 #include "ImageProcessor.h"
+#include "qpixmap.h"
 
 class SweepController : public QObject
 {
@@ -36,6 +37,11 @@ private:
 	//Thread objects
 	QThread* captureThread;
 	QThread* processorThread;
+
+	ImageCapture* cap;
+	ImageProcessor* proc;
+
+	bool* captureLoop;
 
 	//Update spot based of the return value sent from the DecideSpotController
 	int updateSpot(bool decision);
@@ -81,6 +87,9 @@ public slots:
 	//Stops all current operations and shuts down the physical drone.
 	void emergencyShutDown();
 
+	//Update the live view with the video feed
+	void updateLiveView(QImage* image);
+
 
 signals:
 	//Should initiate a sweep
@@ -97,6 +106,9 @@ signals:
 
 	//We managed to successfully iterate the entire lot, tell everybody! Celebrate!
 	void flightSuccess(int empty, int occupied, int illegal);
+
+	//Pass image to DroneParkController
+	void updateLiveViewChain(QImage*);
 
 };
 
@@ -156,6 +168,9 @@ public slots:
 
 	//Slot for enable/disable schedule button
 	void toggleUseScheduleButtonSlot();
+
+	//Update the live view with the video feed
+	void updateLiveView(QImage* image);
 
 signals:
 

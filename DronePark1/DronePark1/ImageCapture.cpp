@@ -5,9 +5,10 @@
 
 #define DEVICE 1
 
-ImageCapture::ImageCapture(QMutex* _mutex)
+ImageCapture::ImageCapture(QMutex* _mutex, bool* _captureLoop)
 {
 	mutex = _mutex;
+	captureLoop = _captureLoop;
 }
 
 void ImageCapture::asyncCaptureStart()
@@ -39,11 +40,11 @@ void ImageCapture::asyncCaptureStart()
 	}
 	
 	// This will stay true until set false by the slot stopCapture()
-	captureLoop = true;
+	//captureLoop = true;
 
-	while (captureLoop)
+	while (*captureLoop)
 	{
-
+		
 		while (!vi->isFrameNew(DEVICE))
 		{
 			Sleep(10); // spin until new frame
@@ -64,7 +65,8 @@ void ImageCapture::asyncCaptureStart()
 
 void ImageCapture::stopCapture()
 {
-	captureLoop = false;
+	//captureLoop = false;
+	qDebug() << "captureLoop value now:" << captureLoop;
 }
 
 QImage* ImageCapture::convertToQImage(int width, int height, unsigned char* buffer)

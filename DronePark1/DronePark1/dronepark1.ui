@@ -714,6 +714,36 @@
                   </item>
                  </layout>
                 </widget>
+                <widget class="QWidget" name="liveViewTab">
+                 <attribute name="title">
+                  <string>Live View</string>
+                 </attribute>
+                 <widget class="QLabel" name="liveDisplay">
+                  <property name="geometry">
+                   <rect>
+                    <x>10</x>
+                    <y>10</y>
+                    <width>461</width>
+                    <height>341</height>
+                   </rect>
+                  </property>
+                  <property name="sizePolicy">
+                   <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+                    <horstretch>0</horstretch>
+                    <verstretch>0</verstretch>
+                   </sizepolicy>
+                  </property>
+                  <property name="text">
+                   <string/>
+                  </property>
+                  <property name="scaledContents">
+                   <bool>true</bool>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignBottom|Qt::AlignRight|Qt::AlignTrailing</set>
+                  </property>
+                 </widget>
+                </widget>
                </widget>
               </item>
               <item>

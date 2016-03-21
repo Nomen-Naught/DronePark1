@@ -52,6 +52,7 @@ QImage* ImageProcessor::enhanceImage(QImage* preImage)
 	// The raw frames are badly interlaced when there is motion.           //
 	// At full res there isn't much detail so little to no detail is lost. //
 	// Test performance is WAY better after downsampling.                  //
+	//  (the above is only true with the wireless camera)                  //
 	/////////////////////////////////////////////////////////////////////////
 
 	//mImage->sample(Magick::Geometry("50%x50%"));
@@ -143,22 +144,12 @@ Magick::Image* ImageProcessor::toImage(QImage *qImage)
  * and extract it.                                             */
 void ImageProcessor::handleImage(QImage* capturedImage)
 {
-	// This should prevent a processing queue from forming
-	// A queue would be bad because we can only process in real time
-	if (processing)
-	{
-		return;
-	}
-	processing = true;
-
 	mutex->lock();
 
 	QString code = getQRCode(capturedImage);
-
 	emit qrCodeReady(code);
 
 	delete capturedImage;
-	processing = false;
 
 	mutex->unlock();
 }

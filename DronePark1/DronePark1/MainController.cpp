@@ -68,6 +68,8 @@ int DroneParkController::initialize(DronePark1* _gui)
 	sweepController = new SweepController(currentConfig->getCurrentLot());
 	QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
 	QObject::connect(sweepController, SIGNAL(flyingChanged(bool)), gui->returnUI().flightStatus, SLOT(updateStatus(bool)));
+	QObject::connect(sweepController, SIGNAL(updateLiveViewChain(QImage*)), this, SLOT(updateLiveView(QImage*)));
+	QObject::connect(sweepController, SIGNAL(stopImage()), gui->returnUI().liveDisplay, SLOT(clear()));
 
 	//Tell the gui that we've finished a sweep
 	QObject::connect(sweepController, SIGNAL(flightSuccess(int,int,int)), gui, SLOT(flightSuccessSlot(int,int,int)));
@@ -141,6 +143,8 @@ void DroneParkController::startSweepButtonSlot()
 		// Create sweep controller, should create all other controllers
 		sweepController = new SweepController(currentConfig->getCurrentLot());
 		QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
+		QObject::connect(sweepController, SIGNAL(updateLiveViewChain(QImage*)), this, SLOT(updateLiveView(QImage*)));
+		QObject::connect(sweepController, SIGNAL(stopImage()), gui->returnUI().liveDisplay, SLOT(clear()));
 	}
 
 	// NICK: Getting rid of this for now, current plan is to allow python to do everything related to drone stuff and C++ only
@@ -309,6 +313,8 @@ void DroneParkController::loadNewConfig(int id)
 	if (sweepController == NULL)
 	{
 		sweepController = new SweepController(currentConfig->getCurrentLot());
+		QObject::connect(sweepController, SIGNAL(updateLiveViewChain(QImage*)), this, SLOT(updateLiveView(QImage*)));
+		QObject::connect(sweepController, SIGNAL(stopImage()), gui->returnUI().liveDisplay, SLOT(clear()));
 	}
 	else
 	{
@@ -398,6 +404,64 @@ void DroneParkController::toggleUseScheduleButtonSlot()
 		gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : red; color : white; }");
 	}
 	return;
+}
+
+void DroneParkController::updateLiveView(QImage* image)
+{
+	QTabWidget* tabs = gui->returnUI().tabWidget;
+	QLabel* display = gui->returnUI().liveDisplay;
+
+	if (tabs->currentIndex() == 2)
+	{
+
+		// resize if necessary
+		// currently trying out scaledContents on the QLabel
+		/*
+		int dw = display->width();
+		int dh = display->height();
+
+		int iw = image->width();
+		int ih = image->height();
+
+		QImage scaled;
+
+		if (iw > dw && ih > dh && iw / dw > ih / dh || //both width and high are bigger, ratio at height is bigger or
+			iw > dw && ih <= dh || //only the width is bigger or
+			iw < dw && ih < dh && dw / iw < dh / ih //both width and height is smaller, ratio at width is smaller
+			)
+			scaled = image->scaledToWidth(dw, Qt::TransformationMode::FastTransformation);
+		else if (iw > dw && ih > dh && iw / dw <= ih / dh || //both width and high are bigger, ratio at width is bigger or
+			ih > dh && iw <= dw || //only the height is bigger or
+			iw < dw && ih < dh && dw / iw > dh / ih //both width and height is smaller, ratio at height is smaller
+			)
+			scaled = image->scaledToHeight(dh, Qt::TransformationMode::FastTransformation);
+		else
+			scaled = *image;
+		display->setPixmap(QPixmap::fromImage(scaled));
+		*/
+
+		display->setPixmap(QPixmap::fromImage(*image));
+	}
+
+	// Can't forget to delete since this is a different copy than what ImageProcessor is deleting
+	delete image;
+}
+
+void SweepController::updateLiveView(QImage* image)
+{
+	// the if statement is just to make sure that after the live view
+	// is cleared, no straggling signals set the image again
+	// (otherwise that was happening)
+	if (*captureLoop)
+	{
+
+		// Use a separate image pointer than the processor,
+		// otherwise sometimes the processor will delete it before it
+		// has a chance to get to the live view
+		QImage* newImage = new QImage(*image);
+
+		emit updateLiveViewChain(newImage);
+	}
 }
 
 //TODO: Nick: implement endScheudle
@@ -498,12 +562,13 @@ int SweepController::initiateSweep(Lot* lot)
 	captureThread = new QThread();
 	processorThread = new QThread();
 
-	ImageCapture* cap = new ImageCapture(mutex);
-	ImageProcessor* proc = new ImageProcessor(mutex);
+	cap = new ImageCapture(mutex, captureLoop);
+	proc = new ImageProcessor(mutex);
 
 	connect(this, SIGNAL(fireSweep(ControlInterface*)), cap, SLOT(asyncCaptureStart()), Qt::QueuedConnection);
 	connect(proc, SIGNAL(qrCodeReady(QString)), this, SLOT(receiveCode(QString)), Qt::QueuedConnection);
 	connect(cap, SIGNAL(imageReady(QImage*)), proc, SLOT(handleImage(QImage*)), Qt::QueuedConnection);
+	connect(cap, SIGNAL(imageReady(QImage*)), this, SLOT(updateLiveView(QImage*)), Qt::QueuedConnection);
 
 	//Kill switches
 	connect(this, SIGNAL(stopImage()), cap, SLOT(stopCapture()));
@@ -518,6 +583,7 @@ int SweepController::initiateSweep(Lot* lot)
 	//IMAGE STUFF END------------------------------------------------------------
 
 	//Emit the fireSweep to start the async flight task
+	*captureLoop = true;
 	emit fireSweep(contInt);
 
 	//Assuming all is well, we should be flying!
@@ -529,6 +595,8 @@ int SweepController::initiateSweep(Lot* lot)
 exit:
 	return RC_OK;
 }
+
+
 
 //TODO: Nick: implement advanceSpot
 //Change currentSpot to the next spot to be examined.
@@ -579,8 +647,19 @@ void SweepController::advanceSpot()
 		(*spot_iterator)->setOverhead(false);
 
 		emit stopImage();
+
+		// This will break ImageCapture out of the capture loop
+		*captureLoop = false;
+
 		captureThread->exit();
 		processorThread->exit();
+
+		// these will get re-instantiated at the beginning of each flight
+		cap = NULL;
+		delete cap;
+
+		proc = NULL;
+		delete proc;
 
 		//Definitely should not be doing this, but not much of a choice right now!!
 		setFLYING(false);
@@ -649,6 +728,8 @@ SweepController::SweepController(Lot* _lot)
 	spot_iterator = lot->getSpots()->begin();
 
 	FLYING = false;
+
+	captureLoop = new bool(false);
 
 	//A controller object which handles all communications with the physical drone
 	//droneComms = new FlightCommsController();
