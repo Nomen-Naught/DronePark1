@@ -12,6 +12,7 @@
 #include "ImageCapture.h"
 #include "ImageProcessor.h"
 #include "qpixmap.h"
+#include <QTimer>
 
 class SweepController : public QObject
 {
@@ -128,6 +129,8 @@ private:
 	//Is keeping a reference to the gui a good idea? not sure lol
 	DronePark1* gui;
 
+	QTimer* schedulerTimer;
+
 public:
 
 	DroneParkController();
@@ -171,6 +174,9 @@ public slots:
 
 	//Update the live view with the video feed
 	void updateLiveView(QImage* image);
+
+	//Triggers a flight from the scheduler
+	void triggerSweep();
 
 signals:
 

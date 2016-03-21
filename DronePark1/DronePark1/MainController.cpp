@@ -92,9 +92,6 @@ int DroneParkController::initialize(DronePark1* _gui)
 
 	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
 
-	gui->showSchedule(currentConfig->getCurrentSchedule());
-
-
 	sweepController->dronePilot = new FlightController();
 
 	return rc;
@@ -397,6 +394,11 @@ void DroneParkController::toggleUseScheduleButtonSlot()
 		gui->returnUI().scheduleStatus->setText("DISABLED");
 		gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : rgb(53, 53, 53); color : white; }");
 		gui->clearSchedule();
+
+		if (schedulerTimer != NULL)
+		{
+			delete schedulerTimer;
+		}
 		
 	}
 	else //Turn on scheduler mode
@@ -405,8 +407,51 @@ void DroneParkController::toggleUseScheduleButtonSlot()
 		gui->returnUI().toggleScheduleButton->setText("Disable Schedule");
 		gui->returnUI().scheduleStatus->setText("ENABLED");
 		gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : red; color : white; }");
+		gui->showSchedule(currentConfig->getCurrentSchedule());
+
+		schedulerTimer = new QTimer();
+
+		connect(schedulerTimer, SIGNAL(timeout()), this, SLOT(triggerSweep()));
+
+		//We need to calculate when to set the timer to expire.
+
+		QDateTime scheduledTime(QDate::currentDate(), *(currentConfig->getCurrentSchedule()->getStartTime()));
+
+		QDateTime endTime(QDate::currentDate(), *(currentConfig->getCurrentSchedule()->getEndTime()));
+
+		int interval = currentConfig->getCurrentSchedule()->getInterval();
+
+		int timerValue = 0;
+
+		while (scheduledTime < endTime)
+		{
+
+			scheduledTime = scheduledTime.addSecs(interval * 60);
+
+			if (scheduledTime > QDateTime::currentDateTime())
+			{
+				//We found the next scheduled run!
+
+				timerValue = scheduledTime.toMSecsSinceEpoch() - QDateTime::currentDateTime().toMSecsSinceEpoch();
+
+				//That number is in milliseconds!
+				schedulerTimer->start(timerValue);
+
+				break;
+			}
+		}
+
+
+
+
+
 		
 	}
+	return;
+}
+
+void DroneParkController::triggerSweep()
+{
 	return;
 }
 

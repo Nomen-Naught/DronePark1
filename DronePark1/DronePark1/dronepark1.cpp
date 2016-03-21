@@ -231,6 +231,8 @@ void DronePark1::keyPressEvent(QKeyEvent* event)
 
 void DronePark1::showSchedule(Schedule* _schedule)
 {
+	bool nextSweep = true;
+
 	QLabel* newLabel;
 
 	QDateTime scheduledTime (QDate::currentDate(), *(_schedule->getStartTime()));
@@ -248,6 +250,13 @@ void DronePark1::showSchedule(Schedule* _schedule)
 
 		if (scheduledTime > QDateTime::currentDateTime())
 		{
+
+			if (nextSweep == true)
+			{
+				ui.nextSweep->setText(scheduledTime.toString("hh:mm ddd MMMM d"));
+				nextSweep = false;
+			}
+
 			newLabel = new QLabel();
 			newLabel->setText(scheduledTime.toString("hh:mm ddd MMMM d"));
 			newLabel->setFont(f);
@@ -258,11 +267,17 @@ void DronePark1::showSchedule(Schedule* _schedule)
 
 void DronePark1::clearSchedule()
 {
-	QList<QWidget *> widgets = ui.scheduleTimeLayout->findChildren<QWidget *>();
-	foreach(QWidget * widget, widgets)
+	while(ui.scheduleTimeLayout->count() != 0)
 	{
-		delete widget;
+		QWidget *widget = ui.scheduleTimeLayout->itemAt(0)->widget();
+		if (widget != NULL)
+		{
+			delete widget;
+		}
 	}
+
+	ui.nextSweep->setText("Never");
+
 }
 
 void DronePark1::flightSuccessSlot(int empty, int occupied, int illegal)
