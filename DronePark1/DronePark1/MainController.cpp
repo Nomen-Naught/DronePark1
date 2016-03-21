@@ -465,7 +465,7 @@ void DroneParkController::updateLiveView(QImage* image)
 
 		// resize if necessary
 		// currently trying out scaledContents on the QLabel
-		/*
+		
 		int dw = display->width();
 		int dh = display->height();
 
@@ -487,9 +487,9 @@ void DroneParkController::updateLiveView(QImage* image)
 		else
 			scaled = *image;
 		display->setPixmap(QPixmap::fromImage(scaled));
-		*/
+		
 
-		display->setPixmap(QPixmap::fromImage(*image));
+		//display->setPixmap(QPixmap::fromImage(*image));
 	}
 
 	// Can't forget to delete since this is a different copy than what ImageProcessor is deleting
