@@ -69,7 +69,7 @@ int DroneParkController::initialize(DronePark1* _gui)
 	QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
 	QObject::connect(sweepController, SIGNAL(flyingChanged(bool)), gui->returnUI().flightStatus, SLOT(updateStatus(bool)));
 	QObject::connect(sweepController, SIGNAL(updateLiveViewChain(QImage*)), this, SLOT(updateLiveView(QImage*)));
-	QObject::connect(sweepController, SIGNAL(stopImage()), gui->returnUI().liveDisplay, SLOT(clear()));
+	QObject::connect(sweepController, SIGNAL(stopImage()), this, SLOT(clearLiveView()));
 
 	//Tell the gui that we've finished a sweep
 	QObject::connect(sweepController, SIGNAL(flightSuccess(int,int,int)), gui, SLOT(flightSuccessSlot(int,int,int)));
@@ -143,7 +143,7 @@ void DroneParkController::startSweepButtonSlot()
 		sweepController = new SweepController(currentConfig->getCurrentLot());
 		QObject::connect(sweepController, SIGNAL(decideSpotPass(Spot*, bool, int)), this, SLOT(decideSpot(Spot*, bool, int)));
 		QObject::connect(sweepController, SIGNAL(updateLiveViewChain(QImage*)), this, SLOT(updateLiveView(QImage*)));
-		QObject::connect(sweepController, SIGNAL(stopImage()), gui->returnUI().liveDisplay, SLOT(clear()));
+		QObject::connect(sweepController, SIGNAL(stopImage()), this, SLOT(clearLiveView()));
 	}
 
 	// NICK: Getting rid of this for now, current plan is to allow python to do everything related to drone stuff and C++ only
@@ -313,7 +313,7 @@ void DroneParkController::loadNewConfig(int id)
 	{
 		sweepController = new SweepController(currentConfig->getCurrentLot());
 		QObject::connect(sweepController, SIGNAL(updateLiveViewChain(QImage*)), this, SLOT(updateLiveView(QImage*)));
-		QObject::connect(sweepController, SIGNAL(stopImage()), gui->returnUI().liveDisplay, SLOT(clear()));
+		QObject::connect(sweepController, SIGNAL(stopImage()), this, SLOT(clearLiveView()));
 	}
 	else
 	{
@@ -374,8 +374,19 @@ void SweepController::emergencyShutDown()
 	if (getFLYING())
 	{
 		emit stopImage();
+
+		// break ImageCapture out of the capture loop
+		*captureLoop = false;
+
 		captureThread->exit();
 		processorThread->exit();
+
+		// these will get re-instantiated at the beginning of each flight
+		cap = NULL;
+		delete cap;
+
+		proc = NULL;
+		delete proc;
 	}
 
 	//Definitely should not be doing this, but not much of a choice right now!!
@@ -494,6 +505,12 @@ void DroneParkController::updateLiveView(QImage* image)
 
 	// Can't forget to delete since this is a different copy than what ImageProcessor is deleting
 	delete image;
+}
+
+void DroneParkController::clearLiveView()
+{
+	gui->returnUI().liveDisplay->clear();
+	gui->returnUI().liveDisplay->setText("No Video Available");
 }
 
 void SweepController::updateLiveView(QImage* image)

@@ -175,6 +175,9 @@ public slots:
 	//Update the live view with the video feed
 	void updateLiveView(QImage* image);
 
+	// Reset the live view when the video feed is finished
+	void clearLiveView();
+
 	//Triggers a flight from the scheduler
 	void triggerSweep();
 
