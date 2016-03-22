@@ -1,0 +1,911 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files\Model">
+      <UniqueIdentifier>{d214a454-c4ac-406f-99fd-696d75ad74f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Controller">
+      <UniqueIdentifier>{cf960ba2-58a8-436b-8288-2c81a0ddff47}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Controller">
+      <UniqueIdentifier>{ebc57ae8-9985-4354-a957-d80dfe271a3c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\QWidgets">
+      <UniqueIdentifier>{72e198ab-0f12-4469-a2a2-ec3e59962d1a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{f2aa6c28-3aec-4158-a370-c9ae8fab80cd}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{23d39f5b-96a7-4b98-8874-ffba32d1fba5}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Source Files\QWidgets">
+      <UniqueIdentifier>{f112223c-dcd0-4dda-b44b-3f84ba50d425}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\ImageCapProc">
+      <UniqueIdentifier>{19b5cf72-3ba6-48eb-aead-2dd7494b6f68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ImageCapProc">
+      <UniqueIdentifier>{b29afb68-b99f-40e4-9332-e4bbea5353c0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Model">
+      <UniqueIdentifier>{dbaebad9-6672-4bbb-ba4b-4515188f3760}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Junk/Image">
+      <UniqueIdentifier>{3e16ab22-5c96-4541-89da-dd223f652ca1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="DatabaseController.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Schedule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dronepark1.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ControlInterface.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ImageCapture.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_imagehandler.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_ImageProcessor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_loadconfig.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_QZXing.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ControlInterface.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ImageCapture.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_imagehandler.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_ImageProcessor.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_loadconfig.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_QZXing.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DecideController.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="MainController.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_StatusLabel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_StatusLabel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusLabel.cpp">
+      <Filter>Source Files\QWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="ParkingLotLayout.cpp">
+      <Filter>Source Files\QWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="SpotButton.cpp">
+      <Filter>Source Files\QWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="StartSweepButton.cpp">
+      <Filter>Source Files\QWidgets</Filter>
+    </ClCompile>
+    <ClCompile Include="DronePilot.cpp">
+      <Filter>Source Files\Controller</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageCapture.cpp">
+      <Filter>Source Files\ImageCapProc</Filter>
+    </ClCompile>
+    <ClCompile Include="ImageProcessor.cpp">
+      <Filter>Source Files\ImageCapProc</Filter>
+    </ClCompile>
+    <ClCompile Include="Config.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ParkingLot.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="ParkingStub.cpp">
+      <Filter>Source Files\Model</Filter>
+    </ClCompile>
+    <ClCompile Include="loadconfig.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_newlot.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_newlot.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="newlot.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\Array.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\aztec\decoder\AztecDecoder.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\aztec\detector\AztecDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\aztec\AztecDetectorResult.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\aztec\AztecReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\BarcodeFormat.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\Binarizer.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\BinaryBitmap.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\BitArray.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\BitMatrix.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\BitSource.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\multi\ByQuadrantReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\CameraImageWrapper.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\CharacterSetECI.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\Code39Reader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\Code128Reader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlInterface.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\Counted.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixBitMatrixParser.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixCornerPoint.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixDataBlock.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixDecodedBitStreamParser.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\decoder\DataMatrixDecoder.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixDetectorException.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\detector\DataMatrixMonochromeRectangleDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\DataMatrixReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\datamatrix\DataMatrixVersion.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\DecodeHints.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\DecoderResult.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\DetectorResult.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\EAN8Reader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\EAN13Reader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\EdgeDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\Exception.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\FormatException.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\reedsolomon\GenericGF.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\reedsolomon\GenericGFPoly.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\multi\GenericMultipleBarcodeReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\GlobalHistogramBinarizer.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\GreyscaleLuminanceSource.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\GreyscaleRotatedLuminanceSource.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\GridSampler.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\HybridBinarizer.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\IllegalArgumentException.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\imagehandler.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\ITFReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\LuminanceSource.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\detector\MonochromeRectangleDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\multi\qrcode\detector\MultiDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\multi\qrcode\detector\MultiFinderPatternFinder.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\MultiFormatOneDReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\MultiFormatReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\MultiFormatUPCEANReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\multi\MultipleBarcodeReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\NotFoundException.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\OneDReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\OneDResultPoint.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\PerspectiveTransform.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\detector\QRAlignmentPattern.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\detector\QRAlignmentPatternFinder.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRBitMatrixParser.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\UPCAReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\UPCEANReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\oned\UPCEReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoInput\videoInput.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\detector\WhiteRectangleDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\multi\qrcode\QRCodeMultiReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\QRCodeReader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDataBlock.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDataMask.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDecodedBitStreamParser.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRDecoder.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\detector\QRDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\detector\QREdgeDetector.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\QRErrorCorrectionLevel.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\detector\QRFinderPattern.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\detector\QRFinderPatternFinder.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\detector\QRFinderPatternInfo.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\QRFormatInformation.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\decoder\QRMode.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\qrcode\QRVersion.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\qzxing.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\Reader.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\ReaderException.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\reedsolomon\ReedSolomonDecoder.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\reedsolomon\ReedSolomonException.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\Result.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\ResultPoint.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\ResultPointCallback.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\Str.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+    <ClCompile Include="QZXing\zxing\common\StringUtils.cpp">
+      <Filter>Junk/Image</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ReturnCodes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Tests_Misc.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <CustomBuild Include="dronepark1.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <ClInclude Include="otlv4.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_loadconfig.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Controllers.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+    <CustomBuild Include="MainController.h">
+      <Filter>Header Files\Controller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ParkingLot.h">
+      <Filter>Header Files\Model</Filter>
+    </CustomBuild>
+    <ClInclude Include="ParkingStub.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="Schedule.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_newlot.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_newschedule.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\detector\AlignmentPattern.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\detector\AlignmentPatternFinder.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\Array.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\aztec\AztecDetectorResult.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\aztec\AztecReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\BarcodeFormat.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\Binarizer.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\BinaryBitmap.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\BitArray.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\BitMatrix.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\decoder\BitMatrixParser.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\decoder\BitMatrixParser.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\BitSource.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\multi\ByQuadrantReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\CameraImageWrapper.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\CharacterSetECI.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\Code39Reader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\Code128Reader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\detector\CornerPoint.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\Counted.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\decoder\DataBlock.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\decoder\DataBlock.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\decoder\DataMask.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\DataMatrixReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\decoder\DecodedBitStreamParser.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\decoder\DecodedBitStreamParser.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\DecodeHints.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\decoder\Decoder.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\aztec\decoder\Decoder.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\decoder\Decoder.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\DecoderResult.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\detector\Detector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\aztec\detector\Detector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\detector\Detector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\detector\DetectorException.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\DetectorResult.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\EAN8Reader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\EAN13Reader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\EdgeDetector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\ErrorCorrectionLevel.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\Exception.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\detector\FinderPattern.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\detector\FinderPatternFinder.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\detector\FinderPatternInfo.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\FormatException.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\FormatInformation.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\reedsolomon\GenericGF.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\reedsolomon\GenericGFPoly.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\multi\GenericMultipleBarcodeReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\GlobalHistogramBinarizer.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\GreyscaleLuminanceSource.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\GreyscaleRotatedLuminanceSource.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\GridSampler.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\HybridBinarizer.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\IllegalArgumentException.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\ITFReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\LuminanceSource.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\decoder\Mode.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\detector\MonochromeRectangleDetector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\detector\MonochromeRectangleDetector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\multi\qrcode\detector\MultiDetector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\multi\qrcode\detector\MultiFinderPatternFinder.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\MultiFormatOneDReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\MultiFormatReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\MultiFormatUPCEANReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\multi\MultipleBarcodeReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\NotFoundException.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\OneDReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\OneDResultPoint.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\PerspectiveTransform.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\Point.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\UPCAReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\UPCEANReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\oned\UPCEReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\datamatrix\Version.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\Version.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoInput\videoInput.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\detector\WhiteRectangleDetector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\multi\qrcode\QRCodeMultiReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\QRCodeReader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\qrcode\detector\QREdgeDetector.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\QZXing_global.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\Reader.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\ReaderException.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\reedsolomon\ReedSolomonDecoder.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\reedsolomon\ReedSolomonException.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\Result.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\ResultPoint.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\ResultPointCallback.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\Str.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+    <ClInclude Include="QZXing\zxing\common\StringUtils.h">
+      <Filter>Junk/Image</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="GeneratedFiles\debug\moc_DBObject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_DBObject.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_DatabaseController.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_DatabaseController.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_DronePilot.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_DronePilot.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_MainController.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_MainController.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_ParkingLot.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_ParkingLot.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_ParkingLotLayout.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_ParkingLotLayout.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_SpotButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_SpotButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_StartSweepButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_StartSweepButton.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\debug\moc_dronepark1.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\release\moc_dronepark1.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_dronepark1.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClInclude Include="GeneratedFiles\ui_dronepark1.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="dronepark1.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="loadconfig.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DatabaseController.h">
+      <Filter>Header Files\Model</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DBObject.h">
+      <Filter>Header Files\Model</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DronePilot.h">
+      <Filter>Header Files\Controller</Filter>
+    </CustomBuild>
+    <CustomBuild Include="SpotButton.h">
+      <Filter>Header Files\QWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="StartSweepButton.h">
+      <Filter>Header Files\QWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ParkingLotLayout.h">
+      <Filter>Header Files\QWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="StatusLabel.h">
+      <Filter>Header Files\QWidgets</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ImageCapture.h">
+      <Filter>Header Files\ImageCapProc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ImageProcessor.h">
+      <Filter>Header Files\ImageCapProc</Filter>
+    </CustomBuild>
+    <CustomBuild Include="loadconfig.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="newlot.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="newlot.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="newschedule.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ControlInterface.h">
+      <Filter>Junk/Image</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QZXing\imagehandler.h">
+      <Filter>Junk/Image</Filter>
+    </CustomBuild>
+    <CustomBuild Include="QZXing\QZXing.h">
+      <Filter>Junk/Image</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="dronepark1.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Config.h">
+      <Filter>Header Files\Model</Filter>
+    </ClInclude>
+    <ClInclude Include="DecideController.h">
+      <Filter>Header Files\Controller</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

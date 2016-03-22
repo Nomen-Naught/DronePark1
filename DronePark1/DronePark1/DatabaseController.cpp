@@ -61,7 +61,7 @@ int DatabaseController::connectToDb(QString connectionString)
 
 		//TEST Generate a completely new schema and tables
 
-		//tester.generateDB(db);
+		tester.generateDB(db);
 	}
 	catch (otl_exception& p) // intercept OTL exceptions
 	{	

@@ -143,9 +143,9 @@ public:
 				"`is_ticketed`,"
 				"`state`)"
 				"VALUES"
-				"(1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL),"
+				"(1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL),"
 				"(1, NULL, 1, 1, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL),"
-				"(1, NULL, 1, 1, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL),"
+				"(1, NULL, 1, 1, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 0, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL), (1, NULL, 1, 0, 0, NULL), (1, NULL, 1, 1, 0, NULL), (1, NULL, 1, 0, 0, NULL),"
 				"(2, NULL, 1, 1, 0, NULL), (2, NULL, 0, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 0, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 1, 0, 1, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 0, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL), (2, NULL, 1, 0, 0, NULL)"
 				);  // insert some rows
 
