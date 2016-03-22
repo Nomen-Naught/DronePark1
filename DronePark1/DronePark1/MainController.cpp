@@ -207,6 +207,9 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 		spot->setIllegal(false);
 	}
 
+	// if there has been a read, there must be a car there
+	spot->setEmpty(1); // yes, 1 means occupied
+
 exit:
 	return;
 }
@@ -795,6 +798,7 @@ SweepController::SweepController(Lot* _lot)
 
 	FLYING = false;
 
+	// Keep this in the heap so ImageCapture and DroneParkController can both access it
 	captureLoop = new bool(false);
 
 	//A controller object which handles all communications with the physical drone
