@@ -574,7 +574,7 @@
                  </font>
                 </property>
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>3</number>
                 </property>
                 <widget class="QWidget" name="lotHistoryTab">
                  <attribute name="title">
@@ -796,6 +796,21 @@
                    </widget>
                   </item>
                  </layout>
+                </widget>
+                <widget class="QWidget" name="analyticsTab">
+                 <attribute name="title">
+                  <string>Analytics</string>
+                 </attribute>
+                 <widget class="QCustomPlot" name="widget" native="true">
+                  <property name="geometry">
+                   <rect>
+                    <x>40</x>
+                    <y>110</y>
+                    <width>401</width>
+                    <height>211</height>
+                   </rect>
+                  </property>
+                 </widget>
                 </widget>
                </widget>
               </item>
@@ -2253,6 +2268,12 @@
    <class>StatusLabel</class>
    <extends>QLabel</extends>
    <header>StatusLabel.h</header>
+  </customwidget>
+  <customwidget>
+   <class>QCustomPlot</class>
+   <extends>QWidget</extends>
+   <header>qcustomplot.h</header>
+   <container>1</container>
   </customwidget>
  </customwidgets>
  <resources>
