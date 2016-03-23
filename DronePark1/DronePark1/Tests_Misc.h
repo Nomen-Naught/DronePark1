@@ -206,7 +206,7 @@ public:
 			otl_cursor::direct_exec
 				(
 					*db,
-					"INSERT INTO `dronepark`.`schedule`"
+					"INSERT INTO `DRONEPARK`.`schedule`"
 					"(`lot_id`,"
 					"`start_time`,"
 					"`end_time`,"

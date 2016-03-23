@@ -14,7 +14,7 @@ public:
 	LoadConfig(std::list<Config*>*, QWidget *parent = 0);
 	~LoadConfig();
 
-	void accept();
+	void accept() Q_DECL_OVERRIDE;
 
 signals:
 	void acceptedConfig(int id);

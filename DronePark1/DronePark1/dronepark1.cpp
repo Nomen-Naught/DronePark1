@@ -184,7 +184,8 @@ void DronePark1::loadConfigClose()
 {
 	if (loadConfigWin != NULL)
 	{
-		delete loadConfigWin;
+		//This is causing weird race conditions... but I think it leaks otherwise!
+		//delete loadConfigWin;
 	}
 }
 
