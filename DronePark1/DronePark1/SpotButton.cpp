@@ -156,10 +156,15 @@ void SpotButton::updateEmpty(int id, bool value)
 void SpotButton::updateText()
 {
 	QString text;
+	QFont f("Arial", 12, QFont::Bold);
 
-	text = "Empty: " + QString::number(currentEmpty) + " Ticket: " + QString::number(currentTicketed);
+	if (currentTicketed)
+	{
+		text = "TICKETED";
+	}
 
 	setText(text);
+	setFont(f);
 }
 
 //Click handler, currently sets ticketed to true
