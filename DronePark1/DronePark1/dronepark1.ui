@@ -801,7 +801,7 @@
                  <attribute name="title">
                   <string>Analytics</string>
                  </attribute>
-                 <widget class="QCustomPlot" name="widget" native="true">
+                 <widget class="QCustomPlot" name="customPlot" native="true">
                   <property name="geometry">
                    <rect>
                     <x>40</x>
