@@ -197,6 +197,9 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 	//qDebug() << QDateTime::currentDateTime();
 	//qDebug << QDateTime::QDateTime::currentDateTime().toString("hh:mm:ss");;
 
+	// if there has been a read, there must be a car there
+	spot->setEmpty(1); // yes, 1 means occupied
+
 	// If stub is passed expiry!!
 	if (*(stub->getExpireTime()) < QDateTime::currentDateTime())
 	{
@@ -207,8 +210,7 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 		spot->setIllegal(false);
 	}
 
-	// if there has been a read, there must be a car there
-	spot->setEmpty(1); // yes, 1 means occupied
+
 
 exit:
 	return;
