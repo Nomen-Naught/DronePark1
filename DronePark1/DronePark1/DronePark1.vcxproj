@@ -158,6 +158,7 @@
     <ClCompile Include="GeneratedFiles\Debug\moc_loadconfig.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_MainController.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_newlot.cpp" />
+    <ClCompile Include="GeneratedFiles\Debug\moc_newschedule.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_ParkingLot.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_ParkingLotLayout.cpp" />
     <ClCompile Include="GeneratedFiles\Debug\moc_qcustomplot.cpp">
@@ -182,6 +183,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainController.cpp" />
     <ClCompile Include="newlot.cpp" />
+    <ClCompile Include="newschedule.cpp" />
     <ClCompile Include="ParkingLot.cpp" />
     <ClCompile Include="ParkingLotLayout.cpp" />
     <ClCompile Include="ParkingStub.cpp" />
@@ -317,6 +319,11 @@
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qcustomplot.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQZXING_LIBRARY -DZXING_ICONV_CONST -DNO_ICONV -DQT_DECLARATIVE_LIB -DQT_NO_DEBUG -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DNDEBUG -DQT_PRINTSUPPORT_LIB  "-IC:\Qt\Qt5.5\qtscript\include\QtScript" "-IC:\Qt\Qt5.5\qtscript\include" "-IC:\Qt\Qt5.5\qtquick1\include\QtDeclarative" "-IC:\Qt\Qt5.5\qtquick1\include" "-IC:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\DronePark1\QZXing" "-IC:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\DronePark1\ImageMagick\include" "-IC:\Python34\include" "-IC:\Users\Nick-Local\Documents\Nomen-Naught\DronePark1\DronePark1\PythonQt3.0\src" "-IC:\Program Files\MySQL\MySQL Connector C++ 1.1.7\include" "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I$(QTDIR)\include\QtPrintSupport"</Command>
+    </CustomBuild>
+    <CustomBuild Include="newschedule.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o ".\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DLL -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_OPENGL_ES_2 -DQT_OPENGL_ES_2_ANGLE -DCPPCONN_PUBLIC_FUNC= -DNO_ICONV -DQT_PRINTSUPPORT_LIB  "-I$(QTDIR)\..\qtquick1\include" "-I$(QTDIR)\..\qtquick1\include\QtDeclarative" "-I$(QTDIR)\..\qtscript\include" "-I$(QTDIR)\..\qtscript\include\QtScript" "-I$(ProjectDir)ImageMagick\include" "-I$(ProjectDir)QZXing" "-I." "-I.\GeneratedFiles" "-I.\GeneratedFiles\Debug" "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\GeneratedFiles\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-I$(QTDIR)\include\QtPrintSupport"</Command>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe</AdditionalInputs>
     </CustomBuild>
     <ClInclude Include="VideoInput\videoInput.h" />
     <CustomBuild Include="ControlInterface.h">

@@ -86,10 +86,16 @@ int DroneParkController::initialize(DronePark1* _gui)
 		this, SLOT(toggleUseScheduleButtonSlot()));
 
 	//Set up slots for loading additional gui windows
+	//Load Config
 	connect(gui->loadConfigAct, SIGNAL(triggered()), this, SLOT(getConfigs()));
 	connect(gui, SIGNAL(acceptConfigPass(int)), this, SLOT(loadNewConfig(int)));
 	connect(this, SIGNAL(loadConfigWindow(std::list<Config*>*)), gui, SLOT(loadConfigSlot(std::list<Config*>*)));
 
+	//New Schedule
+	connect(gui->newScheduleAct, SIGNAL(triggered()), this, SLOT(getSchedule()));
+	connect(this, SIGNAL(loadNewSchedWindow(Schedule*)), gui, SLOT(loadSchedSlot(Schedule*)));
+
+	//New Lot
 	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
 
 	sweepController->dronePilot = new FlightController();
@@ -249,6 +255,12 @@ void DroneParkController::getConfigs()
 	return;
 }
 
+void DroneParkController::getSchedule()
+{
+	emit loadNewSchedWindow(currentConfig->getCurrentSchedule());
+	return;
+}
+
 void DroneParkController::loadNewConfig(int id)
 {
 	int rc = RC_OK;
@@ -290,6 +302,12 @@ void DroneParkController::loadNewConfig(int id)
 
 	gui->returnUI().lastSweep->setText("Never");
 
+	//Nuke the scheduler info and turn it off
+	currentConfig->setUseSchedule(false);
+	gui->returnUI().toggleScheduleButton->setText("Enable Schedule");
+	gui->returnUI().scheduleStatus->setText("DISABLED");
+	gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : rgb(53, 53, 53); color : white; }");
+	gui->clearSchedule();
 
 	//We need to hook up our Spots with our database observers and the gui
 	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
@@ -456,18 +474,51 @@ void DroneParkController::toggleUseScheduleButtonSlot()
 				break;
 			}
 		}
-
-
-
-
-
 		
 	}
 	return;
 }
 
+//Called when the timer that controls the scheduler runs down
 void DroneParkController::triggerSweep()
 {
+	int rc = RC_OK;
+
+	//Start the sweep!
+	rc |= sweepController->initiateSweep(currentConfig->getCurrentLot());
+
+	//Set up the next alarm
+	QDateTime scheduledTime(QDate::currentDate(), *(currentConfig->getCurrentSchedule()->getStartTime()));
+
+	QDateTime endTime(QDate::currentDate(), *(currentConfig->getCurrentSchedule()->getEndTime()));
+
+	int interval = currentConfig->getCurrentSchedule()->getInterval();
+
+	int timerValue = 0;
+
+	while (scheduledTime < endTime)
+	{
+
+		scheduledTime = scheduledTime.addSecs(interval * 60);
+
+		if (scheduledTime > QDateTime::currentDateTime())
+		{
+			//We found the next scheduled run!
+
+			timerValue = scheduledTime.toMSecsSinceEpoch() - QDateTime::currentDateTime().toMSecsSinceEpoch();
+
+			//That number is in milliseconds!
+			schedulerTimer->start(timerValue);
+
+			break;
+		}
+	}
+
+	//Redraw the schedule
+	gui->clearSchedule();
+	gui->showSchedule(currentConfig->getCurrentSchedule());
+	
+
 	return;
 }
 
@@ -535,20 +586,6 @@ void SweepController::updateLiveView(QImage* image)
 	}
 }
 
-//TODO: Nick: implement endScheudle
-//If the drone operation is currently engaged in scheduled mode, this method ends the scheduled
-//mode.If the drone isn’t in scheduled mode, this is a no - op.
-int SweepController::endScheudle()
-{
-	return RC_ERR;
-}
-
-//TODO: Nick: implement initiateSchedule
-//Start the drone in scheduled mode using the supplied schedule on the supplied Lot.
-int SweepController::initiateSchedule(Schedule schedule, Lot lot)
-{
-	return RC_ERR;
-}
 
 //Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
 int SweepController::initiateSweep(Lot* lot)

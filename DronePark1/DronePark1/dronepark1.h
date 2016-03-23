@@ -5,6 +5,7 @@
 #include "ui_dronepark1.h"
 #include "loadconfig.h"
 #include "newlot.h"
+#include "newschedule.h"
 #include "ParkingLot.h"
 #include "ParkingLotLayout.h"
 #include <QPixmap>
@@ -36,6 +37,7 @@ public:
 	//Other Windows
 	LoadConfig* loadConfigWin;
 	NewLot* newLotWin;
+	NewSchedule* newSchedWin;
 
 
 	int buildLotGui(Lot* lot);
@@ -59,15 +61,18 @@ public:
 public slots:
 	void showcurrentTime();
 	void loadConfigSlot(std::list<Config*>*);
+	void loadSchedSlot(Schedule*);
 	void loadConfigClose();
 	void flightSuccessSlot(int empty, int occupied, int illegal);
-	void newLotSlot();
 
+	void newLotSlot();
 
 signals:
 	void enterPressed();
 	void acceptConfigPass(int);
+
 	void newLotOpen(NewLot* LotDialog);
+	void newScheduleOpen(NewSchedule* SchedDialog);
 
 protected:
 

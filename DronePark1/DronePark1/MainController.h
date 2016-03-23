@@ -58,13 +58,6 @@ public:
 	//Points the sweepController to a new lot to examine
 	void setNewLot(Lot*);
 
-	//If the drone operation is currently engaged in scheduled mode, this method ends the scheduled
-	//mode.If the drone isn’t in scheduled mode, this is a no - op.
-	int endScheudle();
-
-	//Start the drone in scheduled mode using the supplied schedule on the supplied Lot.
-	int initiateSchedule(Schedule schedule, Lot lot);
-
 	//Start a sweep of the supplied Lot immediately. Starts the member controllers to perform the sweep.
 	int initiateSweep(Lot* lot);
 
@@ -160,6 +153,9 @@ public slots:
 	//Gets a list of configs for loadConfig and will fires them with loadConfigWindow at gui
 	void getConfigs();
 
+	//Gets the schedule for newSchedule and fires them at gui
+	void getSchedule();
+
 	//Load a new config with the id passed in
 	void loadNewConfig(int id);
 
@@ -185,6 +181,9 @@ signals:
 
 	//For loading an open config window
 	void loadConfigWindow(std::list<Config*>*);
+
+	//For loading a new sched window
+	void loadNewSchedWindow(Schedule*);
 
 };
 

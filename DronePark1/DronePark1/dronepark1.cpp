@@ -16,8 +16,8 @@ DronePark1::DronePark1(QWidget *parent)
 	loadConfigAct->setStatusTip(tr("Load a New Configuration"));
 
 	//New Schedule
-	newScheduleAct = new QAction(tr("New Schedule..."), this);
-	newScheduleAct->setStatusTip(tr("Create a New Schedule"));
+	newScheduleAct = new QAction(tr("Edit Schedule..."), this);
+	newScheduleAct->setStatusTip(tr("Edit the Schedule"));
 
 	//Exit
 	exitAction = new QAction(tr("Exit"), this);
@@ -166,8 +166,16 @@ void DronePark1::newLotSlot()
 
 	newLotWin->setModal(true);
 	newLotWin->show();
+}
 
+void DronePark1::loadSchedSlot(Schedule* _sched)
+{
+	newSchedWin = new NewSchedule(_sched);
 
+	emit newScheduleOpen(newSchedWin);
+
+	newSchedWin->setModal(true);
+	newSchedWin->show();
 }
 
 void DronePark1::loadConfigSlot(std::list<Config*>* configs)

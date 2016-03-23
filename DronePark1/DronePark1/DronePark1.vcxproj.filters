@@ -477,6 +477,12 @@
     <ClCompile Include="qcustomplot.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_newschedule.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="newschedule.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ReturnCodes.h">
@@ -851,6 +857,9 @@
       <Filter>Junk/Image</Filter>
     </CustomBuild>
     <CustomBuild Include="qcustomplot.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="newschedule.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
   </ItemGroup>
