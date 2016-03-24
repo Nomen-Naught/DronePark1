@@ -343,6 +343,7 @@ void DronePark1::updateGraph()
 	QPen pen;
 	pen.setColor(QColor(0, 0, 255, 200));
 	ui.customPlot->graph()->setLineStyle(QCPGraph::lsLine);
+	ui.customPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 5));
 	ui.customPlot->graph()->setPen(pen);
 	ui.customPlot->graph()->setBrush(QBrush(QColor(255, 160, 50, 150)));
 	ui.customPlot->graph(0)->setData(time, value);
