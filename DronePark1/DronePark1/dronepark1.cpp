@@ -86,7 +86,7 @@ DronePark1::DronePark1(QWidget *parent)
 			ui.historyTable->setItem(0, 3, newIllegal);
 		}
 
-		updateGraph(newDate, newEmpty, newOccupied, newIllegal);
+		updateGraph();
 	}
 
 	//Style tweaks
