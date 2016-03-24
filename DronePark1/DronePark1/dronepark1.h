@@ -54,7 +54,7 @@ public:
 	void clearSchedule();
 
 	//Update Graph
-	void updateGraph(QTableWidgetItem* ,QTableWidgetItem* , QTableWidgetItem*, QTableWidgetItem*);
+	void updateGraph();
 
 	//Return the ui object. This is probably bad practice...
 	Ui::DronePark1Class returnUI();

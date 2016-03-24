@@ -307,11 +307,11 @@ void DronePark1::flightSuccessSlot(int empty, int occupied, int illegal)
 	ui.historyTable->setItem(0, 1, newEmpty);
 	ui.historyTable->setItem(0, 2, newOccupied);
 	ui.historyTable->setItem(0, 3, newIllegal);
-	updateGraph(newDate, newEmpty, newOccupied, newIllegal);
+	updateGraph();
 
 }
 
-void DronePark1::updateGraph(QTableWidgetItem* newDate, QTableWidgetItem* newEmpty, QTableWidgetItem* newOccupied, QTableWidgetItem* newIllegal)
+void DronePark1::updateGraph()
 {
 	//Get total number of rows in table
 	int rowCount;
@@ -321,7 +321,7 @@ void DronePark1::updateGraph(QTableWidgetItem* newDate, QTableWidgetItem* newEmp
 	QVector<double> time(rowCount), value(rowCount);
 	for (int i = 0; i < rowCount; i++)
 	{
-		time[i] = i + 1;
+		time[i] = i;
 		value[i] = ui.historyTable->item(i, 3)->text().toInt();
 	}
 	//Style the Graph(i should probably move this elsewhere as this only occurs after a sweep)
@@ -340,13 +340,18 @@ void DronePark1::updateGraph(QTableWidgetItem* newDate, QTableWidgetItem* newEmp
 	}*/
 	// create graph and assign data to it:
 	ui.customPlot->addGraph();
+	QPen pen;
+	pen.setColor(QColor(0, 0, 255, 200));
+	ui.customPlot->graph()->setLineStyle(QCPGraph::lsLine);
+	ui.customPlot->graph()->setPen(pen);
+	ui.customPlot->graph()->setBrush(QBrush(QColor(255, 160, 50, 150)));
 	ui.customPlot->graph(0)->setData(time, value);
 	// give the axes some labels:
 	ui.customPlot->xAxis->setLabel("Time");
 	ui.customPlot->yAxis->setLabel("Value");
 	// set axes ranges, so we see all data:
-	//ui.customPlot->xAxis->setRange(0, 1);
-	//ui.customPlot->yAxis->setRange(0, 1);
+	ui.customPlot->xAxis->setRange(0, 10);
+	ui.customPlot->yAxis->setRange(0, 10);
 	ui.customPlot->replot();
 	
 }
