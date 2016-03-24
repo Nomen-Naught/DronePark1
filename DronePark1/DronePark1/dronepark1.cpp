@@ -3,6 +3,8 @@
 #include "ParkingLot.h"
 #include <QTableWidgetItem>
 
+#define DUMMY_HISTORY_DATA true
+
 DronePark1::DronePark1(QWidget *parent)
 	: QMainWindow(parent)
 {
@@ -47,6 +49,45 @@ DronePark1::DronePark1(QWidget *parent)
 	headers << "Time" << "Empty" << "Occupied" << "Illegal";
 
 	ui.historyTable->setHorizontalHeaderLabels(headers);
+
+	if (DUMMY_HISTORY_DATA)
+	{
+
+		//Grab the current time and format it
+		QDateTime time = QDateTime::currentDateTime();
+		QString timeString;
+
+		QTableWidgetItem *newDate;
+		QTableWidgetItem *newEmpty;
+		QTableWidgetItem *newOccupied;
+		QTableWidgetItem *newIllegal;
+
+		for (int i = 0; i < 20; i++)
+		{
+
+			time = time.addSecs(i * 60 * 60);
+			ui.historyTable->insertRow(0);
+
+			newDate = new QTableWidgetItem(time.toString("MM/dd/yyyy hh:mm"));
+			newDate->setFlags(newDate->flags() ^ Qt::ItemIsEditable);
+
+			newEmpty = new QTableWidgetItem(QString::number(qrand() % 10));
+			newEmpty->setFlags(newEmpty->flags() ^ Qt::ItemIsEditable);
+
+			newOccupied = new QTableWidgetItem(QString::number(qrand() % 10));
+			newOccupied->setFlags(newOccupied->flags() ^ Qt::ItemIsEditable);
+
+			newIllegal = new QTableWidgetItem(QString::number(qrand() % 10));
+			newIllegal->setFlags(newIllegal->flags() ^ Qt::ItemIsEditable);
+
+			ui.historyTable->setItem(0, 0, newDate);
+			ui.historyTable->setItem(0, 1, newEmpty);
+			ui.historyTable->setItem(0, 2, newOccupied);
+			ui.historyTable->setItem(0, 3, newIllegal);
+		}
+
+		updateGraph(newDate, newEmpty, newOccupied, newIllegal);
+	}
 
 	//Style tweaks
 	ui.tabWidget->setStyleSheet("QTabBar::tab { height: 35px; width: 100px; }");

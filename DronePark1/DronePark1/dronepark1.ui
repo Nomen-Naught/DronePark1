@@ -574,7 +574,7 @@
                  </font>
                 </property>
                 <property name="currentIndex">
-                 <number>3</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="lotHistoryTab">
                  <attribute name="title">
@@ -655,6 +655,54 @@
                     <column/>
                     <column/>
                    </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="analyticsTab">
+                 <attribute name="title">
+                  <string>Graphs</string>
+                 </attribute>
+                 <layout class="QVBoxLayout" name="verticalLayout_7">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_2">
+                      <property name="text">
+                       <string>RadioButton</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_3">
+                      <property name="text">
+                       <string>RadioButton</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton">
+                      <property name="text">
+                       <string>RadioButton</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_4">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QCustomPlot" name="customPlot" native="true"/>
                   </item>
                  </layout>
                 </widget>
@@ -796,21 +844,6 @@
                    </widget>
                   </item>
                  </layout>
-                </widget>
-                <widget class="QWidget" name="analyticsTab">
-                 <attribute name="title">
-                  <string>Analytics</string>
-                 </attribute>
-                 <widget class="QCustomPlot" name="customPlot" native="true">
-                  <property name="geometry">
-                   <rect>
-                    <x>40</x>
-                    <y>110</y>
-                    <width>401</width>
-                    <height>211</height>
-                   </rect>
-                  </property>
-                 </widget>
                 </widget>
                </widget>
               </item>
