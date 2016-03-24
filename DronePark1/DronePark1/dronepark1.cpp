@@ -364,23 +364,14 @@ void DronePark1::updateGraph()
 	QVector<double> time(rowCount), value(rowCount);
 	for (int i = 0; i < rowCount; i++)
 	{
-		time[i] = i;
+		QString tempString = ui.historyTable->item(i, 0)->text();
+		QDateTime tempDate;
+		tempDate.fromString(tempString, "MM/dd/yyy hh:mm");
+		double temp = tempDate.toTime_t();
+		time[i] = temp;
 		value[i] = ui.historyTable->item(i, 3)->text().toInt();
 	}
-	//Style the Graph(i should probably move this elsewhere as this only occurs after a sweep)
 
-	//populate the graph from table
-
-
-	/*
-	//testing the graphing functions
-	// generate some data:
-	QVector<double> x(101), y(101); // initialize with entries 0..100
-	for (int i = 0; i<101; ++i)
-	{
-		x[i] = i / 50.0 - 1; // x goes from -1 to 1
-		y[i] = x[i] * x[i]; // let's plot a quadratic function
-	}*/
 	// create graph and assign data to it:
 	ui.customPlot->addGraph();
 	QPen pen;
@@ -389,12 +380,15 @@ void DronePark1::updateGraph()
 	ui.customPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 5));
 	ui.customPlot->graph()->setPen(pen);
 	ui.customPlot->graph()->setBrush(QBrush(QColor(255, 160, 50, 150)));
+	ui.customPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
+	ui.customPlot->xAxis->setDateTimeFormat("hh:mm");
 	ui.customPlot->graph(0)->setData(time, value);
 	// give the axes some labels:
 	ui.customPlot->xAxis->setLabel("Time");
 	ui.customPlot->yAxis->setLabel("Value");
 	// set axes ranges, so we see all data:
-	ui.customPlot->xAxis->setRange(0, 10);
+	double now = QDateTime::currentDateTime().toTime_t();
+	ui.customPlot->xAxis->setRange(now-60*60*24*365,now);
 	ui.customPlot->yAxis->setRange(0, 10);
 	ui.customPlot->replot();
 	
