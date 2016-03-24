@@ -67,7 +67,7 @@ DronePark1::DronePark1(QWidget *parent)
 		for (int i = 0; i < 20; i++)
 		{
 
-			time = time.addSecs(i * 60 * 60);
+			time = time.addSecs(60 * 60);
 			ui.historyTable->insertRow(0);
 
 			newDate = new QTableWidgetItem(time.toString("MM/dd/yyyy hh:mm"));
@@ -364,9 +364,8 @@ void DronePark1::updateGraph()
 	QVector<double> time(rowCount), value(rowCount);
 	for (int i = 0; i < rowCount; i++)
 	{
-		QString tempString = ui.historyTable->item(i, 0)->text();
-		QDateTime tempDate;
-		tempDate.fromString(tempString, "MM/dd/yyy hh:mm");
+		QString d = ui.historyTable->item(i, 0)->text();
+		QDateTime tempDate = QDateTime::fromString(d, "MM/dd/yyyy hh:mm");
 		double temp = tempDate.toTime_t();
 		time[i] = temp;
 		value[i] = ui.historyTable->item(i, 3)->text().toInt();
@@ -381,14 +380,14 @@ void DronePark1::updateGraph()
 	ui.customPlot->graph()->setPen(pen);
 	ui.customPlot->graph()->setBrush(QBrush(QColor(255, 160, 50, 150)));
 	ui.customPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-	ui.customPlot->xAxis->setDateTimeFormat("hh:mm");
+	ui.customPlot->xAxis->setDateTimeFormat("MM/dd hh:mm");
 	ui.customPlot->graph(0)->setData(time, value);
 	// give the axes some labels:
 	ui.customPlot->xAxis->setLabel("Time");
 	ui.customPlot->yAxis->setLabel("Value");
 	// set axes ranges, so we see all data:
 	double now = QDateTime::currentDateTime().toTime_t();
-	ui.customPlot->xAxis->setRange(now-60*60*24*365,now);
+	ui.customPlot->xAxis->setRange(now-60*60*24,now);
 	ui.customPlot->yAxis->setRange(0, 10);
 	ui.customPlot->replot();
 	
