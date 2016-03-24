@@ -62,6 +62,8 @@ DronePark1::DronePark1(QWidget *parent)
 		QTableWidgetItem *newOccupied;
 		QTableWidgetItem *newIllegal;
 
+		time = time.addSecs(60 * 60 * 20 * -1);
+
 		for (int i = 0; i < 20; i++)
 		{
 
