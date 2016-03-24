@@ -380,7 +380,7 @@ void DronePark1::updateGraph()
 	ui.customPlot->graph()->setPen(pen);
 	ui.customPlot->graph()->setBrush(QBrush(QColor(255, 160, 50, 150)));
 	ui.customPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
-	ui.customPlot->xAxis->setDateTimeFormat("MM/dd hh:mm");
+	ui.customPlot->xAxis->setDateTimeFormat("hh:mm");
 	ui.customPlot->graph(0)->setData(time, value);
 	// give the axes some labels:
 	ui.customPlot->xAxis->setLabel("Time");
