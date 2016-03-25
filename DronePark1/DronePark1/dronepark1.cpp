@@ -393,8 +393,8 @@ void DronePark1::updateGraph()
 	{
 		QPen pen;
 		pen.setColor(QColor(255, 0, 0, 200));
-		ui.customPlot->graph()->setBrush(QBrush(QColor(255, 50, 50, 50)));
-		ui.customPlot->graph()->setPen(pen);
+		ui.customPlot->graph(0)->setBrush(QBrush(QColor(255, 50, 50, 50)));
+		ui.customPlot->graph(0)->setPen(pen);
 		ui.customPlot->yAxis->setLabel("Illegal Spots");
 
 	}
@@ -402,8 +402,8 @@ void DronePark1::updateGraph()
 	{
 		QPen pen;
 		pen.setColor(QColor(0, 255, 0, 200));
-		ui.customPlot->graph()->setBrush(QBrush(QColor(50, 255, 50, 50)));
-		ui.customPlot->graph()->setPen(pen);
+		ui.customPlot->graph(0)->setBrush(QBrush(QColor(50, 255, 50, 50)));
+		ui.customPlot->graph(0)->setPen(pen);
 		ui.customPlot->yAxis->setLabel("Valid Spots");
 
 	}
@@ -411,8 +411,8 @@ void DronePark1::updateGraph()
 	{
 		QPen pen;
 		pen.setColor(QColor(0, 0, 255, 200));
-		ui.customPlot->graph()->setBrush(QBrush(QColor(50, 50, 255, 50)));
-		ui.customPlot->graph()->setPen(pen);
+		ui.customPlot->graph(0)->setBrush(QBrush(QColor(50, 50, 255, 50)));
+		ui.customPlot->graph(0)->setPen(pen);
 		ui.customPlot->yAxis->setLabel("Empty Spots");
 
 	}
