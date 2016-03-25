@@ -44,6 +44,11 @@ DronePark1::DronePark1(QWidget *parent)
 	//Schedule
 	ui.menuSchedule->addAction(newScheduleAct);
 
+	//radio button group for graphs
+	QObject::connect(ui.illSpotButton, SIGNAL(toggled(bool)), this, SLOT(updateGraphSlot()));
+	QObject::connect(ui.validSpotButton, SIGNAL(toggled(bool)), this, SLOT(updateGraphSlot()));
+	QObject::connect(ui.emptySpotButton, SIGNAL(toggled(bool)), this, SLOT(updateGraphSlot()));
+
 	//Create lot info history table
 	QStringList headers;
 	headers << "Time" << "Empty" << "Occupied" << "Illegal";
@@ -368,23 +373,56 @@ void DronePark1::updateGraph()
 		QDateTime tempDate = QDateTime::fromString(d, "MM/dd/yyyy hh:mm");
 		double temp = tempDate.toTime_t();
 		time[i] = temp;
-		value[i] = ui.historyTable->item(i, 3)->text().toInt();
+		if (ui.illSpotButton->isChecked())
+		{
+			value[i] = ui.historyTable->item(i, 3)->text().toInt();
+		}
+		if (ui.validSpotButton->isChecked())
+		{
+			value[i] = ui.historyTable->item(i, 2)->text().toInt();
+		}
+		if (ui.emptySpotButton->isChecked())
+		{
+			value[i] = ui.historyTable->item(i, 1)->text().toInt();
+		}
 	}
 
 	// create graph and assign data to it:
 	ui.customPlot->addGraph();
-	QPen pen;
-	pen.setColor(QColor(0, 0, 255, 200));
+	if (ui.illSpotButton->isChecked())
+	{
+		QPen pen;
+		pen.setColor(QColor(255, 0, 0, 200));
+		ui.customPlot->graph()->setBrush(QBrush(QColor(255, 50, 50, 50)));
+		ui.customPlot->graph()->setPen(pen);
+		ui.customPlot->yAxis->setLabel("Illegal Spots");
+
+	}
+	if (ui.validSpotButton->isChecked())
+	{
+		QPen pen;
+		pen.setColor(QColor(0, 255, 0, 200));
+		ui.customPlot->graph()->setBrush(QBrush(QColor(50, 255, 50, 50)));
+		ui.customPlot->graph()->setPen(pen);
+		ui.customPlot->yAxis->setLabel("Valid Spots");
+
+	}
+	if (ui.emptySpotButton->isChecked())
+	{
+		QPen pen;
+		pen.setColor(QColor(0, 0, 255, 200));
+		ui.customPlot->graph()->setBrush(QBrush(QColor(50, 50, 255, 50)));
+		ui.customPlot->graph()->setPen(pen);
+		ui.customPlot->yAxis->setLabel("Empty Spots");
+
+	}
 	ui.customPlot->graph()->setLineStyle(QCPGraph::lsLine);
 	ui.customPlot->graph()->setScatterStyle(QCPScatterStyle(QCPScatterStyle::ssCircle, 5));
-	ui.customPlot->graph()->setPen(pen);
-	ui.customPlot->graph()->setBrush(QBrush(QColor(255, 160, 50, 150)));
 	ui.customPlot->xAxis->setTickLabelType(QCPAxis::ltDateTime);
 	ui.customPlot->xAxis->setDateTimeFormat("hh:mm");
 	ui.customPlot->graph(0)->setData(time, value);
 	// give the axes some labels:
 	ui.customPlot->xAxis->setLabel("Time");
-	ui.customPlot->yAxis->setLabel("Value");
 	// set axes ranges, so we see all data:
 	double now = QDateTime::currentDateTime().toTime_t();
 	ui.customPlot->xAxis->setRange(now-60*60*24,now);
@@ -393,3 +431,7 @@ void DronePark1::updateGraph()
 	
 }
 
+void DronePark1::updateGraphSlot()
+{
+	updateGraph();
+}

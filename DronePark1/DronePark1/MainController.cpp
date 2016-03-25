@@ -90,12 +90,18 @@ int DroneParkController::initialize(DronePark1* _gui)
 	connect(gui, SIGNAL(acceptConfigPass(int)), this, SLOT(loadNewConfig(int)));
 	connect(this, SIGNAL(loadConfigWindow(std::list<Config*>*)), gui, SLOT(loadConfigSlot(std::list<Config*>*)));
 
+	//radio button group for graphs
+	//QObject::connect(gui->returnUI().illSpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
+	//QObject::connect(gui->returnUI().validSpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
+	//QObject::connect(gui->returnUI().emptySpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
+
 	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
 
 	sweepController->dronePilot = new FlightController();
 
 	return rc;
 }
+
 
 //TODO: Nick: implement loadConfig
 //Queries the database with an id and loads a new configuration.
@@ -856,4 +862,5 @@ SweepController::~SweepController()
 	}
 	*/
 }
+
 

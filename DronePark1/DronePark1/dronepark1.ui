@@ -574,7 +574,7 @@
                  </font>
                 </property>
                 <property name="currentIndex">
-                 <number>0</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="lotHistoryTab">
                  <attribute name="title">
@@ -666,23 +666,32 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_3">
                     <item>
-                     <widget class="QRadioButton" name="radioButton_2">
+                     <widget class="QRadioButton" name="illSpotButton">
                       <property name="text">
-                       <string>RadioButton</string>
+                       <string># of Illegal Spots</string>
+                      </property>
+                      <property name="checked">
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="radioButton_3">
+                     <widget class="QRadioButton" name="validSpotButton">
                       <property name="text">
-                       <string>RadioButton</string>
+                       <string># of Valid Spots</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="radioButton">
+                     <widget class="QRadioButton" name="emptySpotButton">
                       <property name="text">
-                       <string>RadioButton</string>
+                       <string># of Empty Spots</string>
+                      </property>
+                      <property name="checked">
+                       <bool>false</bool>
                       </property>
                      </widget>
                     </item>

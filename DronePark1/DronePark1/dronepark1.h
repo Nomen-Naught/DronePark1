@@ -65,6 +65,7 @@ public slots:
 	void loadConfigClose();
 	void flightSuccessSlot(int empty, int occupied, int illegal);
 	void newLotSlot();
+	void updateGraphSlot();
 
 
 signals:
