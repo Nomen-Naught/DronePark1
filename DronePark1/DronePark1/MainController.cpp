@@ -749,7 +749,6 @@ exit:
 
 
 
-//TODO: Nick: implement advanceSpot
 //Change currentSpot to the next spot to be examined.
 void SweepController::advanceSpot()
 {
