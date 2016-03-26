@@ -759,6 +759,17 @@ void SweepController::advanceSpot()
 		if (*spot_iterator != NULL)
 		{
 
+			if (read == true)
+			{
+				read = false;
+				//carry on
+			}
+			else // mark the spot empty!
+			{
+				(*spot_iterator)->setIllegal(0);
+				(*spot_iterator)->setEmpty(0);
+			}
+
 			if ((*spot_iterator)->getEmpty() == 0)
 			{
 				empty++;
@@ -772,6 +783,8 @@ void SweepController::advanceSpot()
 				occupied++;
 			}
 
+
+
 			(*spot_iterator)->setOverhead(false);
 			spot_iterator++;
 			(*spot_iterator)->setOverhead(true);
@@ -779,6 +792,17 @@ void SweepController::advanceSpot()
 	}
 	else // We've hit all the spots!
 	{
+		if (read == true)
+		{
+			read = false;
+			//carry on
+		}
+		else // mark the spot empty!
+		{
+			(*spot_iterator)->setIllegal(0);
+			(*spot_iterator)->setEmpty(0);
+		}
+
 		//Count the last spot!!
 		if ((*spot_iterator)->getEmpty() == 0)
 		{
@@ -792,6 +816,8 @@ void SweepController::advanceSpot()
 		{
 			occupied++;
 		}
+
+
 
 		//Set last spot overhead to false, we done
 		(*spot_iterator)->setOverhead(false);
@@ -834,13 +860,6 @@ void SweepController::connectionFail()
 	return;
 }
 
-//TODO: Nick: implement updateSpot
-//Update spot based of the return value sent from the DecideSpotController
-int SweepController::updateSpot(bool decision)
-{
-	return RC_ERR;
-}
-
 
 bool SweepController::getFLYING()
 {
@@ -868,6 +887,10 @@ void SweepController::receiveCode(QString _stub_id)
 	qDebug() << QTime::currentTime().toString() << "I read:" << _stub_id;
 
 	emit decideSpotPass(*spot_iterator, true, _stub_id.toInt());
+
+	//We got a read!
+	read = true;
+
 	return;
 }
 

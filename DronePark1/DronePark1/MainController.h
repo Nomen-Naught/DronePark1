@@ -27,6 +27,9 @@ private:
 	//Indicates if we're flying or not!
 	bool FLYING;
 
+	//Have we gotten a read on the current spot? If we haven't, then we should mark the spot empty
+	bool read = false;
+
 	//count of last sweeps stats
 	int empty;
 	int occupied;
@@ -43,9 +46,6 @@ private:
 	ImageProcessor* proc;
 
 	bool* captureLoop;
-
-	//Update spot based of the return value sent from the DecideSpotController
-	int updateSpot(bool decision);
 
 public:
 
