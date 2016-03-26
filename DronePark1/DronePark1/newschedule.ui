@@ -29,6 +29,9 @@
          <pointsize>12</pointsize>
         </font>
        </property>
+       <property name="displayFormat">
+        <string>hh:mm</string>
+       </property>
       </widget>
      </item>
      <item>
@@ -59,9 +62,12 @@
          <pointsize>12</pointsize>
         </font>
        </property>
+       <property name="displayFormat">
+        <string>hh:mm</string>
+       </property>
        <property name="time">
         <time>
-         <hour>12</hour>
+         <hour>0</hour>
          <minute>0</minute>
          <second>0</second>
         </time>

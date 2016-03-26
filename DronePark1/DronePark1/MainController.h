@@ -122,7 +122,7 @@ private:
 	//Is keeping a reference to the gui a good idea? not sure lol
 	DronePark1* gui;
 
-	QTimer* schedulerTimer;
+	QTimer* schedulerTimer = NULL;
 
 public:
 
@@ -158,6 +158,9 @@ public slots:
 
 	//Load a new config with the id passed in
 	void loadNewConfig(int id);
+
+	//Load a new schedule
+	void loadNewSched(QTime* , QTime* , int id);
 
 	//Slot to receiver new lot 
 	void createLot(int numspot, int rows, int col, QString lotName, QString _city);

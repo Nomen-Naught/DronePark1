@@ -174,6 +174,8 @@ void DronePark1::loadSchedSlot(Schedule* _sched)
 
 	emit newScheduleOpen(newSchedWin);
 
+	connect(newSchedWin, SIGNAL(acceptedSchedule(QTime* , QTime* , int )), this, SIGNAL(acceptSchedPass(QTime* , QTime* , int)));
+
 	newSchedWin->setModal(true);
 	newSchedWin->show();
 }
@@ -256,6 +258,10 @@ void DronePark1::showSchedule(Schedule* _schedule)
 	{
 
 		scheduledTime = scheduledTime.addSecs(interval * 60);
+
+		QString schedTimeStr = scheduledTime.toString();
+		QString currentTime = QDateTime::currentDateTime().toString();
+		QString endTimeStr = endTime.toString();
 
 		if (scheduledTime > QDateTime::currentDateTime())
 		{

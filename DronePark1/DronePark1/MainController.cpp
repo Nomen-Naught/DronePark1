@@ -59,6 +59,8 @@ int DroneParkController::initialize(DronePark1* _gui)
 		gui->connectNewSpot(*iterator);
 	}
 
+
+
 	//Connect the startSweep button to this controller's handler.
 	//For whatever reason, I have to do it like this, can't pass a 'this' pointer to the gui
 	QObject::connect(gui->returnUI().startSweepButton, SIGNAL(startSweep()),
@@ -94,9 +96,13 @@ int DroneParkController::initialize(DronePark1* _gui)
 	//New Schedule
 	connect(gui->newScheduleAct, SIGNAL(triggered()), this, SLOT(getSchedule()));
 	connect(this, SIGNAL(loadNewSchedWindow(Schedule*)), gui, SLOT(loadSchedSlot(Schedule*)));
+	connect(gui, SIGNAL(acceptSchedPass(QTime*, QTime*, int)), this, SLOT(loadNewSched(QTime*, QTime*, int)));
 
 	//New Lot
 	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
+
+	//Last Minute UI Tweaks
+	gui->returnUI().schedLabel->setText(currentConfig->getCurrentSchedule()->getStartTime()->toString("hh:mm") + " to " + currentConfig->getCurrentSchedule()->getEndTime()->toString("hh:mm"));
 
 	sweepController->dronePilot = new FlightController();
 
@@ -308,6 +314,7 @@ void DroneParkController::loadNewConfig(int id)
 	gui->returnUI().scheduleStatus->setText("DISABLED");
 	gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : rgb(53, 53, 53); color : white; }");
 	gui->clearSchedule();
+	gui->returnUI().schedLabel->setText(currentConfig->getCurrentSchedule()->getStartTime()->toString("hh:mm") + " to " + currentConfig->getCurrentSchedule()->getEndTime()->toString("hh:mm"));
 
 	//We need to hook up our Spots with our database observers and the gui
 	for (std::list<Spot*>::const_iterator iterator = currentConfig->getCurrentLot()->getSpots()->begin(),
@@ -342,6 +349,42 @@ void DroneParkController::loadNewConfig(int id)
 	{
 		sweepController->setNewLot(currentConfig->getCurrentLot());
 	}
+
+	return;
+}
+
+//Load a new schedule
+void DroneParkController::loadNewSched(QTime* startTime, QTime* endTime, int interval)
+{
+
+	//Start by nuking the old times
+	if (currentConfig->getCurrentSchedule()->getStartTime() != NULL)
+	{
+		delete currentConfig->getCurrentSchedule()->getStartTime();
+	}
+	if (currentConfig->getCurrentSchedule()->getEndTime() != NULL)
+	{
+		delete currentConfig->getCurrentSchedule()->getEndTime();
+	}
+
+	currentConfig->getCurrentSchedule()->setStartTime(startTime);
+	currentConfig->getCurrentSchedule()->setEndTime(endTime);
+	currentConfig->getCurrentSchedule()->setInterval(interval);
+
+	currentConfig->setUseSchedule(false);
+	gui->returnUI().toggleScheduleButton->setText("Enable Schedule");
+	gui->returnUI().scheduleStatus->setText("DISABLED");
+	gui->returnUI().scheduleStatus->setStyleSheet("QLabel { background-color : rgb(53, 53, 53); color : white; }");
+	gui->clearSchedule();
+	gui->returnUI().schedLabel->setText(currentConfig->getCurrentSchedule()->getStartTime()->toString("hh:mm") + " to " + currentConfig->getCurrentSchedule()->getEndTime()->toString("hh:mm"));
+
+	//idk what to do about this, it crashes sometimes. No time left to fix it
+	/*
+	if (schedulerTimer != NULL)
+	{
+		schedulerTimer->stop();
+	}
+	*/
 
 	return;
 }

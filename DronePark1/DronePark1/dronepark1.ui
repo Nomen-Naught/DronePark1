@@ -574,7 +574,7 @@
                  </font>
                 </property>
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>1</number>
                 </property>
                 <widget class="QWidget" name="lotHistoryTab">
                  <attribute name="title">
@@ -706,16 +706,35 @@
                    </layout>
                   </item>
                   <item>
-                   <widget class="QLabel" name="ScheduleTimeIdent">
-                    <property name="font">
-                     <font>
-                      <pointsize>14</pointsize>
-                     </font>
-                    </property>
-                    <property name="text">
-                     <string>Upcoming Scheduled Flights</string>
-                    </property>
-                   </widget>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <widget class="QLabel" name="ScheduleTimeIdent">
+                      <property name="font">
+                       <font>
+                        <pointsize>14</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>Upcoming Scheduled Flights</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="schedLabel">
+                      <property name="font">
+                       <font>
+                        <pointsize>14</pointsize>
+                       </font>
+                      </property>
+                      <property name="text">
+                       <string>No Schedule Found</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
                   </item>
                   <item>
                    <widget class="Line" name="line">

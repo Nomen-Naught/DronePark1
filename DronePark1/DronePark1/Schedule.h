@@ -8,10 +8,10 @@ class Schedule : public DbObject
 {
 private:
 	// Holdes the start time for the schedule
-	QTime* startTime;
+	QTime* startTime = NULL;
 
 	//Holds the end time for the schedule
-	QTime* endTime;
+	QTime* endTime = NULL;
 
 	//The interval between sweeps in minutes
 	int interval;

@@ -14,6 +14,11 @@ public:
 	NewSchedule(Schedule* schedule, QWidget *parent = 0);
 	~NewSchedule();
 
+	void accept() Q_DECL_OVERRIDE;
+
+signals:
+	void acceptedSchedule(QTime* startTime, QTime* endTime, int interval);
+
 
 private:
 	Ui::NewSchedule ui;

@@ -70,6 +70,7 @@ public slots:
 signals:
 	void enterPressed();
 	void acceptConfigPass(int);
+	void acceptSchedPass(QTime*, QTime*, int);
 
 	void newLotOpen(NewLot* LotDialog);
 	void newScheduleOpen(NewSchedule* SchedDialog);
