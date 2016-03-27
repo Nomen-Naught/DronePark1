@@ -783,7 +783,8 @@ void SweepController::advanceSpot()
 				occupied++;
 			}
 
-
+			//Clear ticketed status
+			(*spot_iterator)->setTicketed(false);
 
 			(*spot_iterator)->setOverhead(false);
 			spot_iterator++;
@@ -817,7 +818,8 @@ void SweepController::advanceSpot()
 			occupied++;
 		}
 
-
+		//Clear ticketed status
+		(*spot_iterator)->setTicketed(false);
 
 		//Set last spot overhead to false, we done
 		(*spot_iterator)->setOverhead(false);
