@@ -44,14 +44,14 @@ public:
 		otl_cursor::direct_exec
 			(
 				*db,
-				"drop table Config",
+				"drop table config",
 				otl_exception::disabled // disable OTL exceptions
 			); // drop table
 
 		otl_cursor::direct_exec
 			(
 				*db,
-				"CREATE TABLE `Config` ("
+				"CREATE TABLE `config` ("
 				"`config_id` int(11) NOT NULL AUTO_INCREMENT,"
 				"`current_lot` int(11) DEFAULT NULL,"
 				"`current_schedule` int(11) DEFAULT NULL,"
@@ -63,7 +63,7 @@ public:
 		otl_cursor::direct_exec
 			(
 				*db,
-				"INSERT INTO `DRONEPARK`.`Config`"
+				"INSERT INTO `DRONEPARK`.`config`"
 				"(`current_lot`,"
 				"`current_schedule`)"
 				"VALUES"
@@ -74,14 +74,14 @@ public:
 		otl_cursor::direct_exec
 			(
 				*db,
-				"drop table Lot",
+				"drop table lot",
 				otl_exception::disabled // disable OTL exceptions
 				); // drop table
 
 		otl_cursor::direct_exec
 			(
 				*db,
-				"CREATE TABLE `Lot` ("
+				"CREATE TABLE `lot` ("
 				"  `lot_id` int(11) NOT NULL AUTO_INCREMENT,"
 				"  `num_spots` int(11) DEFAULT NULL,"
 				"  `row` int(11) DEFAULT NULL,"
@@ -96,7 +96,7 @@ public:
 		otl_cursor::direct_exec
 			(
 				*db,
-				"INSERT INTO `DRONEPARK`.`Lot`"
+				"INSERT INTO `DRONEPARK`.`lot`"
 				"(`num_spots`,"
 				"`row`,"
 				"`col`,"
@@ -111,14 +111,14 @@ public:
 		otl_cursor::direct_exec
 			(
 				*db,
-				"drop table Spot",
+				"drop table spot",
 				otl_exception::disabled // disable OTL exceptions
 				); // drop table
 
 		otl_cursor::direct_exec
 			(
 				*db,
-				"CREATE TABLE `Spot` ("
+				"CREATE TABLE `spot` ("
 				"  `spot_id` int(11) NOT NULL AUTO_INCREMENT,"
 				"  `lot_id` int(11) NOT NULL,"
 				"  `stub_id` int(11) DEFAULT NULL,"
@@ -135,7 +135,7 @@ public:
 		otl_cursor::direct_exec
 			(
 				*db,
-				"INSERT INTO `DRONEPARK`.`Spot`"
+				"INSERT INTO `DRONEPARK`.`spot`"
 				"(`lot_id`,"
 				"`stub_id`,"
 				"`is_empty`,"
@@ -153,14 +153,14 @@ public:
 		otl_cursor::direct_exec
 			(
 				*db,
-				"drop table Stub",
+				"drop table stub",
 				otl_exception::disabled // disable OTL exceptions
 				); // drop table
 
 		otl_cursor::direct_exec
 			(
 				*db,
-				"CREATE TABLE `Stub` ("
+				"CREATE TABLE `stub` ("
 				"  `stub_id` int(11) NOT NULL AUTO_INCREMENT,"
 				"  `spot_id` int(11) DEFAULT NULL,"
 				"  `purchase_date` datetime DEFAULT NULL,"
@@ -173,7 +173,7 @@ public:
 			otl_cursor::direct_exec
 				(
 					*db,
-					"INSERT INTO `DRONEPARK`.`Stub`"
+					"INSERT INTO `DRONEPARK`.`stub`"
 					"(stub_id,"
 					"`spot_id`,"
 					"`purchase_date`,"

@@ -101,7 +101,7 @@ int DatabaseController::insertLot(int _numspot,int _row,int _col,QString _lotnam
 
 		//Create the stream object for Lot query
 		otl_stream j(1, // buffer size
-			"insert INTO Lot (num_spots, row, col, lot_name, city) VALUES (:num_spots<int>, :row<int>, :col<int>, :lot_name<char[20]>, :city<char[20]>)",
+			"insert INTO lot (num_spots, row, col, lot_name, city) VALUES (:num_spots<int>, :row<int>, :col<int>, :lot_name<char[20]>, :city<char[20]>)",
 			// insert statement
 			*db // connect object
 			);
@@ -242,7 +242,7 @@ int DatabaseController::queryConfig(int id, Config** config)
 
 		//Create the stream object for Config query
 		otl_stream i(1, // buffer size
-			"select * from Config where config_id=:config_id<int>",
+			"select * from config where config_id=:config_id<int>",
 			// SELECT statement
 			*db // connect object
 			);
@@ -312,7 +312,7 @@ int DatabaseController::queryLot(int id, Lot** lot)
 
 		//Create the stream object for Lot query
 		otl_stream j(1, // buffer size
-			"select * from Lot where lot_id=:lot_id<int>",
+			"select * from lot where lot_id=:lot_id<int>",
 			// SELECT statement
 			*db // connect object
 			);
@@ -431,7 +431,7 @@ int DatabaseController::queryStub(int id, Stub** stub)
 
 		//Create the stream object for Lot query
 		otl_stream j(1, // buffer size
-			"select purchase_date, expire_date from Stub where stub_id=:stub_id<int>",
+			"select purchase_date, expire_date from stub where stub_id=:stub_id<int>",
 			// SELECT statement
 			*db // connect object
 			);
@@ -489,7 +489,7 @@ int DatabaseController::querySpots(int _lot_id, std::list<Spot*>** spots)
 	{
 		//Create the stream object for Spot query
 		otl_stream k(50, // buffer size
-			"select * from Spot where lot_id=:lot_id<int>",
+			"select * from spot where lot_id=:lot_id<int>",
 			// SELECT statement
 			*db // connect object
 			);
@@ -665,7 +665,7 @@ int DatabaseController::insertNewSpots(int lot_id, int num_spots)
 		{
 			//Create the stream object for Spot query
 			otl_stream k(50, // buffer size
-				"INSERT INTO `DRONEPARK`.`Spot`"
+				"INSERT INTO `DRONEPARK`.`spot`"
 				"(`lot_id`,"
 				"`stub_id`,"
 				"`is_empty`,"
@@ -704,7 +704,7 @@ void DatabaseController::updateSpotTicketed(int id, bool ticketed)
 
 	try {
 		otl_stream o(1, // buffer size should be == 1 always on UPDATE
-			"UPDATE Spot "
+			"UPDATE spot "
 			"   SET is_ticketed=:is_ticketed<int> "
 			" WHERE spot_id=:spot_id<int>",
 			// UPDATE statement
