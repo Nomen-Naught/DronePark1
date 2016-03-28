@@ -124,6 +124,8 @@ private:
 
 	QTimer* schedulerTimer = NULL;
 
+	QImage* liveViewImage;
+
 public:
 
 	DroneParkController();

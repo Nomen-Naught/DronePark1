@@ -111,6 +111,8 @@ int DroneParkController::initialize(DronePark1* _gui)
 
 	sweepController->dronePilot = new FlightController();
 
+	liveViewImage = NULL;
+
 	return rc;
 }
 
@@ -573,12 +575,15 @@ void DroneParkController::triggerSweep()
 
 void DroneParkController::updateLiveView(QImage* image)
 {
+	if (liveViewImage != NULL) delete liveViewImage;
+	liveViewImage = image;
+
 	QTabWidget* tabs = gui->returnUI().tabWidget;
+	QWidget* liveTab = gui->returnUI().liveViewTab;
 	QLabel* display = gui->returnUI().liveDisplay;
 
 
-	//What is this hardcoded crap
-	if (tabs->currentIndex() == 3)
+	if (tabs->currentWidget() == liveTab)
 	{
 
 		// resize if necessary
@@ -587,8 +592,8 @@ void DroneParkController::updateLiveView(QImage* image)
 		int dw = display->width();
 		int dh = display->height();
 
-		int iw = image->width();
-		int ih = image->height();
+		int iw = liveViewImage->width();
+		int ih = liveViewImage->height();
 
 		QImage scaled;
 
@@ -596,14 +601,14 @@ void DroneParkController::updateLiveView(QImage* image)
 			iw > dw && ih <= dh || //only the width is bigger or
 			iw < dw && ih < dh && dw / iw < dh / ih //both width and height is smaller, ratio at width is smaller
 			)
-			scaled = image->scaledToWidth(dw, Qt::TransformationMode::FastTransformation);
+			scaled = liveViewImage->scaledToWidth(dw, Qt::TransformationMode::FastTransformation);
 		else if (iw > dw && ih > dh && iw / dw <= ih / dh || //both width and high are bigger, ratio at width is bigger or
 			ih > dh && iw <= dw || //only the height is bigger or
 			iw < dw && ih < dh && dw / iw > dh / ih //both width and height is smaller, ratio at height is smaller
 			)
-			scaled = image->scaledToHeight(dh, Qt::TransformationMode::FastTransformation);
+			scaled = liveViewImage->scaledToHeight(dh, Qt::TransformationMode::FastTransformation);
 		else
-			scaled = *image;
+			scaled = *liveViewImage;
 		display->setPixmap(QPixmap::fromImage(scaled));
 		
 
@@ -611,7 +616,7 @@ void DroneParkController::updateLiveView(QImage* image)
 	}
 
 	// Can't forget to delete since this is a different copy than what ImageProcessor is deleting
-	delete image;
+	//delete image;
 }
 
 void DroneParkController::clearLiveView()
