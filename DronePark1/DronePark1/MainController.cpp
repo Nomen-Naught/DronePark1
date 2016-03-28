@@ -576,7 +576,9 @@ void DroneParkController::updateLiveView(QImage* image)
 	QTabWidget* tabs = gui->returnUI().tabWidget;
 	QLabel* display = gui->returnUI().liveDisplay;
 
-	if (tabs->currentIndex() == 2)
+
+	//What is this hardcoded crap
+	if (tabs->currentIndex() == 3)
 	{
 
 		// resize if necessary
