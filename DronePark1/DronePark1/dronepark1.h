@@ -55,6 +55,9 @@ public:
 	//Clears scheudle
 	void clearSchedule();
 
+	//Update Graph
+	void updateGraph();
+
 	//Return the ui object. This is probably bad practice...
 	Ui::DronePark1Class returnUI();
 
@@ -64,8 +67,8 @@ public slots:
 	void loadSchedSlot(Schedule*);
 	void loadConfigClose();
 	void flightSuccessSlot(int empty, int occupied, int illegal);
-
 	void newLotSlot();
+	void updateGraphSlot();
 
 signals:
 	void enterPressed();

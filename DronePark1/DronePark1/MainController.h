@@ -180,6 +180,7 @@ public slots:
 	//Triggers a flight from the scheduler
 	void triggerSweep();
 
+
 signals:
 
 	//For loading an open config window

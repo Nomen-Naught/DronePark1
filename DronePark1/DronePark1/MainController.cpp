@@ -99,6 +99,11 @@ int DroneParkController::initialize(DronePark1* _gui)
 	connect(gui, SIGNAL(acceptSchedPass(QTime*, QTime*, int)), this, SLOT(loadNewSched(QTime*, QTime*, int)));
 
 	//New Lot
+	//radio button group for graphs
+	//QObject::connect(gui->returnUI().illSpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
+	//QObject::connect(gui->returnUI().validSpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
+	//QObject::connect(gui->returnUI().emptySpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
+
 	connect(gui, SIGNAL(newLotOpen(NewLot*)), this, SLOT(newLotDialogOpen(NewLot*)));
 
 	//Last Minute UI Tweaks
@@ -108,6 +113,7 @@ int DroneParkController::initialize(DronePark1* _gui)
 
 	return rc;
 }
+
 
 //TODO: Nick: implement loadConfig
 //Queries the database with an id and loads a new configuration.
@@ -962,4 +968,5 @@ SweepController::~SweepController()
 	}
 	*/
 }
+
 
