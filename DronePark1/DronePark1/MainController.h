@@ -158,6 +158,9 @@ public slots:
 	//Gets the schedule for newSchedule and fires them at gui
 	void getSchedule();
 
+	//Gets the new lot window
+	void getNewLot();
+
 	//Load a new config with the id passed in
 	void loadNewConfig(int id);
 
@@ -190,6 +193,8 @@ signals:
 
 	//For loading a new sched window
 	void loadNewSchedWindow(Schedule*);
+
+	void loadNewLotWin();
 
 };
 

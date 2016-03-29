@@ -21,8 +21,11 @@ private:
 	// Boolean flag set if vehicle is parked illegaly
 	bool illegal;
 
+	//If this is a newly illegal spot!
+	bool newIllegal = true;
+
 	// The stub id associated with the spot
-	int stub_id;
+	int stub_id = -1;
 
 	// Represents if the quad is overhead
 	bool overhead;
@@ -41,6 +44,9 @@ public:
 	// Returns the illegal flag
 	bool getIllegal();
 
+	//Returns new illegal flag
+	bool getNewIllegal();
+
 	// Returns the stub id
 	int getStubId();
 
@@ -52,6 +58,9 @@ public:
 
 	// Sets the illegal flag
 	int setIllegal(bool _illegal);
+
+	// Sets the new illegal flag
+	int setNewIllegal(bool _newIllegal);
 
 	// Sets the stub id
 	int setStubId(int _stubid);

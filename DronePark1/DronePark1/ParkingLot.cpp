@@ -39,6 +39,11 @@ bool Spot::getIllegal()
 	return illegal;
 }
 
+bool Spot::getNewIllegal()
+{
+	return newIllegal;
+}
+
 // Returns the stub id
 int Spot::getStubId()
 {
@@ -55,6 +60,16 @@ int Spot::setTicketed(bool _ticketed)
 		ticketed = _ticketed;
 		//Emit Qt signal to update listeners
 		emit spotTicketedChanged(id, _ticketed);
+	}
+
+	return RC_OK;
+}
+
+int Spot::setNewIllegal(bool _newIllegal)
+{
+	if (newIllegal != _newIllegal)
+	{
+		newIllegal = _newIllegal;
 	}
 
 	return RC_OK;

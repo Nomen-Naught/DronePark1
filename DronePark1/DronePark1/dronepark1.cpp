@@ -31,7 +31,6 @@ DronePark1::DronePark1(QWidget *parent)
 	newLotAct = new QAction(tr("&New Lot..."), this);
 	newLotAct->setShortcuts(QKeySequence::New);
 	newLotAct->setStatusTip(tr("Create a New Lot Configuration"));
-	connect(newLotAct, SIGNAL(triggered()), this, SLOT(newLotSlot()));
 
 	ui.menuFile->addAction(newLotAct);
 	ui.menuFile->addAction(loadConfigAct);

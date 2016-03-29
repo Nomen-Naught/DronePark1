@@ -99,6 +99,10 @@ int DroneParkController::initialize(DronePark1* _gui)
 	connect(gui, SIGNAL(acceptSchedPass(QTime*, QTime*, int)), this, SLOT(loadNewSched(QTime*, QTime*, int)));
 
 	//New Lot
+	connect(gui->newLotAct, SIGNAL(triggered()), this, SLOT(getNewLot()));
+	connect(this, SIGNAL(loadNewLotWin()), gui, SLOT(newLotSlot()));
+
+	//New Lot
 	//radio button group for graphs
 	//QObject::connect(gui->returnUI().illSpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
 	//QObject::connect(gui->returnUI().validSpotButton, SIGNAL(pressed()), this, SLOT(DronePark1::updateGraphSlot()));
@@ -213,6 +217,8 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 		goto exit;
 	}
 
+
+
 	//qDebug() << *(stub->getExpireTime());
 	//qDebug() << QDateTime::currentDateTime();
 	//qDebug << QDateTime::QDateTime::currentDateTime().toString("hh:mm:ss");;
@@ -229,7 +235,6 @@ void DroneParkController::decideSpot(Spot* spot, bool success, int stub_id)
 	{
 		spot->setIllegal(false);
 	}
-
 
 
 exit:
@@ -271,7 +276,31 @@ void DroneParkController::getConfigs()
 
 void DroneParkController::getSchedule()
 {
+	//Bail if we're flying right now
+	if (sweepController && sweepController->getFLYING())
+	{
+		int ret = QMessageBox::information(NULL, tr("DronePark"),
+			tr("Cannot edit schedule.\n"
+				"Please finish or cancel the current sweep first."));
+		return;
+	}
+
 	emit loadNewSchedWindow(currentConfig->getCurrentSchedule());
+	return;
+}
+
+void DroneParkController::getNewLot()
+{
+	//Bail if we're flying right now
+	if (sweepController && sweepController->getFLYING())
+	{
+		int ret = QMessageBox::information(NULL, tr("DronePark"),
+			tr("Cannot create new lot.\n"
+				"Please finish or cancel the current sweep first."));
+		return;
+	}
+
+	emit loadNewLotWin();
 	return;
 }
 
@@ -796,8 +825,11 @@ void SweepController::advanceSpot()
 				occupied++;
 			}
 
+
 			//Clear ticketed status
 			(*spot_iterator)->setTicketed(false);
+
+
 
 			(*spot_iterator)->setOverhead(false);
 			spot_iterator++;

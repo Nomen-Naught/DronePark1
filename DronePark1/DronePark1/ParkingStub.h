@@ -5,7 +5,7 @@
 #include <list>
 #include <QDateTime>
 
-class Stub : DbObject
+class Stub : public DbObject
 {
 private:
 	// Time at which a stub expires
