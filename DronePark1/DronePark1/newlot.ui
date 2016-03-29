@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>New Lot</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="dronepark1.qrc">
+    <normaloff>:/DronePark1/icon.ico</normaloff>:/DronePark1/icon.ico</iconset>
+  </property>
   <widget class="QDialogButtonBox" name="newLotButtonBox">
    <property name="geometry">
     <rect>
@@ -246,7 +250,9 @@
    </layout>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="dronepark1.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>newLotButtonBox</sender>

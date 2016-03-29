@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="dronepark1.qrc">
+    <normaloff>:/DronePark1/icon.ico</normaloff>:/DronePark1/icon.ico</iconset>
+  </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
     <layout class="QHBoxLayout" name="horizontalLayout">
@@ -131,7 +135,9 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="dronepark1.qrc"/>
+ </resources>
  <connections>
   <connection>
    <sender>buttonBox</sender>

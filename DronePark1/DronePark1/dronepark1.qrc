@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="DronePark1">
+    <file>icon.ico</file>
     <file>GettingStarted.py</file>
     <file>parkingSpot_illegal.png</file>
     <file>parkingSpot_occupied.png</file>

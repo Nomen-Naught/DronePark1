@@ -800,6 +800,9 @@
     <ClInclude Include="GeneratedFiles\ui_newschedule.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
+    <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="dronepark1.ui">
@@ -875,5 +878,11 @@
     <ClInclude Include="DecideController.h">
       <Filter>Header Files\Controller</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="DronePark1.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="icon.ico" />
   </ItemGroup>
 </Project>

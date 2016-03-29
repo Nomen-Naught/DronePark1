@@ -13,6 +13,10 @@
   <property name="windowTitle">
    <string>DronePark</string>
   </property>
+  <property name="windowIcon">
+   <iconset resource="dronepark1.qrc">
+    <normaloff>:/DronePark1/icon.ico</normaloff>:/DronePark1/icon.ico</iconset>
+  </property>
   <widget class="QWidget" name="centralWidget">
    <property name="enabled">
     <bool>true</bool>
@@ -67,7 +71,7 @@
              <rect>
               <x>0</x>
               <y>0</y>
-              <width>509</width>
+              <width>483</width>
               <height>570</height>
              </rect>
             </property>
