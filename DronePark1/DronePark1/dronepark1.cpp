@@ -67,12 +67,12 @@ DronePark1::DronePark1(QWidget *parent)
 		QTableWidgetItem *newOccupied;
 		QTableWidgetItem *newIllegal;
 
-		time = time.addSecs(60 * 60 * 20 * -1);
+		time = time.addSecs(60 * 60 * 24 * -1);
 
-		for (int i = 0; i < 20; i++)
+		for (int i = 0; i < 24; i++)
 		{
 
-			time = time.addSecs(60 * 60);
+			
 			ui.historyTable->insertRow(0);
 
 			newDate = new QTableWidgetItem(time.toString("MM/dd/yyyy hh:mm"));
@@ -91,6 +91,8 @@ DronePark1::DronePark1(QWidget *parent)
 			ui.historyTable->setItem(0, 1, newEmpty);
 			ui.historyTable->setItem(0, 2, newOccupied);
 			ui.historyTable->setItem(0, 3, newIllegal);
+
+			time = time.addSecs(60 * 60);
 		}
 
 		updateGraph();
@@ -140,6 +142,49 @@ int DronePark1::replaceLotGui(Lot* lot)
 
 	// Set Lot title
 	ui.lotInfo->setText(lot->getCity() + ": " + lot->getName());
+
+	if (DUMMY_HISTORY_DATA)
+	{
+
+		//Grab the current time and format it
+		QDateTime time = QDateTime::currentDateTime();
+		QString timeString;
+
+		QTableWidgetItem *newDate;
+		QTableWidgetItem *newEmpty;
+		QTableWidgetItem *newOccupied;
+		QTableWidgetItem *newIllegal;
+
+		time = time.addSecs(60 * 60 * 24 * -1);
+
+		for (int i = 0; i < 24; i++)
+		{
+
+
+			ui.historyTable->insertRow(0);
+
+			newDate = new QTableWidgetItem(time.toString("MM/dd/yyyy hh:mm"));
+			newDate->setFlags(newDate->flags() ^ Qt::ItemIsEditable);
+
+			newEmpty = new QTableWidgetItem(QString::number(qrand() % 10));
+			newEmpty->setFlags(newEmpty->flags() ^ Qt::ItemIsEditable);
+
+			newOccupied = new QTableWidgetItem(QString::number(qrand() % 10));
+			newOccupied->setFlags(newOccupied->flags() ^ Qt::ItemIsEditable);
+
+			newIllegal = new QTableWidgetItem(QString::number(qrand() % 10));
+			newIllegal->setFlags(newIllegal->flags() ^ Qt::ItemIsEditable);
+
+			ui.historyTable->setItem(0, 0, newDate);
+			ui.historyTable->setItem(0, 1, newEmpty);
+			ui.historyTable->setItem(0, 2, newOccupied);
+			ui.historyTable->setItem(0, 3, newIllegal);
+
+			time = time.addSecs(60 * 60);
+		}
+	}
+
+	updateGraph();
 
 	return RC_OK;
 }
@@ -377,6 +422,7 @@ void DronePark1::updateGraph()
 {
 	//Get total number of rows in table
 	int rowCount;
+	int max  = 0;
 	rowCount = ui.historyTable->rowCount();
 
 	//initialize values
@@ -398,6 +444,11 @@ void DronePark1::updateGraph()
 		if (ui.emptySpotButton->isChecked())
 		{
 			value[i] = ui.historyTable->item(i, 1)->text().toInt();
+		}
+
+		if (value[i] > max)
+		{
+			max = value[i];
 		}
 	}
 
@@ -440,7 +491,7 @@ void DronePark1::updateGraph()
 	// set axes ranges, so we see all data:
 	double now = QDateTime::currentDateTime().toTime_t();
 	ui.customPlot->xAxis->setRange(now-60*60*24,now);
-	ui.customPlot->yAxis->setRange(0, 10);
+	ui.customPlot->yAxis->setRange(0, max+1);
 	ui.customPlot->replot();
 	
 }

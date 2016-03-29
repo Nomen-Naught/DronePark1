@@ -304,15 +304,15 @@ void DroneParkController::loadNewConfig(int id)
 	rc |= loadConfig(id);
 	DP_ASSERT(rc, "loadConfig");
 
-	//Start populating the gui with the lot
-	gui->replaceLotGui(currentConfig->getCurrentLot());
-
 	//Nuke the histroy table
 	gui->returnUI().historyTable->clearContents();
 	while (gui->returnUI().historyTable->rowCount() > 0)
 	{
 		gui->returnUI().historyTable->removeRow(0);
 	}
+
+	//Start populating the gui with the lot
+	gui->replaceLotGui(currentConfig->getCurrentLot());
 
 	gui->returnUI().lastSweep->setText("Never");
 
